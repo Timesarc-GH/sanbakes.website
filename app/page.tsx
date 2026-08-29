@@ -50,7 +50,7 @@ export default function Home() {
               ? "Small-batch brownies and celebration bakes, made after you order with a considered ingredient list and an unhurried process."
               : "நீங்கள் ஆர்டர் செய்த பிறகு மட்டுமே, கவனமாகத் தேர்ந்தெடுத்த பொருட்களுடன் தயாரிக்கப்படும் பிரௌனிகள் மற்றும் கொண்டாட்ட பேக்குகள்."}
           </p>
-          <p className="heroTamil">{en ? "குறைந்த அளவில், முன்பதிவுக்குப் பிறகு அன்புடன் தயாரிக்கப்படுகிறது." : "Made in small batches, with care, after your preorder."}</p>
+          <p className="heroTamil">{en ? "Made in small batches, with care, after your preorder." : "குறைந்த அளவில், முன்பதிவுக்குப் பிறகு அன்புடன் தயாரிக்கப்படுகிறது."}</p>
           <div className="heroActions">
             <Link className="button buttonLight" href="/menu">{en ? "Explore the menu" : "மெனுவைப் பார்க்க"}</Link>
             <Link className="textLink" href="/about">{en ? "Our ingredient standard →" : "எங்கள் பொருள் தரநிலை →"}</Link>

@@ -3,19 +3,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { useLanguage } from "./LanguageProvider";
 import { usePreorder } from "./PreorderProvider";
 
 const links = [
-  { href: "/menu", en: "Menu", ta: "மெனு" },
-  { href: "/about", en: "Why San", ta: "ஏன் San" },
-  { href: "/preorder", en: "How to order", ta: "ஆர்டர் செய்வது" },
+  { href: "/menu", en: "Menu & Pricing", ta: "மெனு & விலை" },
+  { href: "/about", en: "Our Standard", ta: "எங்கள் தரநிலை" },
+  { href: "/gifting", en: "Gifting", ta: "பரிசுகள்" },
+  { href: "/delivery", en: "Delivery", ta: "டெலிவரி" },
+  { href: "/faq", en: "FAQ", ta: "கேள்விகள்" },
 ];
 
 export function SiteHeader() {
   const pathname = usePathname();
   const { language, setLanguage } = useLanguage();
   const { count } = usePreorder();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <>
@@ -31,12 +35,13 @@ export function SiteHeader() {
             <small>{language === "en" ? "Small-batch cacao & millet patisserie" : "குறைந்த அளவு காகாவ் & சிறுதானிய பட்டிசெரி"}</small>
           </span>
         </Link>
-        <nav aria-label="Primary navigation">
+        <nav className={menuOpen ? "open" : ""} aria-label="Primary navigation">
           {links.map((link) => (
-            <Link className={pathname === link.href ? "active" : ""} href={link.href} key={link.href}>
+            <Link className={pathname === link.href ? "active" : ""} href={link.href} key={link.href} onClick={() => setMenuOpen(false)}>
               {language === "en" ? link.en : link.ta}
             </Link>
           ))}
+          <Link className="mobileOrderLink" href="/preorder" onClick={() => setMenuOpen(false)}>{language === "en" ? "Start preorder enquiry" : "முன்பதிவு விசாரணை"}</Link>
         </nav>
         <div className="headerTools">
           <div className="languageToggle" aria-label="Language">
@@ -46,8 +51,12 @@ export function SiteHeader() {
           <Link className="headerCta" href="/preorder">
             {language === "en" ? "Enquiry" : "விசாரணை"}{count > 0 ? ` (${count})` : ""}
           </Link>
+          <button className="menuToggle" type="button" aria-expanded={menuOpen} aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen((current) => !current)}>
+            <span /> <span /> <span />
+          </button>
         </div>
       </header>
+      {menuOpen && <button className="navBackdrop" aria-label="Close menu" onClick={() => setMenuOpen(false)} type="button" />}
     </>
   );
 }

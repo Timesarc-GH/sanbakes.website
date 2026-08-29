@@ -6,6 +6,7 @@ Premium bilingual preorder storefront for San Bakes, Keelkattalai, Chennai.
 
 - English and Tamil presentation
 - 26-item launch menu across brownies, boxes, Brownie Tins, Brownie Tubs, millet tea cakes, birthday brownie cakes, cupcakes and gifting
+- Dedicated Menu & Pricing, Our Standard, Gifting & Corporate, Delivery & Pickup, FAQ, Policies and Preorder pages
 - Local enquiry basket and structured WhatsApp handoff
 - Preorder, pickup, 20 km delivery, cancellation and allergen guidance
 - Owner-provided and retouched product imagery, story video and Open Graph artwork
