@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { LanguageProvider } from "./components/LanguageProvider";
+import { InventoryProvider } from "./components/InventoryProvider";
 import { PreorderProvider } from "./components/PreorderProvider";
 import { SiteFooter } from "./components/SiteFooter";
 import { SiteHeader } from "./components/SiteHeader";
@@ -33,12 +34,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body>
         <LanguageProvider>
-          <PreorderProvider>
-            <SiteHeader />
-            {children}
-            <SiteFooter />
-            <WhatsAppFloat />
-          </PreorderProvider>
+          <InventoryProvider>
+            <PreorderProvider>
+              <SiteHeader />
+              {children}
+              <SiteFooter />
+              <WhatsAppFloat />
+            </PreorderProvider>
+          </InventoryProvider>
         </LanguageProvider>
       </body>
     </html>

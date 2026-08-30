@@ -2,12 +2,15 @@
 
 import { FormEvent, useMemo, useState } from "react";
 import { useLanguage } from "../components/LanguageProvider";
+import { useInventory } from "../components/InventoryProvider";
 import { usePreorder } from "../components/PreorderProvider";
+import { inventoryStatusLabel, isInventoryUnavailable } from "../lib/inventory";
 import { formatPrice, getPricing, parseSelectionKey } from "../lib/pricing";
 import { findProduct } from "../lib/products";
 
 export default function PreorderPage() {
   const { language } = useLanguage();
+  const { getInventory } = useInventory();
   const { items, updateItem, removeItem } = usePreorder();
   const [sent, setSent] = useState(false);
   const en = language === "en";
@@ -16,11 +19,15 @@ export default function PreorderPage() {
     const product = findProduct(productId);
     const pricing = getPricing(productId);
     const selectedOption = pricing?.options.find((option) => option.id === optionId) ?? pricing?.options[0];
-    return { key, product, selectedOption, quantity };
-  }).filter((item) => item.product && item.selectedOption), [items]);
+    const availability = getInventory(productId);
+    const exceedsAvailableQuantity = availability.availableQuantity !== null && quantity > availability.availableQuantity;
+    return { key, product, selectedOption, quantity, availability, unavailable: isInventoryUnavailable(availability.status) || exceedsAvailableQuantity };
+  }).filter((item) => item.product && item.selectedOption), [getInventory, items]);
+  const hasUnavailableSelection = selections.some((item) => item.unavailable);
 
   const sendWhatsApp = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (hasUnavailableSelection) return;
     const form = new FormData(event.currentTarget);
     const lines = selections.map(({ product, selectedOption, quantity }) => `• ${product?.name} · ${selectedOption?.label} · ${formatPrice(selectedOption?.price ?? null)} × ${quantity}`);
     const message = [
@@ -43,7 +50,8 @@ export default function PreorderPage() {
         <div className="orderSummary">
           <p className="eyebrow dark">YOUR SELECTION</p>
           <h2>{en ? "Enquiry summary" : "விசாரணை சுருக்கம்"}</h2>
-          {selections.length === 0 ? <div className="emptyState"><p>{en ? "No products selected yet." : "இன்னும் பொருட்கள் தேர்ந்தெடுக்கப்படவில்லை."}</p><a className="button buttonCacao" href="/menu">{en ? "Browse the menu" : "மெனுவைப் பார்க்க"}</a></div> : selections.map(({ key, product, selectedOption, quantity }) => <div className="summaryItem" key={key}><div><strong>{en ? product?.name : product?.nameTa}</strong><small>{en ? selectedOption?.label : selectedOption?.labelTa} · {formatPrice(selectedOption?.price ?? null)}</small></div><div className="quantityControl"><button onClick={() => updateItem(key, quantity - 1)} type="button" aria-label="Decrease">−</button><span>{quantity}</span><button onClick={() => updateItem(key, quantity + 1)} type="button" aria-label="Increase">+</button><button className="remove" onClick={() => removeItem(key)} type="button">{en ? "Remove" : "நீக்கு"}</button></div></div>)}
+          {selections.length === 0 ? <div className="emptyState"><p>{en ? "No products selected yet." : "இன்னும் பொருட்கள் தேர்ந்தெடுக்கப்படவில்லை."}</p><a className="button buttonCacao" href="/menu">{en ? "Browse the menu" : "மெனுவைப் பார்க்க"}</a></div> : selections.map(({ key, product, selectedOption, quantity, availability, unavailable }) => <div className={`summaryItem ${unavailable ? "unavailable" : ""}`} key={key}><div><strong>{en ? product?.name : product?.nameTa}</strong><small>{en ? selectedOption?.label : selectedOption?.labelTa} · {formatPrice(selectedOption?.price ?? null)}</small>{unavailable && <em>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}{availability.availableQuantity !== null ? ` · ${availability.availableQuantity} available` : ""}</em>}</div><div className="quantityControl"><button onClick={() => updateItem(key, quantity - 1)} type="button" aria-label="Decrease">−</button><span>{quantity}</span><button disabled={availability.availableQuantity !== null && quantity >= availability.availableQuantity} onClick={() => updateItem(key, quantity + 1)} type="button" aria-label="Increase">+</button><button className="remove" onClick={() => removeItem(key)} type="button">{en ? "Remove" : "நீக்கு"}</button></div></div>)}
+          {hasUnavailableSelection && <div className="availabilityWarning"><strong>{en ? "Update your selection before sending." : "அனுப்பும் முன் உங்கள் தேர்வை மாற்றவும்."}</strong><span>{en ? "One or more items are unavailable or exceed the available preorder slots." : "ஒன்று அல்லது அதற்கு மேற்பட்ட பொருட்கள் கிடைக்கவில்லை அல்லது கிடைக்கும் முன்பதிவு அளவை மீறுகின்றன."}</span></div>}
           <div className="enquiryCallout"><strong>{en ? "No payment will be collected here." : "இங்கே கட்டணம் வசூலிக்கப்படாது."}</strong><span>{en ? "Final pricing follows capacity, recipe, delivery and customisation confirmation." : "தயாரிப்பு, டெலிவரி மற்றும் தனிப்பயன் உறுதிப்படுத்தலுக்குப் பிறகு இறுதி விலை தெரிவிக்கப்படும்."}</span></div>
         </div>
         <form className="orderForm" onSubmit={sendWhatsApp}>
@@ -54,7 +62,7 @@ export default function PreorderPage() {
           <div className="fieldRow"><label>{en ? "Delivery pincode" : "டெலிவரி அஞ்சல் குறியீடு"}<input name="pincode" inputMode="numeric" pattern="[0-9]{6}" placeholder="600117" /></label><label>{en ? "Address / pickup note" : "முகவரி / பிக்கப் குறிப்பு"}<input name="address" /></label></div>
           <label>{en ? "Short cake message, allergies or other notes" : "கேக் செய்தி, அலர்ஜி அல்லது பிற குறிப்புகள்"}<textarea name="notes" rows={4} /></label>
           <label className="consent"><input type="checkbox" required />{en ? "I understand San Bakes handles wheat, milk, egg, nuts and soy; suitability must be confirmed before payment." : "San Bakes-ல் கோதுமை, பால், முட்டை, நட்ஸ் மற்றும் சோயா கையாளப்படுவதை புரிந்துகொள்கிறேன்."}</label>
-          <button className="button buttonCacao submitButton" type="submit" disabled={selections.length === 0}>{en ? "Send request on WhatsApp" : "WhatsApp-ல் கோரிக்கை அனுப்ப"}</button>
+          <button className="button buttonCacao submitButton" type="submit" disabled={selections.length === 0 || hasUnavailableSelection}>{en ? "Send request on WhatsApp" : "WhatsApp-ல் கோரிக்கை அனுப்ப"}</button>
           {sent && <p className="successNote">{en ? "WhatsApp opened with your structured request. Your order is confirmed only after San Bakes replies with availability and payment instructions." : "உங்கள் கோரிக்கையுடன் WhatsApp திறக்கப்பட்டது. San Bakes உறுதிப்படுத்திய பிறகே ஆர்டர் உறுதியாகும்."}</p>}
         </form>
       </section>

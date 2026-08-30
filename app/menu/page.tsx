@@ -4,7 +4,9 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useLanguage } from "../components/LanguageProvider";
+import { useInventory } from "../components/InventoryProvider";
 import { usePreorder } from "../components/PreorderProvider";
+import { inventoryStatusLabel, isInventoryUnavailable } from "../lib/inventory";
 import { decisionLabel, formatPrice, getPricing, makeSelectionKey } from "../lib/pricing";
 import { categories, menuCategories, products, statusLabel } from "../lib/products";
 
@@ -21,6 +23,7 @@ export default function MenuPage() {
   const [active, setActive] = useState(initial && menuCategories.some((c) => c.id === initial) ? initial : "all");
   const [selectedOptions, setSelectedOptions] = useState<Record<string,string>>({});
   const { language } = useLanguage();
+  const { getInventory } = useInventory();
   const { addItem, count } = usePreorder();
   const en = language === "en";
   const visible = useMemo(() => active === "all" ? mainMenuProducts : mainMenuProducts.filter((product) => groupedCategoryProducts[active]?.has(product.id) ?? product.category === active), [active]);
@@ -55,16 +58,21 @@ export default function MenuPage() {
             const pricing = getPricing(product.id);
             const selectedId = selectedOptions[product.id] ?? pricing.options[0].id;
             const selectedOption = pricing.options.find((item) => item.id === selectedId) ?? pricing.options[0];
+            const availability = getInventory(product.id);
+            const unavailable = isInventoryUnavailable(availability.status);
+            const availabilityNote = en ? availability.noteEn : availability.noteTa || availability.noteEn;
             return <article className="menuCard" key={product.id}>
               <div className={`menuCardImage ${product.image ? "" : "imagePlaceholder"}`}>
                 {product.image ? <Image src={product.image} alt={product.name} fill sizes="(max-width: 700px) 92vw, (max-width: 1100px) 45vw, 30vw" /> : <span>SAN<br />BAKES</span>}
                 <span className={`statusBadge ${product.status}`}>{en ? statusLabel[product.status].en : statusLabel[product.status].ta}</span>
+                {availability.updatedAt && <span className={`stockBadge ${availability.status}`}>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}{availability.availableQuantity !== null && availability.status !== "out_of_stock" ? ` · ${availability.availableQuantity}` : ""}</span>}
               </div>
               <div className="menuCardBody">
                 <p className="cardEyebrow">{en ? categories.find((c) => c.id === product.category)?.name : categories.find((c) => c.id === product.category)?.nameTa}</p>
                 <h2>{en ? product.name : product.nameTa}</h2>
                 <p>{en ? product.description : product.descriptionTa}</p>
                 <div className={`decisionLine ${pricing.decision}`}><span>{en ? decisionLabel[pricing.decision].en : decisionLabel[pricing.decision].ta}</span><small>{product.format}</small></div>
+                {(availabilityNote || unavailable) && <div className={`availabilityLine ${availability.status}`}><strong>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}</strong>{availabilityNote && <span>{availabilityNote}</span>}</div>}
                 <label className="variantPicker">
                   <span>{en ? "Pack / quantity option" : "பேக் / அளவு விருப்பம்"}</span>
                   <select value={selectedOption.id} onChange={(event) => setSelectedOptions((current) => ({ ...current, [product.id]:event.target.value }))}>
@@ -73,7 +81,7 @@ export default function MenuPage() {
                   <small>{en ? selectedOption.note : selectedOption.noteTa}</small>
                 </label>
                 <div className="selectedPrice"><span>{en ? "Recommended price" : "பரிந்துரைக்கப்பட்ட விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
-                <button className="button buttonCacao" onClick={() => addItem(makeSelectionKey(product.id,selectedOption.id))} type="button">{en ? "Add option to enquiry" : "விருப்பத்தை விசாரணையில் சேர்க்க"}</button>
+                <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id,selectedOption.id))} type="button">{unavailable ? (en ? "Currently unavailable" : "தற்போது கிடைக்கவில்லை") : (en ? "Add option to enquiry" : "விருப்பத்தை விசாரணையில் சேர்க்க")}</button>
               </div>
             </article>;
           })}

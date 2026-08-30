@@ -5,6 +5,7 @@ import handler from "vinext/server/app-router-entry";
 interface Env {
   ASSETS: Fetcher;
   DB: D1Database;
+  SAN_BAKES_ADMIN_USER_ID?: string;
   IMAGES: {
     input(stream: ReadableStream): {
       transform(options: Record<string, unknown>): {
@@ -40,7 +41,13 @@ const worker = {
       }, allowedWidths);
     }
 
-    return handler.fetch(request, env, ctx);
+    const routedHeaders = new Headers(request.headers);
+    routedHeaders.delete("x-san-bakes-admin-authorized");
+    if (env.SAN_BAKES_ADMIN_USER_ID && routedHeaders.get("oai-authenticated-user-id") === env.SAN_BAKES_ADMIN_USER_ID) {
+      routedHeaders.set("x-san-bakes-admin-authorized", "1");
+    }
+
+    return handler.fetch(new Request(request, { headers: routedHeaders }), env, ctx);
   },
 };
 

@@ -3,11 +3,11 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 
-async function render(path = "/") {
+async function render(path = "/", init = {}) {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}-${path}`);
   const { default: worker } = await import(workerUrl.href);
-  return worker.fetch(new Request(`http://localhost${path}`, { headers: { accept: "text/html" } }), { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } }, { waitUntil() {}, passThroughOnException() {} });
+  return worker.fetch(new Request(`http://localhost${path}`, { ...init, headers: { accept: "text/html", ...(init.headers ?? {}) } }), { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } }, { waitUntil() {}, passThroughOnException() {} });
 }
 
 test("renders the San Bakes storefront", async () => {
@@ -70,6 +70,16 @@ test("renders the complete menu and preorder route", async () => {
   const preorder = await (await render("/preorder")).text();
   assert.match(preorder, /Send request on WhatsApp/);
   assert.match(preorder, /No payment will be collected here/);
+});
+
+test("protects the owner inventory console and mutation API", async () => {
+  const admin = await render("/admin");
+  assert.ok([302, 307, 308].includes(admin.status));
+  assert.match(admin.headers.get("location") ?? "", /\/signin-with-chatgpt\?return_to=%2Fadmin/);
+
+  const inventoryApi = await render("/api/admin/inventory", { headers: { accept: "application/json" } });
+  assert.equal(inventoryApi.status, 401);
+  assert.deepEqual(await inventoryApi.json(), { error: "Authentication required" });
 });
 
 test("renders Cupcakes as a separate planned-launch collection", async () => {
