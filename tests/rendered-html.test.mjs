@@ -52,8 +52,8 @@ test("renders the complete menu and preorder route", async () => {
   assert.match(menu, /Brownie Tubs/);
   assert.match(menu, /Millet Tea Cakes/);
   assert.match(menu, /Pack \/ quantity option/);
-  assert.match(menu, /₹382/);
-  assert.match(menu, /₹927/);
+  assert.match(menu, /₹310/);
+  assert.match(menu, /₹760/);
   assert.match(menu, /Three-Piece Brownie Tin/);
   assert.match(menu, /Whole Brownie Tin/);
   assert.match(menu, /1 whole Brownie Tin · 3 flavour-topping sections/);
@@ -70,6 +70,22 @@ test("renders the complete menu and preorder route", async () => {
   assert.match(preorder, /Place order through WhatsApp/);
   assert.match(preorder, /UPI PAYMENT/);
   assert.match(preorder, /A QR tied to the confirmed amount/);
+});
+
+test("applies the 30% base-price revision and nearest-₹10 rounding", async () => {
+  const { productPricing, priceRevisionExclusions, priceRevisionPercent } = await import("../app/lib/pricing.ts");
+  assert.equal(priceRevisionPercent, 30);
+  for (const [productId, pricing] of Object.entries(productPricing)) {
+    for (const option of pricing.options) {
+      if (option.price === null) continue;
+      if (priceRevisionExclusions.has(productId)) {
+        assert.equal(option.originalPrice, undefined);
+      } else {
+        assert.equal(option.price % 10, 0);
+        assert.equal(option.price, Math.round(option.originalPrice * 70 / 1000) * 10);
+      }
+    }
+  }
 });
 
 test("protects the owner inventory console and mutation API", async () => {
@@ -147,7 +163,7 @@ test("renders the owner pricing and approval review", async () => {
   assert.match(review, /Menu, quantity and pricing approval/);
   assert.match(review, /Same price for Egg and Eggless/);
   assert.match(review, /Classic Brownie Tub/);
-  assert.match(review, /Legacy consumer recommendations are 15% below the previous proposal/);
+  assert.match(review, /Customer recommendations are 30% below their original base prices and rounded to the nearest ₹10/);
   assert.match(review, /Three-Piece Brownie Tin contains three separate brownie pieces/);
   assert.match(review, /Whole Brownie Tin is one continuous brownie slab—not separate pieces/);
   assert.match(review, /one, two or three divided flavour-topping sections/);
@@ -157,7 +173,7 @@ test("renders the owner pricing and approval review", async () => {
   assert.match(review, /DOMAIN PURCHASE STATUS/);
   assert.match(review, /sanbakes\.com/);
   assert.match(review, /₹449/);
-  assert.match(review, /₹382/);
+  assert.match(review, /₹310/);
   assert.match(review, /Corporate Mini Box/);
   assert.match(review, /₹635/);
   assert.match(review, /Party minimums/);

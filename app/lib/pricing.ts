@@ -128,21 +128,21 @@ const baseProductPricing: Record<string, ProductPricing> = {
     option("proposal","Custom proposal · minimum 25 boxes or ₹15,000","தனிப்பயன் விலை · குறைந்தபட்சம் 25 பெட்டிகள் அல்லது ₹15,000",null,"7–21 day lead time based on branding and addresses","பிராண்டிங் மற்றும் முகவரிகளுக்கு ஏற்ப 7–21 நாட்கள்"),
   ]},
   "party-single-brownies": { decision:"quotation", options:[
-    option("classic-25","25 Classic brownies · individually packed","25 கிளாசிக் பிரௌனிகள் · தனித்தனி பேக்கிங்",4375,"₹175 each · up to two flavours","ஒன்றுக்கு ₹175 · இரண்டு சுவைகள் வரை"),
-    option("reserve-25","25 Reserve / assorted brownies · individually packed","25 ரிசர்வ் / கலவை பிரௌனிகள் · தனித்தனி பேக்கிங்",4875,"₹195 each · up to two flavours","ஒன்றுக்கு ₹195 · இரண்டு சுவைகள் வரை"),
-    option("classic-50","50 Classic brownies · individually packed","50 கிளாசிக் பிரௌனிகள் · தனித்தனி பேக்கிங்",8500,"₹170 each · up to four flavours","ஒன்றுக்கு ₹170 · நான்கு சுவைகள் வரை"),
-    option("classic-100","100 Classic brownies · individually packed","100 கிளாசிக் பிரௌனிகள் · தனித்தனி பேக்கிங்",16500,"₹165 each · 10–14 day lead time","ஒன்றுக்கு ₹165 · 10–14 நாட்கள் முன்னதாக"),
+    option("classic-25","25 Classic brownies · individually packed","25 கிளாசிக் பிரௌனிகள் · தனித்தனி பேக்கிங்",4375,"25-piece launch bundle · up to two flavours","25 துண்டு அறிமுக தொகுப்பு · இரண்டு சுவைகள் வரை"),
+    option("reserve-25","25 Reserve / assorted brownies · individually packed","25 ரிசர்வ் / கலவை பிரௌனிகள் · தனித்தனி பேக்கிங்",4875,"25-piece Reserve bundle · up to two flavours","25 துண்டு ரிசர்வ் தொகுப்பு · இரண்டு சுவைகள் வரை"),
+    option("classic-50","50 Classic brownies · individually packed","50 கிளாசிக் பிரௌனிகள் · தனித்தனி பேக்கிங்",8500,"50-piece event bundle · up to four flavours","50 துண்டு நிகழ்ச்சி தொகுப்பு · நான்கு சுவைகள் வரை"),
+    option("classic-100","100 Classic brownies · individually packed","100 கிளாசிக் பிரௌனிகள் · தனித்தனி பேக்கிங்",16500,"100-piece event bundle · 10–14 day lead time","100 துண்டு நிகழ்ச்சி தொகுப்பு · 10–14 நாட்கள் முன்னதாக"),
   ]},
   "party-brownie-tins": { decision:"quotation", options:[
-    option("piece-classic-10","10 Classic three-piece Tins","10 கிளாசிக் மூன்று-துண்டு டின்கள்",5250,"₹525 per Tin · three separate matching brownie pieces","ஒரு டினுக்கு ₹525 · மூன்று தனித்தனி ஒரே சுவை பிரௌனி துண்டுகள்"),
-    option("piece-assorted-10","10 Curated assorted three-piece Tins","10 தேர்ந்தெடுத்த கலவை மூன்று-துண்டு டின்கள்",6100,"₹610 per Tin · three separate pieces in a curated mix","ஒரு டினுக்கு ₹610 · தேர்ந்தெடுத்த கலவையில் மூன்று தனித்தனி துண்டுகள்"),
-    option("whole-single-10","10 Whole Brownie Tins · 1 topping flavour","10 முழு பிரௌனி டின்கள் · 1 டாப்பிங் சுவை",5250,"₹525 per Tin · one continuous brownie with one coordinated topping","ஒரு டினுக்கு ₹525 · ஒரே டாப்பிங்குடன் ஒரு தொடர்ச்சியான பிரௌனி"),
-    option("whole-multi-10","10 Whole Brownie Tins · 2 or 3 topping sections","10 முழு பிரௌனி டின்கள் · 2 அல்லது 3 டாப்பிங் பகுதிகள்",6100,"₹610 per Tin · one continuous brownie with divided topping sections","ஒரு டினுக்கு ₹610 · பிரிக்கப்பட்ட டாப்பிங் பகுதிகளுடன் ஒரு தொடர்ச்சியான பிரௌனி"),
+    option("piece-classic-10","10 Classic three-piece Tins","10 கிளாசிக் மூன்று-துண்டு டின்கள்",5250,"10-Tin bundle · three separate matching brownie pieces","10 டின் தொகுப்பு · மூன்று தனித்தனி ஒரே சுவை பிரௌனி துண்டுகள்"),
+    option("piece-assorted-10","10 Curated assorted three-piece Tins","10 தேர்ந்தெடுத்த கலவை மூன்று-துண்டு டின்கள்",6100,"10-Tin bundle · three separate pieces in a curated mix","10 டின் தொகுப்பு · தேர்ந்தெடுத்த கலவையில் மூன்று தனித்தனி துண்டுகள்"),
+    option("whole-single-10","10 Whole Brownie Tins · 1 topping flavour","10 முழு பிரௌனி டின்கள் · 1 டாப்பிங் சுவை",5250,"10-Tin bundle · one continuous brownie with one coordinated topping","10 டின் தொகுப்பு · ஒரே டாப்பிங்குடன் ஒரு தொடர்ச்சியான பிரௌனி"),
+    option("whole-multi-10","10 Whole Brownie Tins · 2 or 3 topping sections","10 முழு பிரௌனி டின்கள் · 2 அல்லது 3 டாப்பிங் பகுதிகள்",6100,"10-Tin bundle · one continuous brownie with divided topping sections","10 டின் தொகுப்பு · பிரிக்கப்பட்ட டாப்பிங் பகுதிகளுடன் ஒரு தொடர்ச்சியான பிரௌனி"),
     option("larger","25+ Tins · custom proposal","25+ டின்கள் · தனிப்பயன் விலை",null,"Quoted after flavour, packaging and margin validation","சுவை, பேக்கிங் மற்றும் மார்ஜின் சோதனைக்குப் பிறகு விலை"),
   ]},
   "party-brownie-tubs": { decision:"quotation", options:[
-    option("classic-10","10 Classic Brownie Tubs","10 கிளாசிக் பிரௌனி டப்கள்",3750,"₹375 per Tub · one coordinated finish","ஒரு டப்புக்கு ₹375 · ஒருங்கிணைந்த அலங்காரம்"),
-    option("loaded-10","10 Loaded Brownie Tubs","10 லோடெட் பிரௌனி டப்கள்",4550,"₹455 per Tub · topping validation required","ஒரு டப்புக்கு ₹455 · டாப்பிங் சோதனை தேவை"),
+    option("classic-10","10 Classic Brownie Tubs","10 கிளாசிக் பிரௌனி டப்கள்",3750,"10-Tub bundle · one coordinated finish","10 டப் தொகுப்பு · ஒருங்கிணைந்த அலங்காரம்"),
+    option("loaded-10","10 Loaded Brownie Tubs","10 லோடெட் பிரௌனி டப்கள்",4550,"10-Tub bundle · topping validation required","10 டப் தொகுப்பு · டாப்பிங் சோதனை தேவை"),
     option("larger","25+ Tubs · custom proposal","25+ டப்கள் · தனிப்பயன் விலை",null,"Quoted after topping, seal and delivery validation","டாப்பிங், சீல் மற்றும் டெலிவரி சோதனைக்குப் பிறகு விலை"),
   ]},
   "occasion-brownie-cake": { decision:"quotation", options:[
@@ -153,31 +153,26 @@ const baseProductPricing: Record<string, ProductPricing> = {
   ]},
 };
 
-export const priceRevisionPercent = 15;
+export const priceRevisionPercent = 30;
 export const priceRevisionExclusions = new Set([
   "corporate-mini-box",
   "seasonal-hamper",
   "bespoke-corporate",
 ]);
 
-export const directPlanningPriceIds = new Set([
-  "brownie-tin-3-piece",
-  "whole-brownie-tin",
-  "party-single-brownies",
-  "party-brownie-tins",
-  "party-brownie-tubs",
-  "occasion-brownie-cake",
-]);
+export const directPlanningPriceIds = new Set<string>();
+
+const reviseAndRoundToNearestTen = (value:number) => Math.round(value * (100 - priceRevisionPercent) / 1000) * 10;
 
 export const productPricing: Record<string, ProductPricing> = Object.fromEntries(
   Object.entries(baseProductPricing).map(([productId, pricing]) => [
     productId,
-    priceRevisionExclusions.has(productId) || directPlanningPriceIds.has(productId) ? pricing : {
+    priceRevisionExclusions.has(productId) ? pricing : {
       ...pricing,
       options: pricing.options.map((item) => item.price === null ? item : {
         ...item,
         originalPrice: item.price,
-        price: Math.round(item.price * (1 - priceRevisionPercent / 100)),
+        price: reviseAndRoundToNearestTen(item.price),
       }),
     },
   ]),
