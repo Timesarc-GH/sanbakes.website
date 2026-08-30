@@ -63,6 +63,10 @@ nav a.active { border-color: var(--cacao); font-weight: 700; }
 .hero { position: relative; min-height: 690px; display: flex; align-items: center; overflow: hidden; background: var(--cacao); color: white; }
 .heroImage { position: absolute; inset: 0; }
 .heroImage img { object-fit: cover; object-position: center; }
+.heroVideo video { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.heroSoundToggle { position: absolute; z-index: 3; right: 24px; bottom: 22px; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 15px; border: 1px solid rgba(255,255,255,.34); border-radius: 30px; background: rgba(30,16,11,.68); color: #fff7ef; backdrop-filter: blur(8px); cursor: pointer; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.heroSoundToggle span { font-size: 16px; line-height: 1; }
+.heroSoundToggle:hover, .heroSoundToggle:focus-visible { background: rgba(30,16,11,.88); outline: 2px solid rgba(255,247,239,.7); outline-offset: 2px; }
 .heroShade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,10,7,.92) 0%, rgba(20,10,7,.78) 38%, rgba(20,10,7,.16) 68%, rgba(20,10,7,.05) 100%); }
 .heroContent { position: relative; z-index: 1; width: min(670px, 90vw); margin-left: 8vw; padding: 90px 0 100px; }
 .eyebrow { margin: 0 0 22px; color: #edc6a7; font-size: 11px; font-weight: 700; letter-spacing: .19em; text-transform: uppercase; }
@@ -304,6 +308,8 @@ h1 { margin: 0; font-size: clamp(52px, 6.3vw, 94px); line-height: .94; letter-sp
   .brandSeal { width: 42px; height: 42px; }
   .hero { min-height: 680px; align-items: end; }
   .heroImage img { object-position: 64% center; }
+  .heroVideo video { object-position: center; }
+  .heroSoundToggle { right: 14px; bottom: 14px; min-height: 36px; padding-inline: 12px; }
   .heroShade { background: linear-gradient(0deg, rgba(20,10,7,.97) 0%, rgba(20,10,7,.73) 62%, rgba(20,10,7,.22) 100%); }
   .heroContent { width: auto; margin: 0; padding: 170px 5vw 58px; }
   h1 { font-size: clamp(45px, 14vw, 66px); }

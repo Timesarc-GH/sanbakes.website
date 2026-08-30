@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useLanguage } from "./components/LanguageProvider";
+import { HeroProductVideo } from "./components/HeroProductVideo";
 
 const featured = [
   {
@@ -37,9 +38,7 @@ export default function Home() {
   return (
     <main>
       <section className="hero">
-        <div className="heroImage">
-          <Image src="/images/ragi-brownie-hero.png" alt="Dark cacao ragi brownie by San Bakes" fill priority sizes="100vw" />
-        </div>
+        <HeroProductVideo />
         <div className="heroShade" />
         <div className="heroContent">
           <p className="eyebrow">SAN BAKES · KĪḺKKAṬṬAḶAI, CHENNAI</p>
