@@ -159,7 +159,7 @@ export const products: Product[] = [
     descriptionTa: "தனித்தனி துண்டுகளாக அல்லாமல், டின் முழுவதும் ஒரே தொடர்ச்சியான பிரௌனி; ஒன்று, இரண்டு அல்லது மூன்று சுவை டாப்பிங் பகுதிகளுடன் முடிக்கப்படும்.",
     price: "₹549–₹649 recommended",
     status: "validation",
-    image: "/images/products/brownie-tin-flight-v1.webp",
+    image: "/images/products/whole-brownie-tin-flavour-toppings-v2.webp",
     format: "1 whole brownie slab · 1, 2 or 3 topping sections",
   },
   {
