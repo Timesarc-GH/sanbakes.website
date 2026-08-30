@@ -18,6 +18,8 @@ test("renders the San Bakes storefront", async () => {
   assert.match(html, /Dark cacao/);
   assert.match(html, /class="heroTamil">Made in small batches, with care, after your preorder\./);
   assert.match(html, /Start a preorder/);
+  assert.match(html, /one continuous brownie with three topping sections/i);
+  assert.match(html, /home-brownie-tins-dual-format-v3\.webp/);
   assert.match(html, /san-bakes-product-collection\.mp4/);
   assert.match(html, /Play music/);
   assert.match(html, />Policies</);

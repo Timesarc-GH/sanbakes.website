@@ -16,10 +16,10 @@ const featured = [
   {
     title: "Brownie Tins",
     titleTa: "பிரௌனி டின்கள்",
-    copy: "A generous, giftable brownie presentation finished only after you reserve a date.",
-    copyTa: "முன்பதிவு செய்யப்பட்ட நாளுக்காக தயாரிக்கப்படும் பரிசளிக்க ஏற்ற பிரௌனி டின்.",
-    image: "/images/editorial/home-brownie-tins-collection-v2.webp",
-    label: "Celebration format",
+    copy: "Two true Tin formats: three separate pieces, or one continuous brownie with three topping sections.",
+    copyTa: "இரண்டு டின் வடிவங்கள்: மூன்று தனித் துண்டுகள் அல்லது மூன்று டாப்பிங் பகுதிகளுடன் ஒரே தொடர்ச்சியான பிரௌனி.",
+    image: "/images/editorial/home-brownie-tins-dual-format-v3.webp",
+    label: "Celebration formats",
   },
   {
     title: "Brownie Tubs",
