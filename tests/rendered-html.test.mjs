@@ -20,7 +20,7 @@ test("renders the San Bakes storefront", async () => {
   assert.match(html, /Start a preorder/);
   assert.match(html, /LAUNCH PRICING GUIDE/);
   assert.ok(html.indexOf("LAUNCH PRICING GUIDE") > html.indexOf("BIRTHDAYS &amp; PARTIES"));
-  assert.match(html, /₹900–₹1,880/);
+  assert.match(html, /₹520–₹910/);
   assert.match(html, /Delivery within Chennai/);
   assert.match(html, /addresses beyond 20 km include additional distance-based charges/i);
   assert.doesNotMatch(html, /Eggless/i);
@@ -77,7 +77,7 @@ test("renders the complete menu and preorder route", async () => {
   assert.match(menu, /Millet Tea Cakes/);
   assert.match(menu, /Pack \/ quantity option/);
   assert.match(menu, /₹310/);
-  assert.match(menu, /₹760/);
+  assert.match(menu, /₹590/);
   assert.match(menu, /Three-Piece Brownie Tin/);
   assert.match(menu, /Whole Brownie Tin/);
   assert.match(menu, /Egg formulation/);
@@ -92,6 +92,7 @@ test("renders the complete menu and preorder route", async () => {
   assert.doesNotMatch(menu, /Dark Cacao Ragi Cupcake Collection/);
   assert.doesNotMatch(menu, /Corporate Mini Box/);
   assert.doesNotMatch(menu, /Individually Packed Party Brownies/);
+  assert.doesNotMatch(menu, /statusBadge|decisionLine|Launch validation|Coming soon|Recommended for approval|Conditional — validation required/);
   const preorder = await (await render("/preorder")).text();
   assert.match(preorder, /CART &amp; WHATSAPP CHECKOUT/);
   assert.match(preorder, /Place order through WhatsApp/);
@@ -99,23 +100,27 @@ test("renders the complete menu and preorder route", async () => {
   assert.match(preorder, /A QR tied to the confirmed amount/);
   assert.match(preorder, /Delivery within Chennai/);
   assert.match(preorder, /additional charges beyond 20 km/i);
+  assert.doesNotMatch(preorder, /Planning subtotal/i);
   assert.doesNotMatch(preorder, /Eggless/i);
 });
 
-test("applies the 30% base-price revision and nearest-₹10 rounding", async () => {
-  const { productPricing, priceRevisionExclusions, priceRevisionPercent } = await import("../app/lib/pricing.ts");
-  assert.equal(priceRevisionPercent, 30);
-  for (const [productId, pricing] of Object.entries(productPricing)) {
-    for (const option of pricing.options) {
-      if (option.price === null) continue;
-      if (priceRevisionExclusions.has(productId)) {
-        assert.equal(option.originalPrice, undefined);
-      } else {
-        assert.equal(option.price % 10, 0);
-        assert.equal(option.price, Math.round(option.originalPrice * 70 / 1000) * 10);
-      }
-    }
-  }
+test("uses the owner-selected V5 prices directly", async () => {
+  const { productPricing, priceRevisionPercent } = await import("../app/lib/pricing.ts");
+  const { products } = await import("../app/lib/products.ts");
+  const options = products.flatMap((product) => productPricing[product.id].options.map((option) => ({ productId: product.id, ...option })));
+  assert.equal(products.length, 29);
+  assert.equal(options.length, 75);
+  assert.equal(options.filter((option) => option.price !== null).length, 74);
+  assert.equal(options.filter((option) => option.price === null).length, 1);
+  assert.equal(priceRevisionPercent, 0);
+  assert.equal(productPricing["dark-cacao-sea-salt"].options[0].price, 590);
+  assert.equal(productPricing["cupcake-pista"].options[0].price, 520);
+  assert.equal(productPricing["party-brownie-tins"].options.at(-1).price, 7800);
+  assert.equal(productPricing["party-brownie-tubs"].options.at(-1).price, 5500);
+  assert.equal(productPricing["bespoke-corporate"].options[0].price, null);
+  assert.ok(options.every((option) => option.originalPrice === undefined));
+  assert.ok(Object.values(productPricing).every((pricing) => !("decision" in pricing)));
+  assert.ok(products.every((product) => !("status" in product)));
 });
 
 test("protects the owner inventory console and mutation API", async () => {
@@ -144,10 +149,11 @@ test("renders Cupcakes as an active orderable collection", async () => {
   assert.match(cupcakes, /cupcake-discovery-box-12-v2\.webp/);
   assert.match(cupcakes, /Available to preorder/);
   assert.match(cupcakes, /Add to cart/);
-  assert.match(cupcakes, /₹900/);
-  assert.match(cupcakes, /₹970/);
-  assert.match(cupcakes, /₹1,880/);
+  assert.match(cupcakes, /₹650/);
+  assert.match(cupcakes, /₹520/);
+  assert.match(cupcakes, /₹910/);
   assert.match(cupcakes, /Preorder boxes of 6 at least three days ahead/);
+  assert.doesNotMatch(cupcakes, /statusBadge|decisionLine|Recommended for approval|Conditional — validation required/);
   assert.doesNotMatch(cupcakes, /planned launch|coming soon/i);
 });
 
@@ -178,6 +184,7 @@ test("renders the expanded customer information pages", async () => {
   assert.match(corporate, /Add 25 boxes to cart/);
   assert.match(corporate, /Bespoke Corporate Gifting/);
   assert.match(corporate, /7 calendar days/);
+  assert.doesNotMatch(corporate, /statusBadge|decisionLine|Recommended for approval|Conditional — validation required|Quotation rules proposed/);
   const corporateMenu = await (await render("/menu?category=corporate")).text();
   assert.doesNotMatch(corporateMenu, /Corporate Mini Box/);
   assert.doesNotMatch(corporateMenu, /Individually Packed Party Brownies/);
@@ -192,6 +199,7 @@ test("renders the expanded customer information pages", async () => {
   assert.match(parties, /Occasion Brownie Cake/);
   assert.match(parties, /Add to cart/);
   assert.match(parties, /Within 72 hours of handover/);
+  assert.doesNotMatch(parties, /statusBadge|decisionLine|Recommended for approval|Conditional — validation required|Quotation rules proposed/);
 });
 
 test("keeps UPI payment disabled until a verified recipient is configured", async () => {
@@ -200,14 +208,14 @@ test("keeps UPI payment disabled until a verified recipient is configured", asyn
   assert.deepEqual(await response.json(), { enabled: false, payeeName: "San Bakes" });
 });
 
-test("renders the owner pricing and approval review", async () => {
+test("renders the owner approved-price reference without review statuses", async () => {
   const review = await (await render("/launch-review")).text();
-  assert.match(review, /Menu, quantity and pricing approval/);
+  assert.match(review, /Approved V5 menu, quantities and prices/);
   assert.match(review, /Egg formulation only at launch/);
   assert.match(review, /distance-based charge for addresses beyond 20 km/);
   assert.doesNotMatch(review, /Eggless/i);
   assert.match(review, /Classic Brownie Tub/);
-  assert.match(review, /Customer recommendations are 30% below their original base prices and rounded to the nearest ₹10/);
+  assert.match(review, /Every populated New Price value from the V5 Price Review sheet is now treated as an approved selling price/i);
   assert.match(review, /Three-Piece Brownie Tin contains three separate brownie pieces/);
   assert.match(review, /Whole Brownie Tin is one continuous brownie slab—not separate pieces/);
   assert.match(review, /one, two or three divided flavour-topping sections/);
@@ -215,15 +223,17 @@ test("renders the owner pricing and approval review", async () => {
   assert.match(review, /Walnut Reserve/);
   assert.match(review, /Boxes of 6, 9 and 12/);
   assert.match(review, /Cupcakes active for preorder/);
-  assert.match(review, /DOMAIN PURCHASE STATUS/);
+  assert.match(review, /DOMAINS/);
   assert.match(review, /sanbakes\.com/);
-  assert.match(review, /₹449/);
+  assert.match(review, /₹270/);
   assert.match(review, /₹310/);
   assert.match(review, /Corporate Mini Box/);
-  assert.match(review, /₹635/);
+  assert.match(review, /₹490/);
   assert.match(review, /Party minimums/);
   assert.match(review, /25 individually packed brownies/);
   assert.match(review, /Five-day event cutoff/);
-  assert.match(review, /Pending owner approval/);
+  assert.match(review, /74(?:<!-- -->)? fixed options/);
+  assert.match(review, /1(?:<!-- -->)? bespoke option/);
+  assert.doesNotMatch(review, /Recommended for approval|Conditional — validation required|Quotation rules proposed|Owner decision|V5 price applied|Pending product gates/);
   assert.match(review, /name="robots" content="noindex, nofollow"/);
 });

@@ -4,11 +4,11 @@ import Image from "next/image";
 import { useLanguage } from "../components/LanguageProvider";
 
 const giftOptions = [
-  { title: "Signature Discovery Box", titleTa: "சிக்னேச்சர் டிஸ்கவரி பாக்ஸ்", price: "6 pieces · ₹760", copy: "A concise introduction to the San Bakes collection.", copyTa: "San Bakes தொகுப்பின் சிறந்த அறிமுகம்." },
-  { title: "Reserve Collection", titleTa: "ரிசர்வ் கலெக்ஷன்", price: "9 pieces · ₹1,110", copy: "A generous curated box for sharing or a considered thank-you.", copyTa: "பகிர்வதற்கும் நன்றி பரிசுக்கும் தேர்ந்தெடுக்கப்பட்ட பெரிய பெட்டி." },
-  { title: "Three-Piece Brownie Tin", titleTa: "மூன்று துண்டு பிரௌனி டின்", price: "₹380–₹450", copy: "A reusable Tin in one flavour or a curated three-flavour mix.", copyTa: "ஒரே சுவை அல்லது தேர்ந்தெடுத்த மூன்று சுவை கலவையுடன் மறுபயன்பாட்டு டின்." },
-  { title: "Whole Brownie Tin", titleTa: "முழு பிரௌனி டின்", price: "₹380–₹450", copy: "One continuous brownie—not separate pieces—with one, two or three flavour-topping sections.", copyTa: "தனித்தனி துண்டுகள் அல்ல; ஒன்று, இரண்டு அல்லது மூன்று சுவை டாப்பிங் பகுதிகளுடன் ஒரு தொடர்ச்சியான பிரௌனி." },
-  { title: "Seasonal Hamper", titleTa: "பருவகால ஹாம்பர்", price: "₹1,990–₹2,990", copy: "A limited composition released only after its contents and packaging are approved.", copyTa: "உள்ளடக்கம் மற்றும் பேக்கிங் உறுதி செய்யப்பட்ட பிறகு மட்டும் வெளியாகும் பருவகால தொகுப்பு." },
+  { title: "Signature Discovery Box", titleTa: "சிக்னேச்சர் டிஸ்கவரி பாக்ஸ்", price: "6 pieces · ₹590–₹620", copy: "A concise introduction to the San Bakes collection.", copyTa: "San Bakes தொகுப்பின் சிறந்த அறிமுகம்." },
+  { title: "Reserve Collection", titleTa: "ரிசர்வ் கலெக்ஷன்", price: "9 pieces · ₹860–₹890", copy: "A generous curated box for sharing or a considered thank-you.", copyTa: "பகிர்வதற்கும் நன்றி பரிசுக்கும் தேர்ந்தெடுக்கப்பட்ட பெரிய பெட்டி." },
+  { title: "Three-Piece Brownie Tin", titleTa: "மூன்று துண்டு பிரௌனி டின்", price: "₹310–₹360", copy: "A reusable Tin in one flavour or a curated three-flavour mix.", copyTa: "ஒரே சுவை அல்லது தேர்ந்தெடுத்த மூன்று சுவை கலவையுடன் மறுபயன்பாட்டு டின்." },
+  { title: "Whole Brownie Tin", titleTa: "முழு பிரௌனி டின்", price: "₹360", copy: "One continuous brownie—not separate pieces—with one, two or three flavour-topping sections.", copyTa: "தனித்தனி துண்டுகள் அல்ல; ஒன்று, இரண்டு அல்லது மூன்று சுவை டாப்பிங் பகுதிகளுடன் ஒரு தொடர்ச்சியான பிரௌனி." },
+  { title: "Seasonal Hamper", titleTa: "பருவகால ஹாம்பர்", price: "₹1,150–₹1,490", copy: "A limited composition released only after its contents and packaging are approved.", copyTa: "உள்ளடக்கம் மற்றும் பேக்கிங் உறுதி செய்யப்பட்ட பிறகு மட்டும் வெளியாகும் பருவகால தொகுப்பு." },
 ];
 
 export default function GiftingPage() {
@@ -40,14 +40,14 @@ export default function GiftingPage() {
       </section>
 
       <section className="offerSection">
-        <div className="offerIntro"><p className="eyebrow dark">CURATED FORMATS</p><h2>{en ? "Five clear ways to give well." : "நேர்த்தியாக பரிசளிக்க ஐந்து தெளிவான வழிகள்."}</h2><p>{en ? "Planning prices exclude delivery and paid customisation. Final contents, flavours and availability are confirmed before payment." : "திட்ட விலைகளில் டெலிவரி மற்றும் கூடுதல் தனிப்பயன் செலவு சேர்க்கப்படவில்லை. கட்டணத்திற்கு முன் உள்ளடக்கம், சுவை மற்றும் கிடைக்கும் நிலை உறுதி செய்யப்படும்."}</p></div>
+        <div className="offerIntro"><p className="eyebrow dark">CURATED FORMATS</p><h2>{en ? "Five clear ways to give well." : "நேர்த்தியாக பரிசளிக்க ஐந்து தெளிவான வழிகள்."}</h2><p>{en ? "Listed prices exclude delivery and paid customisation. Final contents, flavours and availability are confirmed before payment." : "பட்டியலிட்ட விலைகளில் டெலிவரி மற்றும் கூடுதல் தனிப்பயன் செலவு சேர்க்கப்படவில்லை. கட்டணத்திற்கு முன் உள்ளடக்கம், சுவை மற்றும் கிடைக்கும் நிலை உறுதி செய்யப்படும்."}</p></div>
         <div className="offerGrid">{giftOptions.map((item) => <article key={item.title}><small>PERSONAL GIFT</small><h3>{en ? item.title : item.titleTa}</h3><strong>{item.price}</strong><p>{en ? item.copy : item.copyTa}</p></article>)}</div>
       </section>
 
       <section className="giftSteps">
-        <div><span>01</span><h3>{en ? "Choose the collection" : "தொகுப்பைத் தேர்ந்தெடுக்க"}</h3><p>{en ? "Start with a six- or nine-piece box, Brownie Tin or approved seasonal hamper." : "ஆறு அல்லது ஒன்பது துண்டு பெட்டி, பிரௌனி டின் அல்லது பருவகால ஹாம்பரைத் தேர்ந்தெடுக்கவும்."}</p></div>
+        <div><span>01</span><h3>{en ? "Choose the collection" : "தொகுப்பைத் தேர்ந்தெடுக்க"}</h3><p>{en ? "Start with a six- or nine-piece box, Brownie Tin or seasonal hamper." : "ஆறு அல்லது ஒன்பது துண்டு பெட்டி, பிரௌனி டின் அல்லது பருவகால ஹாம்பரைத் தேர்ந்தெடுக்கவும்."}</p></div>
         <div><span>02</span><h3>{en ? "Write the message" : "செய்தியை எழுதுங்கள்"}</h3><p>{en ? "One shared gift note is included. Complex artwork and multiple notes are quoted separately." : "ஒரு பொதுவான பரிசுச் செய்தி சேர்க்கப்பட்டுள்ளது. கூடுதல் வடிவமைப்பு தனியாக விலை நிர்ணயிக்கப்படும்."}</p></div>
-        <div><span>03</span><h3>{en ? "Confirm the handover" : "ஹேண்ட்ஓவரை உறுதிசெய்ய"}</h3><p>{en ? "Send within the approved radius or collect by confirmed appointment." : "அனுமதிக்கப்பட்ட சுற்றளவில் அனுப்பவும் அல்லது உறுதி செய்யப்பட்ட நேரத்தில் பிக்கப் செய்யவும்."}</p></div>
+        <div><span>03</span><h3>{en ? "Confirm the handover" : "ஹேண்ட்ஓவரை உறுதிசெய்ய"}</h3><p>{en ? "Arrange delivery within Chennai or collect by confirmed appointment." : "சென்னை டெலிவரி ஏற்பாடு செய்யவும் அல்லது உறுதி செய்யப்பட்ட நேரத்தில் பிக்கப் செய்யவும்."}</p></div>
       </section>
 
       <section className="crossLink"><div><p className="eyebrow dark">ORDERING FOR A TEAM?</p><h2>{en ? "Corporate orders now have their own planning desk." : "நிறுவன ஆர்டர்களுக்கு தனி திட்டமிடல் பக்கம் உள்ளது."}</h2><p>{en ? "For employee gifts, client appreciation, branded sleeves and multi-address fulfilment, use the Corporate page." : "ஊழியர் பரிசுகள், வாடிக்கையாளர் நன்றி, பிராண்டட் ஸ்லீவ் மற்றும் பல முகவரி டெலிவரிக்கு Corporate பக்கத்தைப் பயன்படுத்தவும்."}</p></div><a className="button buttonCacao" href="/corporate">{en ? "Explore Corporate" : "நிறுவன பக்கத்தைப் பார்க்க"}</a></section>

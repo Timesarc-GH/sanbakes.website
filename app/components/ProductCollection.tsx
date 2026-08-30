@@ -6,8 +6,8 @@ import { useLanguage } from "./LanguageProvider";
 import { useInventory } from "./InventoryProvider";
 import { usePreorder } from "./PreorderProvider";
 import { inventoryStatusLabel, isInventoryUnavailable } from "../lib/inventory";
-import { decisionLabel, formatPrice, getMinimumOrderQuantity, getPricing, makeSelectionKey } from "../lib/pricing";
-import { categories, findProduct, statusLabel } from "../lib/products";
+import { formatPrice, getMinimumOrderQuantity, getPricing, makeSelectionKey } from "../lib/pricing";
+import { categories, findProduct } from "../lib/products";
 
 type ProductCollectionProps = {
   productIds: string[];
@@ -50,14 +50,13 @@ export function ProductCollection({ productIds, eyebrowEn, eyebrowTa, titleEn, t
             <article className="menuCard" key={product.id}>
               <div className={`menuCardImage ${product.image ? "" : "imagePlaceholder"}`}>
                 {product.image ? <Image src={product.image} alt={product.name} fill sizes="(max-width: 700px) 92vw, (max-width: 1100px) 45vw, 30vw" /> : <span>SAN<br />BAKES</span>}
-                <span className={`statusBadge ${product.status}`}>{en ? statusLabel[product.status].en : statusLabel[product.status].ta}</span>
                 {availability.updatedAt && <span className={`stockBadge ${availability.status}`}>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}{availability.availableQuantity !== null && availability.status !== "out_of_stock" ? ` · ${availability.availableQuantity}` : ""}</span>}
               </div>
               <div className="menuCardBody">
                 <p className="cardEyebrow">{en ? category?.name : category?.nameTa}</p>
                 <h3>{en ? product.name : product.nameTa}</h3>
                 <p>{en ? product.description : product.descriptionTa}</p>
-                <div className={`decisionLine ${pricing.decision}`}><span>{en ? decisionLabel[pricing.decision].en : decisionLabel[pricing.decision].ta}</span><small>{product.format}</small></div>
+                <div className="productMeta"><span>{en ? "Format" : "வடிவம்"}</span><small>{product.format}</small></div>
                 {(availabilityNote || unavailable) && <div className={`availabilityLine ${availability.status}`}><strong>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}</strong>{availabilityNote && <span>{availabilityNote}</span>}</div>}
                 <label className="variantPicker">
                   <span>{en ? "Pack / quantity option" : "பேக் / அளவு விருப்பம்"}</span>
@@ -66,7 +65,7 @@ export function ProductCollection({ productIds, eyebrowEn, eyebrowTa, titleEn, t
                   </select>
                   <small>{en ? selectedOption.note : selectedOption.noteTa}</small>
                 </label>
-                <div className="selectedPrice"><span>{en ? "Planning price" : "திட்டமிட்ட விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
+                <div className="selectedPrice"><span>{en ? "Price" : "விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
                 <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id, selectedOption.id), minimumQuantity)} type="button">
                   {unavailable ? (en ? "Currently unavailable" : "தற்போது கிடைக்கவில்லை") : minimumQuantity > 1 ? (en ? `Add ${minimumQuantity} boxes to cart` : `${minimumQuantity} பெட்டிகளை கார்ட்டில் சேர்க்க`) : (en ? "Add to cart" : "கார்ட்டில் சேர்க்க")}
                 </button>

@@ -7,7 +7,7 @@ import { useInventory } from "../components/InventoryProvider";
 import { usePreorder } from "../components/PreorderProvider";
 import { inventoryStatusLabel, isInventoryUnavailable } from "../lib/inventory";
 import { formatPrice, getPricing, makeSelectionKey } from "../lib/pricing";
-import { products, statusLabel } from "../lib/products";
+import { products } from "../lib/products";
 
 const cupcakeProducts = products.filter((product) => product.category === "cupcakes");
 
@@ -56,14 +56,13 @@ export default function CupcakesPage() {
             return <article className="menuCard" key={product.id}>
               <div className="menuCardImage">
                 {product.image && <Image src={product.image} alt={product.name} fill sizes="(max-width: 700px) 92vw, (max-width: 1100px) 45vw, 30vw" />}
-                <span className={`statusBadge ${product.status}`}>{en ? statusLabel[product.status].en : statusLabel[product.status].ta}</span>
                 {availability.updatedAt && <span className={`stockBadge ${availability.status}`}>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}{availability.availableQuantity !== null && availability.status !== "out_of_stock" ? ` · ${availability.availableQuantity}` : ""}</span>}
               </div>
               <div className="menuCardBody">
                 <p className="cardEyebrow">{en ? "CUPCAKE COLLECTION" : "கப் கேக் தொகுப்பு"}</p>
                 <h2>{en ? product.name : product.nameTa}</h2>
                 <p>{en ? product.description : product.descriptionTa}</p>
-                <div className="decisionLine approve"><span>{en ? "Available to preorder" : "முன்பதிவுக்கு கிடைக்கும்"}</span><small>{product.format}</small></div>
+                <div className="productMeta"><span>{en ? "Format" : "வடிவம்"}</span><small>{product.format}</small></div>
                 {(availabilityNote || unavailable) && <div className={`availabilityLine ${availability.status}`}><strong>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}</strong>{availabilityNote && <span>{availabilityNote}</span>}</div>}
                 <label className="variantPicker"><span>{en ? "Box / composition option" : "பெட்டி / கலவை விருப்பம்"}</span><select value={selectedOption.id} onChange={(event) => setSelectedOptions((current) => ({ ...current, [product.id]: event.target.value }))}>{pricing.options.map((item) => <option value={item.id} key={item.id}>{en ? item.label : item.labelTa} — {formatPrice(item.price)}</option>)}</select><small>{en ? selectedOption.note : selectedOption.noteTa}</small></label>
                 <div className="selectedPrice"><span>{en ? "Price" : "விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
