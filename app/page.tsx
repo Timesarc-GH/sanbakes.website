@@ -52,7 +52,8 @@ export default function Home() {
           </p>
           <p className="heroTamil">{en ? "Made in small batches, with care, after your preorder." : "குறைந்த அளவில், முன்பதிவுக்குப் பிறகு அன்புடன் தயாரிக்கப்படுகிறது."}</p>
           <div className="heroActions">
-            <Link className="button buttonLight" href="/menu">{en ? "Explore the menu" : "மெனுவைப் பார்க்க"}</Link>
+            <Link className="button buttonLight" href="/preorder">{en ? "Start a preorder" : "முன்பதிவைத் தொடங்க"}</Link>
+            <Link className="button buttonOutlineLight" href="/menu">{en ? "Menu & pricing" : "மெனு & விலை"}</Link>
             <Link className="textLink" href="/about">{en ? "Our ingredient standard →" : "எங்கள் பொருள் தரநிலை →"}</Link>
           </div>
         </div>

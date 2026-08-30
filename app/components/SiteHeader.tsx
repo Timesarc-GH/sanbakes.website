@@ -8,11 +8,13 @@ import { useLanguage } from "./LanguageProvider";
 import { usePreorder } from "./PreorderProvider";
 
 const links = [
+  { href: "/", en: "Home", ta: "முகப்பு" },
   { href: "/menu", en: "Menu & Pricing", ta: "மெனு & விலை" },
   { href: "/about", en: "Our Standard", ta: "எங்கள் தரநிலை" },
   { href: "/gifting", en: "Gifting", ta: "பரிசுகள்" },
   { href: "/delivery", en: "Delivery", ta: "டெலிவரி" },
   { href: "/faq", en: "FAQ", ta: "கேள்விகள்" },
+  { href: "/policies", en: "Policies", ta: "கொள்கைகள்" },
 ];
 
 export function SiteHeader() {

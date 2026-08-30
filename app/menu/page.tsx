@@ -6,12 +6,14 @@ import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useLanguage } from "../components/LanguageProvider";
 import { usePreorder } from "../components/PreorderProvider";
+import { decisionLabel, formatPrice, getPricing, makeSelectionKey } from "../lib/pricing";
 import { categories, products, statusLabel } from "../lib/products";
 
 export default function MenuPage() {
   const query = useSearchParams();
   const initial = query.get("category");
   const [active, setActive] = useState(initial && categories.some((c) => c.id === initial) ? initial : "all");
+  const [selectedOptions, setSelectedOptions] = useState<Record<string,string>>({});
   const { language } = useLanguage();
   const { addItem, count } = usePreorder();
   const en = language === "en";
@@ -33,7 +35,7 @@ export default function MenuPage() {
             <div><strong>{en ? "Millet tea cakes" : "சிறுதானிய டீ கேக்குகள்"}</strong><span>₹850–₹950</span><small>{en ? "Recipe/yield validation pending" : "ரெசிபி சோதனை நிலுவையில்"}</small></div>
             <div><strong>{en ? "Birthday brownie cakes" : "பிறந்தநாள் பிரௌனி கேக்குகள்"}</strong><span>₹950–₹3,150</span><small>{en ? "250 g to 1 kg" : "250 கிராம் முதல் 1 கிலோ"}</small></div>
             <div><strong>{en ? "Cupcakes" : "கப் கேக்குகள்"}</strong><span>{en ? "Planning ₹1,290 / 6" : "திட்ட விலை ₹1,290 / 6"}</span><small>{en ? "Transport test pending" : "போக்குவரத்து சோதனை நிலுவையில்"}</small></div>
-            <div><strong>{en ? "Brownie Tubs" : "பிரௌனி டப்கள்"}</strong><span>{en ? "Price after validation" : "சோதனைக்குப் பிறகு விலை"}</span><small>{en ? "Historical ₹299/₹349 not reused" : "பழைய ₹299/₹349 விலை பயன்படுத்தப்படாது"}</small></div>
+            <div><strong>{en ? "Brownie Tubs" : "பிரௌனி டப்கள்"}</strong><span>₹449–₹549</span><small>{en ? "Recommended single-tub prices · validation required" : "பரிந்துரைக்கப்பட்ட ஒரு டப் விலை · சோதனை தேவை"}</small></div>
           </div>
         </div>
         <div className="filterBar" aria-label="Filter menu by collection">
@@ -41,8 +43,11 @@ export default function MenuPage() {
         </div>
         <div className="menuNotice"><strong>{en ? "Enquiry mode" : "விசாரணை நிலை"}</strong><span>{en ? "Online checkout is intentionally disabled while FSSAI registration and final recipe validation are pending." : "FSSAI பதிவு மற்றும் இறுதி ரெசிபி சோதனை நிலுவையில் உள்ளதால் ஆன்லைன் கட்டணம் முடக்கப்பட்டுள்ளது."}</span></div>
         <div className="menuGrid">
-          {visible.map((product) => (
-            <article className="menuCard" key={product.id}>
+          {visible.map((product) => {
+            const pricing = getPricing(product.id);
+            const selectedId = selectedOptions[product.id] ?? pricing.options[0].id;
+            const selectedOption = pricing.options.find((item) => item.id === selectedId) ?? pricing.options[0];
+            return <article className="menuCard" key={product.id}>
               <div className={`menuCardImage ${product.image ? "" : "imagePlaceholder"}`}>
                 {product.image ? <Image src={product.image} alt={product.name} fill sizes="(max-width: 700px) 92vw, (max-width: 1100px) 45vw, 30vw" /> : <span>SAN<br />BAKES</span>}
                 <span className={`statusBadge ${product.status}`}>{en ? statusLabel[product.status].en : statusLabel[product.status].ta}</span>
@@ -51,11 +56,19 @@ export default function MenuPage() {
                 <p className="cardEyebrow">{en ? categories.find((c) => c.id === product.category)?.name : categories.find((c) => c.id === product.category)?.nameTa}</p>
                 <h2>{en ? product.name : product.nameTa}</h2>
                 <p>{en ? product.description : product.descriptionTa}</p>
-                <div className="productMeta"><span>{product.price}</span><small>{product.format}</small></div>
-                <button className="button buttonCacao" onClick={() => addItem(product.id)} type="button">{en ? "Add to enquiry" : "விசாரணையில் சேர்க்க"}</button>
+                <div className={`decisionLine ${pricing.decision}`}><span>{en ? decisionLabel[pricing.decision].en : decisionLabel[pricing.decision].ta}</span><small>{product.format}</small></div>
+                <label className="variantPicker">
+                  <span>{en ? "Pack / quantity option" : "பேக் / அளவு விருப்பம்"}</span>
+                  <select value={selectedOption.id} onChange={(event) => setSelectedOptions((current) => ({ ...current, [product.id]:event.target.value }))}>
+                    {pricing.options.map((item) => <option value={item.id} key={item.id}>{en ? item.label : item.labelTa} — {formatPrice(item.price)}</option>)}
+                  </select>
+                  <small>{en ? selectedOption.note : selectedOption.noteTa}</small>
+                </label>
+                <div className="selectedPrice"><span>{en ? "Recommended price" : "பரிந்துரைக்கப்பட்ட விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
+                <button className="button buttonCacao" onClick={() => addItem(makeSelectionKey(product.id,selectedOption.id))} type="button">{en ? "Add option to enquiry" : "விருப்பத்தை விசாரணையில் சேர்க்க"}</button>
               </div>
-            </article>
-          ))}
+            </article>;
+          })}
         </div>
         {count > 0 && <div className="basketDock"><span>{en ? `${count} item${count === 1 ? "" : "s"} in your enquiry` : `விசாரணையில் ${count} பொருட்கள்`}</span><Link className="button buttonLight" href="/preorder">{en ? "Review enquiry" : "விசாரணையைப் பார்க்க"}</Link></div>}
       </section>
