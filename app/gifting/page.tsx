@@ -7,6 +7,7 @@ const giftOptions = [
   { title: "Signature Discovery Box", titleTa: "சிக்னேச்சர் டிஸ்கவரி பாக்ஸ்", price: "6 pieces · ₹927", copy: "A concise introduction to the San Bakes collection.", copyTa: "San Bakes தொகுப்பின் சிறந்த அறிமுகம்." },
   { title: "Reserve Collection", titleTa: "ரிசர்வ் கலெக்ஷன்", price: "9 pieces · ₹1,352", copy: "A generous curated box for sharing or a considered thank-you.", copyTa: "பகிர்வதற்கும் நன்றி பரிசுக்கும் தேர்ந்தெடுக்கப்பட்ட பெரிய பெட்டி." },
   { title: "Three-Piece Brownie Tin", titleTa: "மூன்று துண்டு பிரௌனி டின்", price: "₹549–₹649", copy: "A reusable Tin in one flavour or a curated three-flavour mix.", copyTa: "ஒரே சுவை அல்லது தேர்ந்தெடுத்த மூன்று சுவை கலவையுடன் மறுபயன்பாட்டு டின்." },
+  { title: "Whole Brownie Tin", titleTa: "முழு பிரௌனி டின்", price: "₹549–₹649", copy: "One continuous brownie—not separate pieces—with one, two or three flavour-topping sections.", copyTa: "தனித்தனி துண்டுகள் அல்ல; ஒன்று, இரண்டு அல்லது மூன்று சுவை டாப்பிங் பகுதிகளுடன் ஒரு தொடர்ச்சியான பிரௌனி." },
   { title: "Seasonal Hamper", titleTa: "பருவகால ஹாம்பர்", price: "₹1,990–₹2,990", copy: "A limited composition released only after its contents and packaging are approved.", copyTa: "உள்ளடக்கம் மற்றும் பேக்கிங் உறுதி செய்யப்பட்ட பிறகு மட்டும் வெளியாகும் பருவகால தொகுப்பு." },
 ];
 
@@ -39,7 +40,7 @@ export default function GiftingPage() {
       </section>
 
       <section className="offerSection">
-        <div className="offerIntro"><p className="eyebrow dark">CURATED FORMATS</p><h2>{en ? "Four clear ways to give well." : "நேர்த்தியாக பரிசளிக்க நான்கு தெளிவான வழிகள்."}</h2><p>{en ? "Planning prices exclude delivery and paid customisation. Final contents, flavours and availability are confirmed before payment." : "திட்ட விலைகளில் டெலிவரி மற்றும் கூடுதல் தனிப்பயன் செலவு சேர்க்கப்படவில்லை. கட்டணத்திற்கு முன் உள்ளடக்கம், சுவை மற்றும் கிடைக்கும் நிலை உறுதி செய்யப்படும்."}</p></div>
+        <div className="offerIntro"><p className="eyebrow dark">CURATED FORMATS</p><h2>{en ? "Five clear ways to give well." : "நேர்த்தியாக பரிசளிக்க ஐந்து தெளிவான வழிகள்."}</h2><p>{en ? "Planning prices exclude delivery and paid customisation. Final contents, flavours and availability are confirmed before payment." : "திட்ட விலைகளில் டெலிவரி மற்றும் கூடுதல் தனிப்பயன் செலவு சேர்க்கப்படவில்லை. கட்டணத்திற்கு முன் உள்ளடக்கம், சுவை மற்றும் கிடைக்கும் நிலை உறுதி செய்யப்படும்."}</p></div>
         <div className="offerGrid">{giftOptions.map((item) => <article key={item.title}><small>PERSONAL GIFT</small><h3>{en ? item.title : item.titleTa}</h3><strong>{item.price}</strong><p>{en ? item.copy : item.copyTa}</p></article>)}</div>
       </section>
 

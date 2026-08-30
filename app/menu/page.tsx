@@ -11,7 +11,7 @@ import { decisionLabel, formatPrice, getPricing, makeSelectionKey } from "../lib
 import { categories, menuCategories, products, statusLabel } from "../lib/products";
 
 const groupedCategoryProducts: Record<string, Set<string>> = {
-  gifting: new Set(["signature-discovery-box", "reserve-collection", "brownie-tin-3-piece", "brownie-tin-flight", "seasonal-hamper"]),
+  gifting: new Set(["signature-discovery-box", "reserve-collection", "brownie-tin-3-piece", "whole-brownie-tin", "seasonal-hamper"]),
   corporate: new Set(["corporate-mini-box", "bespoke-corporate", "party-single-brownies", "party-brownie-tins", "party-brownie-tubs"]),
 };
 
@@ -40,7 +40,7 @@ export default function MenuPage() {
           <div className="priceGuideHead"><p className="eyebrow dark">{en ? "LAUNCH PRICING GUIDE" : "அறிமுக விலை வழிகாட்டி"}</p><h2>{en ? "A clear starting point." : "தெளிவான தொடக்க விலை."}</h2><p>{en ? "These are recommended planning prices. A WhatsApp confirmation will state the final recipe, size, customisation, delivery fee and total before payment." : "இவை பரிந்துரைக்கப்பட்ட திட்டமிட்ட விலைகள். கட்டணத்திற்கு முன் இறுதி ரெசிபி, அளவு, தனிப்பயன், டெலிவரி மற்றும் மொத்த விலை WhatsApp மூலம் உறுதி செய்யப்படும்."}</p></div>
           <div className="priceGuideGrid">
             <div><strong>{en ? "Brownie boxes" : "பிரௌனி பெட்டிகள்"}</strong><span>₹927–₹1,352</span><small>{en ? "Core 6 or 9-piece boxes" : "முக்கிய 6 அல்லது 9 துண்டு பெட்டிகள்"}</small></div>
-            <div><strong>{en ? "Brownie Tins" : "பிரௌனி டின்கள்"}</strong><span>₹549–₹3,390</span><small>{en ? "3 pieces per Tin · single or 2/3/5/6-Tin flights" : "ஒரு டினில் 3 துண்டுகள் · ஒரு டின் அல்லது 2/3/5/6 டின் தொகுப்பு"}</small></div>
+            <div><strong>{en ? "Brownie Tins" : "பிரௌனி டின்கள்"}</strong><span>₹549–₹649</span><small>{en ? "Choose 3 separate pieces, or 1 whole brownie with 1/2/3 flavour-topping sections" : "3 தனித்தனி துண்டுகள் அல்லது 1/2/3 சுவை டாப்பிங் பகுதிகளுடன் ஒரு முழு பிரௌனி"}</small></div>
             <div><strong>{en ? "Millet tea cakes" : "சிறுதானிய டீ கேக்குகள்"}</strong><span>₹723–₹808</span><small>{en ? "Recipe/yield validation pending" : "ரெசிபி சோதனை நிலுவையில்"}</small></div>
             <div><strong>{en ? "Birthdays & parties" : "பிறந்தநாள் & பார்ட்டி"}</strong><span>{en ? "Cakes ₹808–₹3,250" : "கேக்குகள் ₹808–₹3,250"}</span><small>{en ? "Packed brownies from 25 · Tins/Tubs from 10" : "தனித்தனி பிரௌனிகள் 25 முதல் · டின்கள்/டப்கள் 10 முதல்"}</small></div>
             <div><strong>{en ? "Brownie Tubs" : "பிரௌனி டப்கள்"}</strong><span>₹382–₹467</span><small>{en ? "Revised single-tub prices · validation required" : "திருத்திய ஒரு டப் விலை · சோதனை தேவை"}</small></div>

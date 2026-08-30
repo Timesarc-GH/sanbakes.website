@@ -62,11 +62,10 @@ const baseProductPricing: Record<string, ProductPricing> = {
     option("three-flavour-trio","3 flavours · 1+1+1 composition","3 சுவைகள் · 1+1+1 கலவை",625,"Choose three confirmed flavours for one Tin","ஒரு டினுக்கு உறுதி செய்யப்பட்ட மூன்று சுவைகளைத் தேர்வு செய்யலாம்"),
     option("one-flavour-premium","1 premium flavour · 3 pieces","1 பிரீமியம் சுவை · 3 துண்டுகள்",649,"Walnut, Pista or a validated seasonal/confectionery flavour","வால்நட், பிஸ்தா அல்லது சோதிக்கப்பட்ட பருவகால/கான்ஃபெக்ஷனரி சுவை"),
   ]},
-  "brownie-tin-flight": { decision:"conditional", options:[
-    option("flight-2","2 Tins · 6 pieces","2 டின்கள் · 6 துண்டுகள்",1190,"Same-flavour or assorted after confirmation","உறுதிப்படுத்திய பிறகு ஒரே சுவை அல்லது கலவை"),
-    option("flight-3","3 Tins · 9 pieces","3 டின்கள் · 9 துண்டுகள்",1740,"Recommended sharing and gifting flight","பகிர்வு மற்றும் பரிசளிப்புக்கான பரிந்துரைக்கப்பட்ட தொகுப்பு"),
-    option("flight-5","5 Tins · 15 pieces","5 டின்கள் · 15 துண்டுகள்",2850,"Choose five confirmed Tin flavours","உறுதி செய்யப்பட்ட டின் சுவைகளிலிருந்து ஐந்தைத் தேர்வு செய்யலாம்"),
-    option("flight-6","6-Tin Full Flavour Flight · 18 pieces","6 டின் முழு சுவை தொகுப்பு · 18 துண்டுகள்",3390,"Choose six confirmed flavours when availability allows","கிடைப்புக்கு ஏற்ப உறுதி செய்யப்பட்ட ஆறு சுவைகளைத் தேர்வு செய்யலாம்"),
+  "whole-brownie-tin": { decision:"conditional", options:[
+    option("one-topping","1 whole Brownie Tin · 1 flavour topping","1 முழு பிரௌனி டின் · 1 சுவை டாப்பிங்",549,"One continuous brownie with one confirmed topping across the full Tin","ஒரே தொடர்ச்சியான பிரௌனியில் உறுதி செய்யப்பட்ட ஒரு டாப்பிங்"),
+    option("two-toppings","1 whole Brownie Tin · 2 flavour-topping sections","1 முழு பிரௌனி டின் · 2 சுவை டாப்பிங் பகுதிகள்",599,"Two topping flavours split across one continuous brownie—not two pieces","இரண்டு துண்டுகள் அல்ல; ஒரே தொடர்ச்சியான பிரௌனியில் இரண்டு சுவை டாப்பிங் பகுதிகள்"),
+    option("three-toppings","1 whole Brownie Tin · 3 flavour-topping sections","1 முழு பிரௌனி டின் · 3 சுவை டாப்பிங் பகுதிகள்",649,"Three topping flavours arranged across one continuous brownie—not three pieces","மூன்று துண்டுகள் அல்ல; ஒரே தொடர்ச்சியான பிரௌனியில் மூன்று சுவை டாப்பிங் பகுதிகள்"),
   ]},
   "classic-brownie-tub": { decision:"conditional", options:[
     option("single-tub","1 regular tub · target 250 g","1 சாதாரண டப் · இலக்கு 250 கிராம்",449,"Recommended replacement for the historical ₹299 price","பழைய ₹299 விலைக்குப் பதிலான பரிந்துரை"),
@@ -135,8 +134,10 @@ const baseProductPricing: Record<string, ProductPricing> = {
     option("classic-100","100 Classic brownies · individually packed","100 கிளாசிக் பிரௌனிகள் · தனித்தனி பேக்கிங்",16500,"₹165 each · 10–14 day lead time","ஒன்றுக்கு ₹165 · 10–14 நாட்கள் முன்னதாக"),
   ]},
   "party-brownie-tins": { decision:"quotation", options:[
-    option("classic-10","10 Classic three-piece Tins","10 கிளாசிக் மூன்று-துண்டு டின்கள்",5250,"₹525 per Tin · one or two flavours","ஒரு டினுக்கு ₹525 · ஒன்று அல்லது இரண்டு சுவைகள்"),
-    option("assorted-10","10 Curated assorted three-piece Tins","10 தேர்ந்தெடுத்த கலவை மூன்று-துண்டு டின்கள்",6100,"₹610 per Tin · curated premium mix","ஒரு டினுக்கு ₹610 · தேர்ந்தெடுத்த பிரீமியம் கலவை"),
+    option("piece-classic-10","10 Classic three-piece Tins","10 கிளாசிக் மூன்று-துண்டு டின்கள்",5250,"₹525 per Tin · three separate matching brownie pieces","ஒரு டினுக்கு ₹525 · மூன்று தனித்தனி ஒரே சுவை பிரௌனி துண்டுகள்"),
+    option("piece-assorted-10","10 Curated assorted three-piece Tins","10 தேர்ந்தெடுத்த கலவை மூன்று-துண்டு டின்கள்",6100,"₹610 per Tin · three separate pieces in a curated mix","ஒரு டினுக்கு ₹610 · தேர்ந்தெடுத்த கலவையில் மூன்று தனித்தனி துண்டுகள்"),
+    option("whole-single-10","10 Whole Brownie Tins · 1 topping flavour","10 முழு பிரௌனி டின்கள் · 1 டாப்பிங் சுவை",5250,"₹525 per Tin · one continuous brownie with one coordinated topping","ஒரு டினுக்கு ₹525 · ஒரே டாப்பிங்குடன் ஒரு தொடர்ச்சியான பிரௌனி"),
+    option("whole-multi-10","10 Whole Brownie Tins · 2 or 3 topping sections","10 முழு பிரௌனி டின்கள் · 2 அல்லது 3 டாப்பிங் பகுதிகள்",6100,"₹610 per Tin · one continuous brownie with divided topping sections","ஒரு டினுக்கு ₹610 · பிரிக்கப்பட்ட டாப்பிங் பகுதிகளுடன் ஒரு தொடர்ச்சியான பிரௌனி"),
     option("larger","25+ Tins · custom proposal","25+ டின்கள் · தனிப்பயன் விலை",null,"Quoted after flavour, packaging and margin validation","சுவை, பேக்கிங் மற்றும் மார்ஜின் சோதனைக்குப் பிறகு விலை"),
   ]},
   "party-brownie-tubs": { decision:"quotation", options:[
@@ -161,7 +162,7 @@ export const priceRevisionExclusions = new Set([
 
 export const directPlanningPriceIds = new Set([
   "brownie-tin-3-piece",
-  "brownie-tin-flight",
+  "whole-brownie-tin",
   "party-single-brownies",
   "party-brownie-tins",
   "party-brownie-tubs",
