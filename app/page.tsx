@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useLanguage } from "./components/LanguageProvider";
 
 const featured = [
@@ -52,9 +51,9 @@ export default function Home() {
           </p>
           <p className="heroTamil">{en ? "Made in small batches, with care, after your preorder." : "குறைந்த அளவில், முன்பதிவுக்குப் பிறகு அன்புடன் தயாரிக்கப்படுகிறது."}</p>
           <div className="heroActions">
-            <Link className="button buttonLight" href="/preorder">{en ? "Start a preorder" : "முன்பதிவைத் தொடங்க"}</Link>
-            <Link className="button buttonOutlineLight" href="/menu">{en ? "Menu & pricing" : "மெனு & விலை"}</Link>
-            <Link className="textLink" href="/about">{en ? "Our ingredient standard →" : "எங்கள் பொருள் தரநிலை →"}</Link>
+            <a className="button buttonLight" href="/preorder">{en ? "Start a preorder" : "முன்பதிவைத் தொடங்க"}</a>
+            <a className="button buttonOutlineLight" href="/menu">{en ? "Menu & pricing" : "மெனு & விலை"}</a>
+            <a className="textLink" href="/about">{en ? "Our ingredient standard →" : "எங்கள் பொருள் தரநிலை →"}</a>
           </div>
         </div>
       </section>
@@ -78,7 +77,7 @@ export default function Home() {
                 <p className="cardEyebrow">{item.label}</p>
                 <h3>{en ? item.title : item.titleTa}</h3>
                 <p>{en ? item.copy : item.copyTa}</p>
-                <div><span>{en ? "Egg & eggless options" : "முட்டை & முட்டையில்லா"}</span><Link href="/menu">{en ? "View menu →" : "மெனு →"}</Link></div>
+                <div><span>{en ? "Egg & eggless options" : "முட்டை & முட்டையில்லா"}</span><a href="/menu">{en ? "View menu →" : "மெனு →"}</a></div>
               </div>
             </article>
           ))}
@@ -95,7 +94,7 @@ export default function Home() {
             <li><strong>{en ? "Made after reservation" : "முன்பதிவுக்குப் பிறகு"}</strong><span>{en ? "No always-on shelf; production is scheduled around confirmed dates." : "உறுதி செய்யப்பட்ட தேதிகளுக்கு ஏற்ப தயாரிப்பு திட்டமிடப்படும்."}</span></li>
             <li><strong>{en ? "Honest launch" : "நேர்மையான அறிமுகம்"}</strong><span>{en ? "Items marked validation or coming soon are enquiries—not confirmed purchases." : "சோதனை அல்லது விரைவில் என்று குறிக்கப்பட்டவை விசாரணைகள் மட்டுமே."}</span></li>
           </ul>
-          <Link className="button buttonCacao" href="/about">{en ? "Read our approach" : "எங்கள் அணுகுமுறை"}</Link>
+          <a className="button buttonCacao" href="/about">{en ? "Read our approach" : "எங்கள் அணுகுமுறை"}</a>
         </div>
         <div className="storyMedia">
           <video controls preload="metadata" poster="/images/editorial/home-our-standard-video-poster-v1.webp">
@@ -108,14 +107,14 @@ export default function Home() {
 
       <section className="occasionSection">
         <div className="occasionImage"><Image src="/images/editorial/home-birthday-brownie-celebration-v2.webp" alt="San Bakes brownie birthday cake" fill sizes="(max-width: 900px) 100vw, 50vw" /></div>
-        <div className="occasionCopy"><p className="eyebrow dark">BIRTHDAYS & PARTIES</p><h2>{en ? "A celebration, with the soul of a brownie." : "பிரௌனியின் சுவையுடன் ஒரு கொண்டாட்டம்."}</h2><p>{en ? "Choose a birthday cake, occasion cake, brownie tower, individually packed brownie, Tin or Tub plan. Every event order is designed around your guest count and date." : "பிறந்தநாள் கேக், நிகழ்ச்சி கேக், பிரௌனி டவர், தனித்தனி பிரௌனி, டின் அல்லது டப் திட்டத்தை விருந்தினர் எண்ணிக்கை மற்றும் தேதிக்கு ஏற்ப தேர்ந்தெடுக்கலாம்."}</p><Link className="button buttonCacao" href="/parties">{en ? "Plan a birthday or party" : "பிறந்தநாள் அல்லது பார்ட்டியைத் திட்டமிட"}</Link></div>
+        <div className="occasionCopy"><p className="eyebrow dark">BIRTHDAYS & PARTIES</p><h2>{en ? "A celebration, with the soul of a brownie." : "பிரௌனியின் சுவையுடன் ஒரு கொண்டாட்டம்."}</h2><p>{en ? "Choose a birthday cake, occasion cake, brownie tower, individually packed brownie, Tin or Tub plan. Every event order is designed around your guest count and date." : "பிறந்தநாள் கேக், நிகழ்ச்சி கேக், பிரௌனி டவர், தனித்தனி பிரௌனி, டின் அல்லது டப் திட்டத்தை விருந்தினர் எண்ணிக்கை மற்றும் தேதிக்கு ஏற்ப தேர்ந்தெடுக்கலாம்."}</p><a className="button buttonCacao" href="/parties">{en ? "Plan a birthday or party" : "பிறந்தநாள் அல்லது பார்ட்டியைத் திட்டமிட"}</a></div>
       </section>
 
       <section className="preorder">
         <p className="eyebrow">PREORDER, PREPARE, DELIVER</p>
         <h2>{en ? "Reserve the bake. We’ll confirm the details personally." : "உங்கள் பேக்கை முன்பதிவு செய்யுங்கள். விவரங்களை நாங்கள் உறுதி செய்கிறோம்."}</h2>
         <p>{en ? "Build an enquiry here, then send one structured WhatsApp message. We confirm capacity, formulation, pickup or delivery, final price and payment instructions personally." : "விசாரணையை உருவாக்கி ஒரே WhatsApp செய்தியாக அனுப்புங்கள். தயாரிப்பு, பிக்கப் அல்லது டெலிவரி, இறுதி விலை மற்றும் கட்டண விவரங்களை நாங்கள் உறுதி செய்கிறோம்."}</p>
-        <Link className="button buttonCacao" href="/preorder">{en ? "Start an enquiry" : "விசாரணையைத் தொடங்க"}</Link>
+        <a className="button buttonCacao" href="/preorder">{en ? "Start an enquiry" : "விசாரணையைத் தொடங்க"}</a>
       </section>
     </main>
   );

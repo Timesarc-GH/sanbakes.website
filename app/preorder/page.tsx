@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { FormEvent, useMemo, useState } from "react";
 import { useLanguage } from "../components/LanguageProvider";
 import { usePreorder } from "../components/PreorderProvider";
@@ -44,7 +43,7 @@ export default function PreorderPage() {
         <div className="orderSummary">
           <p className="eyebrow dark">YOUR SELECTION</p>
           <h2>{en ? "Enquiry summary" : "விசாரணை சுருக்கம்"}</h2>
-          {selections.length === 0 ? <div className="emptyState"><p>{en ? "No products selected yet." : "இன்னும் பொருட்கள் தேர்ந்தெடுக்கப்படவில்லை."}</p><Link className="button buttonCacao" href="/menu">{en ? "Browse the menu" : "மெனுவைப் பார்க்க"}</Link></div> : selections.map(({ key, product, selectedOption, quantity }) => <div className="summaryItem" key={key}><div><strong>{en ? product?.name : product?.nameTa}</strong><small>{en ? selectedOption?.label : selectedOption?.labelTa} · {formatPrice(selectedOption?.price ?? null)}</small></div><div className="quantityControl"><button onClick={() => updateItem(key, quantity - 1)} type="button" aria-label="Decrease">−</button><span>{quantity}</span><button onClick={() => updateItem(key, quantity + 1)} type="button" aria-label="Increase">+</button><button className="remove" onClick={() => removeItem(key)} type="button">{en ? "Remove" : "நீக்கு"}</button></div></div>)}
+          {selections.length === 0 ? <div className="emptyState"><p>{en ? "No products selected yet." : "இன்னும் பொருட்கள் தேர்ந்தெடுக்கப்படவில்லை."}</p><a className="button buttonCacao" href="/menu">{en ? "Browse the menu" : "மெனுவைப் பார்க்க"}</a></div> : selections.map(({ key, product, selectedOption, quantity }) => <div className="summaryItem" key={key}><div><strong>{en ? product?.name : product?.nameTa}</strong><small>{en ? selectedOption?.label : selectedOption?.labelTa} · {formatPrice(selectedOption?.price ?? null)}</small></div><div className="quantityControl"><button onClick={() => updateItem(key, quantity - 1)} type="button" aria-label="Decrease">−</button><span>{quantity}</span><button onClick={() => updateItem(key, quantity + 1)} type="button" aria-label="Increase">+</button><button className="remove" onClick={() => removeItem(key)} type="button">{en ? "Remove" : "நீக்கு"}</button></div></div>)}
           <div className="enquiryCallout"><strong>{en ? "No payment will be collected here." : "இங்கே கட்டணம் வசூலிக்கப்படாது."}</strong><span>{en ? "Final pricing follows capacity, recipe, delivery and customisation confirmation." : "தயாரிப்பு, டெலிவரி மற்றும் தனிப்பயன் உறுதிப்படுத்தலுக்குப் பிறகு இறுதி விலை தெரிவிக்கப்படும்."}</span></div>
         </div>
         <form className="orderForm" onSubmit={sendWhatsApp}>

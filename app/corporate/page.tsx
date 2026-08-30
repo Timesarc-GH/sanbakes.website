@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useLanguage } from "../components/LanguageProvider";
 
 const corporateFormats = [
@@ -19,7 +18,7 @@ export default function CorporatePage() {
         <p className="eyebrow">CORPORATE ORDERS</p>
         <h1>{en ? "Structured for teams. Still personal." : "குழுக்களுக்காக திட்டமிடப்பட்டது. இன்னும் தனிப்பட்டது."}</h1>
         <p>{en ? "For client appreciation, employee milestones, meetings and festive programmes, San Bakes controls flavour, packaging and approvals so every unit arrives consistently." : "வாடிக்கையாளர் நன்றி, ஊழியர் சாதனைகள், கூட்டங்கள் மற்றும் பண்டிகை திட்டங்களுக்காக சுவை, பேக்கிங் மற்றும் அனுமதிகள் கட்டுப்படுத்தப்படுகின்றன."}</p>
-        <div className="innerHeroActions"><a className="button buttonLight" href="https://wa.me/919940058623?text=Hello%20San%20Bakes%2C%20I%27d%20like%20a%20corporate%20order%20proposal.%0ACompany%3A%0ARequired%20date%3A%0AProduct%20and%20quantity%3A%0ABudget%3A%0AOne%20or%20multiple%20addresses%3A" target="_blank" rel="noreferrer">{en ? "Request a proposal" : "விலை மதிப்பீடு கேட்க"}</a><Link className="button buttonOutlineLight" href="/menu?category=corporate">{en ? "View Corporate menu" : "நிறுவன மெனு"}</Link></div>
+        <div className="innerHeroActions"><a className="button buttonLight" href="https://wa.me/919940058623?text=Hello%20San%20Bakes%2C%20I%27d%20like%20a%20corporate%20order%20proposal.%0ACompany%3A%0ARequired%20date%3A%0AProduct%20and%20quantity%3A%0ABudget%3A%0AOne%20or%20multiple%20addresses%3A" target="_blank" rel="noreferrer">{en ? "Request a proposal" : "விலை மதிப்பீடு கேட்க"}</a><a className="button buttonOutlineLight" href="/menu?category=corporate">{en ? "View Corporate menu" : "நிறுவன மெனு"}</a></div>
       </section>
 
       <section className="offerSection">

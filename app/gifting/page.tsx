@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useLanguage } from "../components/LanguageProvider";
 
 const giftOptions = [
@@ -35,7 +34,7 @@ export default function GiftingPage() {
             <li>{en ? "One personal message within the stated limit" : "குறிப்பிட்ட வரம்பில் ஒரு தனிப்பட்ட செய்தி"}</li>
             <li>{en ? "Bake date, storage and serving guidance" : "பேக் தேதி, சேமிப்பு மற்றும் பரிமாறும் வழிமுறை"}</li>
           </ul>
-          <Link className="button buttonCacao" href="/menu?category=gifting">{en ? "Choose a personal gift" : "தனிப்பட்ட பரிசைத் தேர்ந்தெடுக்க"}</Link>
+          <a className="button buttonCacao" href="/menu?category=gifting">{en ? "Choose a personal gift" : "தனிப்பட்ட பரிசைத் தேர்ந்தெடுக்க"}</a>
         </div>
       </section>
 
@@ -50,7 +49,7 @@ export default function GiftingPage() {
         <div><span>03</span><h3>{en ? "Confirm the handover" : "ஹேண்ட்ஓவரை உறுதிசெய்ய"}</h3><p>{en ? "Send within the approved radius or collect by confirmed appointment." : "அனுமதிக்கப்பட்ட சுற்றளவில் அனுப்பவும் அல்லது உறுதி செய்யப்பட்ட நேரத்தில் பிக்கப் செய்யவும்."}</p></div>
       </section>
 
-      <section className="crossLink"><div><p className="eyebrow dark">ORDERING FOR A TEAM?</p><h2>{en ? "Corporate orders now have their own planning desk." : "நிறுவன ஆர்டர்களுக்கு தனி திட்டமிடல் பக்கம் உள்ளது."}</h2><p>{en ? "For employee gifts, client appreciation, branded sleeves and multi-address fulfilment, use the Corporate page." : "ஊழியர் பரிசுகள், வாடிக்கையாளர் நன்றி, பிராண்டட் ஸ்லீவ் மற்றும் பல முகவரி டெலிவரிக்கு Corporate பக்கத்தைப் பயன்படுத்தவும்."}</p></div><Link className="button buttonCacao" href="/corporate">{en ? "Explore Corporate" : "நிறுவன பக்கத்தைப் பார்க்க"}</Link></section>
+      <section className="crossLink"><div><p className="eyebrow dark">ORDERING FOR A TEAM?</p><h2>{en ? "Corporate orders now have their own planning desk." : "நிறுவன ஆர்டர்களுக்கு தனி திட்டமிடல் பக்கம் உள்ளது."}</h2><p>{en ? "For employee gifts, client appreciation, branded sleeves and multi-address fulfilment, use the Corporate page." : "ஊழியர் பரிசுகள், வாடிக்கையாளர் நன்றி, பிராண்டட் ஸ்லீவ் மற்றும் பல முகவரி டெலிவரிக்கு Corporate பக்கத்தைப் பயன்படுத்தவும்."}</p></div><a className="button buttonCacao" href="/corporate">{en ? "Explore Corporate" : "நிறுவன பக்கத்தைப் பார்க்க"}</a></section>
     </main>
   );
 }
