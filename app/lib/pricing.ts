@@ -52,17 +52,15 @@ const baseProductPricing: Record<string, ProductPricing> = {
   "reserve-collection": { decision:"approve", options:[
     option("box-9","9 pieces · curated flavours","9 துண்டுகள் · தேர்ந்தெடுத்த சுவைகள்",1590,"Best-value premium sharing format","பிரீமியம் பகிர்வுக்கான பரிந்துரைக்கப்பட்ட அளவு"),
   ]},
-  "tin-dark-cacao": { decision:"conditional", options:[
-    option("single-tin","1 Brownie Tin · target 300 g","1 பிரௌனி டின் · இலக்கு 300 கிராம்",590,"Approve price after final net-weight test","இறுதி எடை சோதனைக்குப் பிறகு விலை அனுமதி"),
+  "brownie-tin-3-piece": { decision:"conditional", options:[
+    option("same-classic","Same-flavour classic · 3 pieces","ஒரே கிளாசிக் சுவை · 3 துண்டுகள்",549,"Dark Cacao or Biscoff; final flavour confirmed personally","டார்க் காகாவ் அல்லது பிஸ்காஃப்; இறுதி சுவை தனிப்பட்ட முறையில் உறுதி செய்யப்படும்"),
+    option("same-premium","Same-flavour premium · 3 pieces","ஒரே பிரீமியம் சுவை · 3 துண்டுகள்",649,"Pista, seasonal strawberry or chocolate wafer; availability applies","பிஸ்தா, பருவகால ஸ்ட்ராபெரி அல்லது சாக்லேட் வேஃபர்; கிடைப்பதற்கு உட்பட்டது"),
+    option("curated-assorted","Curated assorted · 3 pieces","தேர்ந்தெடுத்த கலவை · 3 துண்டுகள்",625,"Three flavours selected from the validated Tin list","சோதிக்கப்பட்ட டின் பட்டியலிலிருந்து மூன்று சுவைகள் தேர்ந்தெடுக்கப்படும்"),
   ]},
-  "tin-pista": { decision:"conditional", options:[
-    option("single-tin","1 Brownie Tin · target 300 g","1 பிரௌனி டின் · இலக்கு 300 கிராம்",690,"Pistachio cost and net weight to be verified","பிஸ்தா செலவு மற்றும் எடை சரிபார்க்க வேண்டும்"),
-  ]},
-  "tin-strawberry": { decision:"conditional", options:[
-    option("single-tin","1 seasonal tin · target 300 g","1 பருவகால டின் · இலக்கு 300 கிராம்",750,"Fruit stability and cold-route test required","பழ நிலைத்தன்மை மற்றும் குளிர் பாதை சோதனை தேவை"),
-  ]},
-  "tin-classics": { decision:"conditional", options:[
-    option("single-tin","1 celebration tin · target 300 g","1 கொண்டாட்ட டின் · இலக்கு 300 கிராம்",790,"Branded topping cost and allergens pending","பிராண்டட் டாப்பிங் செலவு மற்றும் அலர்ஜன் நிலுவையில்"),
+  "brownie-tin-flight": { decision:"conditional", options:[
+    option("flight-2","2 Tins · 6 pieces","2 டின்கள் · 6 துண்டுகள்",1190,"Same-flavour or assorted after confirmation","உறுதிப்படுத்திய பிறகு ஒரே சுவை அல்லது கலவை"),
+    option("flight-3","3 Tins · 9 pieces","3 டின்கள் · 9 துண்டுகள்",1740,"Recommended sharing and gifting flight","பகிர்வு மற்றும் பரிசளிப்புக்கான பரிந்துரைக்கப்பட்ட தொகுப்பு"),
+    option("flight-5","5 Tins · 15 pieces","5 டின்கள் · 15 துண்டுகள்",2850,"One five-flavour flight when every flavour is validated and available","அனைத்து சுவைகளும் சோதிக்கப்பட்டு கிடைக்கும் போது ஐந்து சுவை தொகுப்பு"),
   ]},
   "classic-brownie-tub": { decision:"conditional", options:[
     option("single-tub","1 regular tub · target 250 g","1 சாதாரண டப் · இலக்கு 250 கிராம்",449,"Recommended replacement for the historical ₹299 price","பழைய ₹299 விலைக்குப் பதிலான பரிந்துரை"),
@@ -125,10 +123,15 @@ export const priceRevisionExclusions = new Set([
   "bespoke-corporate",
 ]);
 
+export const directPlanningPriceIds = new Set([
+  "brownie-tin-3-piece",
+  "brownie-tin-flight",
+]);
+
 export const productPricing: Record<string, ProductPricing> = Object.fromEntries(
   Object.entries(baseProductPricing).map(([productId, pricing]) => [
     productId,
-    priceRevisionExclusions.has(productId) ? pricing : {
+    priceRevisionExclusions.has(productId) || directPlanningPriceIds.has(productId) ? pricing : {
       ...pricing,
       options: pricing.options.map((item) => item.price === null ? item : {
         ...item,
