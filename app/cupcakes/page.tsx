@@ -34,7 +34,7 @@ export default function CupcakesPage() {
           <p className="eyebrow">PLANNED NEW LAUNCH · COMING SOON</p>
           <h1>{en ? "Cupcakes, considered from crumb to carry." : "கப் கேக்குகள் — சுவையிலிருந்து பாதுகாப்பான பயணம் வரை கவனமாக."}</h1>
           <p>{en ? "A separate phase-two collection in boxes of 6, 9 and 12. The names, photography and planning prices are ready for review; recipes, inserts and the full 20 km transport test must pass before release." : "6, 9 மற்றும் 12 பெட்டிகளில் தனி இரண்டாம் கட்ட தொகுப்பு. பெயர்கள், படங்கள் மற்றும் திட்டமிட்ட விலைகள் மதிப்பாய்வுக்கு தயாராக உள்ளன; அறிமுகத்திற்கு முன் ரெசிபி, இன்சர்ட் மற்றும் 20 கி.மீ. போக்குவரத்து சோதனை நிறைவேற வேண்டும்."}</p>
-          <div className="cupcakeHeroActions"><a className="button buttonLight" href="#planned-collection">{en ? "Preview the collection" : "தொகுப்பைப் பார்க்க"}</a><a className="button buttonOutlineLight" href="/preorder">{en ? "Review enquiry" : "விசாரணையைப் பார்க்க"}</a></div>
+          <div className="cupcakeHeroActions"><a className="button buttonLight" href="#planned-collection">{en ? "Preview the collection" : "தொகுப்பைப் பார்க்க"}</a><a className="button buttonOutlineLight" href="/preorder">{en ? "Review cart" : "கார்ட்டைப் பார்க்க"}</a></div>
         </div>
         <aside>
           <span>{en ? "Launch rule" : "அறிமுக விதி"}</span>
@@ -54,7 +54,7 @@ export default function CupcakesPage() {
       </section>
 
       <section className="menuSection cupcakeCollection" id="planned-collection">
-        <div className="menuNotice"><strong>{en ? "Coming soon" : "விரைவில் வருகிறது"}</strong><span>{en ? "Adding an option records interest only. It does not open payment or confirm production." : "ஒரு விருப்பத்தைச் சேர்ப்பது ஆர்வத்தை மட்டும் பதிவு செய்கிறது. கட்டணம் அல்லது தயாரிப்பு உறுதி செய்யப்படாது."}</span></div>
+        <div className="menuNotice"><strong>{en ? "Coming soon" : "விரைவில் வருகிறது"}</strong><span>{en ? "You may add a planned box to the cart for review. Production and UPI payment remain subject to San Bakes confirming the launch and total on WhatsApp." : "திட்டமிட்ட பெட்டியை மதிப்பாய்வுக்காக கார்ட்டில் சேர்க்கலாம். தயாரிப்பும் UPI கட்டணமும் San Bakes WhatsApp-ல் அறிமுகம் மற்றும் மொத்தத்தை உறுதி செய்வதற்கு உட்பட்டவை."}</span></div>
         <div className="menuGrid">
           {cupcakeProducts.map((product) => {
             const pricing = getPricing(product.id);
@@ -77,7 +77,7 @@ export default function CupcakesPage() {
                 {(availabilityNote || unavailable) && <div className={`availabilityLine ${availability.status}`}><strong>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}</strong>{availabilityNote && <span>{availabilityNote}</span>}</div>}
                 <label className="variantPicker"><span>{en ? "Box / composition option" : "பெட்டி / கலவை விருப்பம்"}</span><select value={selectedOption.id} onChange={(event) => setSelectedOptions((current) => ({ ...current, [product.id]: event.target.value }))}>{pricing.options.map((item) => <option value={item.id} key={item.id}>{en ? item.label : item.labelTa} — {formatPrice(item.price)}</option>)}</select><small>{en ? selectedOption.note : selectedOption.noteTa}</small></label>
                 <div className="selectedPrice"><span>{en ? "Planned price" : "திட்டமிட்ட விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
-                <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id, selectedOption.id))} type="button">{unavailable ? (en ? "Currently unavailable" : "தற்போது கிடைக்கவில்லை") : (en ? "Add planned option to enquiry" : "திட்டமிட்ட விருப்பத்தைச் சேர்க்க")}</button>
+                <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id, selectedOption.id))} type="button">{unavailable ? (en ? "Currently unavailable" : "தற்போது கிடைக்கவில்லை") : (en ? "Add planned box to cart" : "திட்டமிட்ட பெட்டியை கார்ட்டில் சேர்க்க")}</button>
               </div>
             </article>;
           })}
@@ -86,7 +86,7 @@ export default function CupcakesPage() {
 
       <section className="cupcakeGate"><div><p className="eyebrow dark">RELEASE GATES</p><h2>{en ? "The images are concepts. The launch must earn them." : "படங்கள் ஒரு கருத்து. அறிமுகம் அதை உண்மையாக்க வேண்டும்."}</h2></div><ul><li>{en ? "Final Egg and Eggless recipe yield, allergen declaration and shelf-life record." : "இறுதி முட்டை மற்றும் முட்டையில்லா ரெசிபி யீல்ட், அலர்ஜன் மற்றும் சேமிப்பு பதிவு."}</li><li>{en ? "Low-profile finish that survives two hours ambient and a validated 20 km route." : "இரண்டு மணி நேர அறை வெப்பமும் 20 கி.மீ. சோதனை பயணமும் தாங்கும் அலங்காரம்."}</li><li>{en ? "6, 9 and 12-cavity inserts tested for movement, smearing and handover." : "6, 9 மற்றும் 12 இட இன்சர்ட்கள் நகர்வு, தடவல் மற்றும் ஒப்படைப்பு சோதனை."}</li><li>{en ? "Biscoff and wafer flavours released only after ingredient-brand and allergen verification." : "பிஸ்காஃப் மற்றும் வேஃபர் சுவைகள் பொருள் பிராண்ட் மற்றும் அலர்ஜன் சோதனைக்குப் பிறகு மட்டும்."}</li></ul></section>
 
-      {count > 0 && <div className="basketDock"><span>{en ? `${count} item${count === 1 ? "" : "s"} in your enquiry` : `விசாரணையில் ${count} பொருட்கள்`}</span><a className="button buttonLight" href="/preorder">{en ? "Review enquiry" : "விசாரணையைப் பார்க்க"}</a></div>}
+      {count > 0 && <div className="basketDock"><span>{en ? `${count} item${count === 1 ? "" : "s"} in your cart` : `கார்ட்டில் ${count} பொருட்கள்`}</span><a className="button buttonLight" href="/preorder">{en ? "Review cart" : "கார்ட்டைப் பார்க்க"}</a></div>}
     </main>
   );
 }

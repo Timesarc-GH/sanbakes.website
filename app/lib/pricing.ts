@@ -186,6 +186,12 @@ export const formatPrice = (price:number|null) => price === null ? "By quotation
 export const makeSelectionKey = (productId:string, optionId:string) => `${productId}::${optionId}`;
 export const parseSelectionKey = (key:string) => { const [productId, optionId] = key.split("::"); return { productId, optionId }; };
 export const getPricing = (productId:string) => productPricing[productId];
+export const getMinimumOrderQuantity = (productId:string, optionId:string) => {
+  if (productId !== "corporate-mini-box") return 1;
+  if (optionId === "tier-100") return 100;
+  if (optionId === "tier-50") return 50;
+  return 25;
+};
 export const decisionLabel: Record<PriceDecision, { en:string; ta:string }> = {
   approve:{ en:"Recommended for approval", ta:"அனுமதிக்க பரிந்துரை" },
   conditional:{ en:"Conditional — validation required", ta:"நிபந்தனை — சோதனை தேவை" },

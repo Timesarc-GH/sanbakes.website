@@ -49,7 +49,6 @@ test("renders the complete menu and preorder route", async () => {
   const menu = await (await render("/menu")).text();
   assert.match(menu, /Brownie Tubs/);
   assert.match(menu, /Millet Tea Cakes/);
-  assert.match(menu, /The Grand Celebration/);
   assert.match(menu, /Pack \/ quantity option/);
   assert.match(menu, /₹382/);
   assert.match(menu, /₹927/);
@@ -58,18 +57,15 @@ test("renders the complete menu and preorder route", async () => {
   assert.match(menu, /₹3,390/);
   assert.match(menu, /Walnut Reserve/);
   assert.match(menu, /6-Tin Full Flavour Flight · 18 pieces/);
-  assert.match(menu, /Individually Packed Party Brownies/);
-  assert.match(menu, /25 Classic brownies · individually packed/);
-  assert.match(menu, /₹4,375/);
-  assert.match(menu, /Party Brownie Tins/);
-  assert.match(menu, /10 Classic three-piece Tins/);
-  assert.match(menu, /Party Brownie Tubs/);
-  assert.match(menu, /Occasion Brownie Cake/);
   assert.match(menu, /Cupcakes have their own planned-launch page/);
   assert.doesNotMatch(menu, /Dark Cacao Ragi Cupcake Collection/);
+  assert.doesNotMatch(menu, /Corporate Mini Box/);
+  assert.doesNotMatch(menu, /Individually Packed Party Brownies/);
   const preorder = await (await render("/preorder")).text();
-  assert.match(preorder, /Send request on WhatsApp/);
-  assert.match(preorder, /No payment will be collected here/);
+  assert.match(preorder, /CART &amp; WHATSAPP CHECKOUT/);
+  assert.match(preorder, /Place order through WhatsApp/);
+  assert.match(preorder, /UPI PAYMENT/);
+  assert.match(preorder, /A QR tied to the confirmed amount/);
 });
 
 test("protects the owner inventory console and mutation API", async () => {
@@ -92,7 +88,7 @@ test("renders Cupcakes as a separate planned-launch collection", async () => {
   assert.match(cupcakes, /Box of 9 cupcakes/);
   assert.match(cupcakes, /Box of 12 cupcakes/);
   assert.match(cupcakes, /Discovery box of 12 · two of each/);
-  assert.match(cupcakes, /Add planned option to enquiry/);
+  assert.match(cupcakes, /Add planned box to cart/);
   assert.match(cupcakes, /transport test/);
 });
 
@@ -100,7 +96,7 @@ test("renders the expanded customer information pages", async () => {
   const faq = await (await render("/faq")).text();
   assert.match(faq, /Everything to know before you reserve/);
   assert.match(faq, /Are San Bakes products healthy/);
-  assert.match(faq, /Can I pay on the website now/);
+  assert.match(faq, /How does UPI payment work/);
   const delivery = await (await render("/delivery")).text();
   assert.match(delivery, /20 km road radius/);
   assert.match(delivery, /appointment pickup/i);
@@ -115,18 +111,31 @@ test("renders the expanded customer information pages", async () => {
   const corporate = await (await render("/corporate")).text();
   assert.match(corporate, /CORPORATE ORDERS/);
   assert.match(corporate, /25 boxes or ₹15,000/);
-  assert.match(corporate, /Minimum 10 · from ₹5,250/);
+  assert.match(corporate, /Corporate Mini Box/);
+  assert.match(corporate, /25–49 boxes · 2 Ragi \+ 2 Walnut · per box/);
+  assert.match(corporate, /Add 25 boxes to cart/);
+  assert.match(corporate, /Bespoke Corporate Gifting/);
   assert.match(corporate, /7 calendar days/);
   const corporateMenu = await (await render("/menu?category=corporate")).text();
-  assert.match(corporateMenu, /Corporate Mini Box/);
-  assert.match(corporateMenu, /Individually Packed Party Brownies/);
+  assert.doesNotMatch(corporateMenu, /Corporate Mini Box/);
+  assert.doesNotMatch(corporateMenu, /Individually Packed Party Brownies/);
   const parties = await (await render("/parties")).text();
   assert.match(parties, /BIRTHDAYS &amp; PARTIES/);
   assert.match(parties, /Five days is the working minimum/);
-  assert.match(parties, /25 from ₹4,375/);
-  assert.match(parties, /10 from ₹5,250/);
-  assert.match(parties, /10 from ₹3,750/);
+  assert.match(parties, /Little Celebration/);
+  assert.match(parties, /Individually Packed Party Brownies/);
+  assert.match(parties, /25 Classic brownies · individually packed/);
+  assert.match(parties, /10 Classic three-piece Tins/);
+  assert.match(parties, /10 Classic Brownie Tubs/);
+  assert.match(parties, /Occasion Brownie Cake/);
+  assert.match(parties, /Add to cart/);
   assert.match(parties, /Within 72 hours of handover/);
+});
+
+test("keeps UPI payment disabled until a verified recipient is configured", async () => {
+  const response = await render("/api/payment-config", { headers: { accept: "application/json" } });
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), { enabled: false, payeeName: "San Bakes" });
 });
 
 test("renders the owner pricing and approval review", async () => {

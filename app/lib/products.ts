@@ -27,7 +27,7 @@ export const categories = [
   { id: "corporate", name: "Corporate", nameTa: "நிறுவன ஆர்டர்கள்" },
 ] as const;
 
-export const menuCategories = categories.filter((category) => category.id !== "cupcakes");
+export const menuCategories = categories.filter((category) => !["cupcakes", "parties", "corporate"].includes(category.id));
 
 export const products: Product[] = [
   {
@@ -339,6 +339,7 @@ export const products: Product[] = [
     descriptionTa: "பிறந்தநாள், ரிட்டர்ன் கிஃப்ட் மற்றும் டெசர்ட் டேபிளுக்காக ஒவ்வொன்றும் உணவு பாதுகாப்பாக பேக் செய்யப்பட்ட முழு அளவு பிரௌனி.",
     price: "From ₹4,375 · minimum 25",
     status: "quotation",
+    image: "/images/products/party-individually-packed-brownies-v1.webp",
     format: "25, 50 or 100 pieces · Egg or Eggless",
   },
   {
@@ -350,6 +351,7 @@ export const products: Product[] = [
     descriptionTa: "பார்ட்டி பரிசு அல்லது டேபிள் செட்டிங்கிற்கான மூன்று துண்டு மறுபயன்பாட்டு டின்கள்; கட்டுப்படுத்தப்பட்ட சுவை திட்டத்துடன்.",
     price: "From ₹5,250 · minimum 10 Tins",
     status: "quotation",
+    image: "/images/products/party-brownie-tins-v1.webp",
     format: "10 Tins · 30 brownie pieces",
   },
   {
@@ -361,6 +363,7 @@ export const products: Product[] = [
     descriptionTa: "ஒருங்கிணைந்த அலங்காரத்துடன் தனிப்பட்ட பார்ட்டி டெசர்ட்டாக தயாரிக்கப்படும் கிளாசிக் அல்லது லோடெட் பிரௌனி டப்கள்.",
     price: "From ₹3,750 · minimum 10 Tubs",
     status: "quotation",
+    image: "/images/products/party-brownie-tubs-v1.webp",
     format: "10 Tubs · one or two approved finishes",
   },
   {
@@ -372,6 +375,7 @@ export const products: Product[] = [
     descriptionTa: "திருமண நாள், நிச்சயதார்த்தம், வரவேற்பு, பிரியாவிடை மற்றும் முக்கிய நிகழ்ச்சிகளுக்கான பிரௌனி கேக்.",
     price: "₹1,590–₹3,250 recommended",
     status: "quotation",
+    image: "/images/products/occasion-brownie-cake-v1.webp",
     format: "500 g or 1 kg · Egg or Eggless · 5-day lead time",
   },
 ];

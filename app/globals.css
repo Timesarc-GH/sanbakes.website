@@ -166,7 +166,7 @@ h1 { margin: 0; font-size: clamp(52px, 6.3vw, 94px); line-height: .94; letter-sp
 .statusBadge.seasonal { background: #66643f; color: white; }
 .statusBadge.quotation { background: #8d5f49; color: white; }
 .menuCardBody { padding: 24px; }
-.menuCardBody h2 { min-height: 62px; margin: 0; font-size: 25px; line-height: 1.15; }
+.menuCardBody h2, .menuCardBody h3 { min-height: 62px; margin: 0; font-size: 25px; line-height: 1.15; }
 .menuCardBody > p:not(.cardEyebrow) { min-height: 62px; margin: 12px 0 20px; color: #736159; font-size: 12px; line-height: 1.65; }
 .productMeta { min-height: 69px; display: grid; gap: 7px; margin-bottom: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
 .productMeta span { font-family: Georgia, serif; font-size: 16px; }
@@ -174,6 +174,10 @@ h1 { margin: 0; font-size: clamp(52px, 6.3vw, 94px); line-height: .94; letter-sp
 .menuCard .button { width: 100%; cursor: pointer; }
 .basketDock { position: sticky; z-index: 10; bottom: 18px; max-width: 760px; margin: 38px auto 0; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 14px 14px 14px 22px; background: var(--cacao); color: white; box-shadow: 0 18px 55px rgba(30,17,12,.32); }
 .basketDock span { font-family: Georgia, serif; }
+.dedicatedCollection { padding-top: 92px; }
+.collectionIntro { max-width: 880px; margin-bottom: 48px; }
+.collectionIntro h2 { margin: 0 0 20px; font-size: clamp(38px, 5vw, 66px); }
+.collectionIntro > p:last-child { max-width: 760px; color: #705e56; line-height: 1.75; }
 
 .orderLayout { display: grid; grid-template-columns: .85fr 1.15fr; max-width: 1380px; margin: 0 auto; padding: 100px 6vw 120px; gap: 7vw; }
 .orderSummary, .orderForm { min-width: 0; }
@@ -184,7 +188,12 @@ h1 { margin: 0; font-size: clamp(52px, 6.3vw, 94px); line-height: .94; letter-sp
 .summaryItem small { color: #7b675e; }
 .quantityControl { display: flex; align-items: center; gap: 8px; }
 .quantityControl button { width: 30px; height: 30px; border: 1px solid var(--line); background: transparent; cursor: pointer; }
+.quantityControl .setMinimum { width: auto; padding: 0 9px; font-size: 10px; white-space: nowrap; }
 .quantityControl .remove { width: auto; margin-left: 5px; padding: 0 8px; border: 0; color: #8b5848; font-size: 10px; text-decoration: underline; }
+.cartTotal { display: grid; grid-template-columns: 1fr auto; gap: 8px 20px; margin-top: 26px; padding: 22px; border: 1px solid var(--line); background: var(--cream); }
+.cartTotal span { color: #6f5b52; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.cartTotal strong { font-family: Georgia, serif; font-size: 25px; font-weight: 400; }
+.cartTotal small { grid-column: 1 / -1; color: #7a665d; line-height: 1.55; }
 .enquiryCallout { display: grid; gap: 8px; margin-top: 30px; padding: 20px; background: #dfd9b5; }
 .enquiryCallout strong { font-family: Georgia, serif; font-weight: 400; }
 .enquiryCallout span { color: #645f45; font-size: 11px; line-height: 1.6; }
@@ -201,6 +210,34 @@ h1 { margin: 0; font-size: clamp(52px, 6.3vw, 94px); line-height: .94; letter-sp
 .submitButton { width: 100%; border: 0; cursor: pointer; }
 .submitButton:disabled { opacity: .45; cursor: not-allowed; }
 .successNote { padding: 15px; border: 1px solid #83956b; color: #415238; font-size: 12px; line-height: 1.6; }
+.upiSection { display: grid; grid-template-columns: .82fr 1.18fr; gap: 7vw; padding: 105px 7vw; background: #e4dfbd; }
+.upiIntro { align-self: start; max-width: 560px; }
+.upiIntro h2 { margin: 0 0 25px; font-size: clamp(40px, 5vw, 70px); line-height: 1.02; }
+.upiIntro > p:last-child { color: #625b43; line-height: 1.75; }
+.upiCard { min-width: 0; padding: 38px; border: 1px solid rgba(48,38,26,.18); background: var(--cream); }
+.paymentTotal { display: flex; justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+.paymentTotal span { color: #705e55; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.paymentTotal strong { font-family: Georgia, serif; font-size: 25px; font-weight: 400; }
+.paymentGate { display: grid; grid-template-columns: 38px 1fr; gap: 16px; align-items: start; margin-top: 26px; padding: 20px; background: #eee7d9; }
+.paymentGate > span { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; background: var(--cacao); color: white; font-family: Georgia, serif; }
+.paymentGate p { margin: 5px 0 0; color: #66534a; font-size: 12px; line-height: 1.6; }
+.confirmedAmount { display: grid; gap: 9px; margin-top: 28px; color: #57463f; font-size: 11px; font-weight: 700; letter-spacing: .04em; }
+.confirmedAmount > div { display: grid; grid-template-columns: auto 1fr; align-items: center; border: 1px solid #cdbeb1; background: #fffdf9; }
+.confirmedAmount > div span { padding-left: 14px; font-family: Georgia, serif; font-size: 19px; }
+.confirmedAmount input { width: 100%; padding: 13px 12px 13px 8px; border: 0; outline: none; background: transparent; font: inherit; }
+.confirmedAmount small { color: #7a665d; font-weight: 400; letter-spacing: 0; line-height: 1.5; }
+.paymentConsent { margin: 22px 0 !important; color: #57463f; font-size: 12px; }
+.paymentSetupPending { display: grid; gap: 8px; padding: 20px; border-left: 3px solid #9a765b; background: #efe7da; }
+.paymentSetupPending strong { font-family: Georgia, serif; font-weight: 400; }
+.paymentSetupPending span { color: #705d53; font-size: 11px; line-height: 1.6; }
+.qrReady { display: grid; grid-template-columns: 260px 1fr; gap: 30px; align-items: center; padding-top: 12px; }
+.qrReady img { width: 100%; height: auto; border: 1px solid var(--line); }
+.qrReady > div { display: grid; gap: 10px; align-content: center; }
+.qrReady small { color: #79665d; font-size: 9px; font-weight: 700; letter-spacing: .12em; }
+.qrReady strong { font-family: Georgia, serif; font-size: 34px; font-weight: 400; }
+.qrReady span { color: #5f4b42; }
+.qrReady p { margin: 0; color: #806d64; font-size: 10px; line-height: 1.55; }
+.qrReady .button { justify-self: start; }
 .processStrip { display: grid; grid-template-columns: repeat(3, 1fr); background: #d9d2aa; }
 .processStrip > div { position: relative; min-height: 220px; padding: 52px 5vw; border-right: 1px solid rgba(43,33,29,.18); }
 .processStrip span { position: absolute; top: 24px; right: 26px; color: #9b9572; font-family: Georgia, serif; font-style: italic; }
@@ -247,7 +284,7 @@ h1 { margin: 0; font-size: clamp(52px, 6.3vw, 94px); line-height: .94; letter-sp
   .trustStrip div { border-right: 0; border-bottom: 1px solid var(--line); }
   .sectionHeading { grid-template-columns: 1fr; gap: 28px; }
   .productImage { aspect-ratio: 4 / 3; }
-  .storySection, .occasionSection, .editorialSplit, .orderLayout { grid-template-columns: 1fr; }
+  .storySection, .occasionSection, .editorialSplit, .orderLayout, .upiSection { grid-template-columns: 1fr; }
   .storyMedia { min-height: 540px; order: -1; }
   .occasionImage, .editorialImage { min-height: 520px; }
   .menuGrid { grid-template-columns: 1fr 1fr; }
@@ -283,7 +320,7 @@ h1 { margin: 0; font-size: clamp(52px, 6.3vw, 94px); line-height: .94; letter-sp
   .menuSection { padding: 32px 4vw 90px; }
   .menuNotice { grid-template-columns: 1fr; gap: 8px; }
   .menuGrid { grid-template-columns: 1fr; }
-  .menuCardBody h2, .menuCardBody > p:not(.cardEyebrow) { min-height: 0; }
+  .menuCardBody h2, .menuCardBody h3, .menuCardBody > p:not(.cardEyebrow) { min-height: 0; }
   .basketDock { bottom: 10px; }
   .basketDock span { font-size: 13px; }
   .basketDock .button { min-height: 42px; padding-inline: 13px; font-size: 9px; }
@@ -294,6 +331,10 @@ h1 { margin: 0; font-size: clamp(52px, 6.3vw, 94px); line-height: .94; letter-sp
   .occasionImage, .editorialImage { min-height: 430px; }
   .orderLayout { padding: 72px 5vw 90px; }
   .orderForm { padding: 28px 20px; }
+  .upiSection { padding: 75px 5vw; }
+  .upiCard { padding: 26px 20px; }
+  .qrReady { grid-template-columns: 1fr; }
+  .qrReady img { max-width: 260px; justify-self: center; }
   .fieldRow { grid-template-columns: 1fr; gap: 0; }
   .summaryItem { grid-template-columns: 1fr; }
   .processStrip { grid-template-columns: 1fr; }

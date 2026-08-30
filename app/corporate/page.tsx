@@ -1,13 +1,7 @@
 "use client";
 
 import { useLanguage } from "../components/LanguageProvider";
-
-const corporateFormats = [
-  { title:"Corporate Mini Box — 4 pieces", titleTa:"கார்ப்பரேட் மினி பாக்ஸ் — 4 துண்டுகள்", price:"₹690 / ₹655 / ₹635 per box", detail:"25–49 / 50–99 / 100+ boxes", detailTa:"25–49 / 50–99 / 100+ பெட்டிகள்" },
-  { title:"Individually Packed Brownies", titleTa:"தனித்தனியாக பேக் செய்யப்பட்ட பிரௌனிகள்", price:"₹175–₹195 each", detail:"Minimum 25 · from ₹4,375", detailTa:"குறைந்தபட்சம் 25 · ₹4,375 முதல்" },
-  { title:"Three-Piece Brownie Tins", titleTa:"மூன்று துண்டு பிரௌனி டின்கள்", price:"₹525–₹610 per Tin", detail:"Minimum 10 · from ₹5,250", detailTa:"குறைந்தபட்சம் 10 · ₹5,250 முதல்" },
-  { title:"Classic or Loaded Tubs", titleTa:"கிளாசிக் அல்லது லோடெட் டப்கள்", price:"₹375–₹455 per Tub", detail:"Minimum 10 · from ₹3,750", detailTa:"குறைந்தபட்சம் 10 · ₹3,750 முதல்" },
-];
+import { ProductCollection } from "../components/ProductCollection";
 
 export default function CorporatePage() {
   const { language } = useLanguage();
@@ -18,14 +12,20 @@ export default function CorporatePage() {
         <p className="eyebrow">CORPORATE ORDERS</p>
         <h1>{en ? "Structured for teams. Still personal." : "குழுக்களுக்காக திட்டமிடப்பட்டது. இன்னும் தனிப்பட்டது."}</h1>
         <p>{en ? "For client appreciation, employee milestones, meetings and festive programmes, San Bakes controls flavour, packaging and approvals so every unit arrives consistently." : "வாடிக்கையாளர் நன்றி, ஊழியர் சாதனைகள், கூட்டங்கள் மற்றும் பண்டிகை திட்டங்களுக்காக சுவை, பேக்கிங் மற்றும் அனுமதிகள் கட்டுப்படுத்தப்படுகின்றன."}</p>
-        <div className="innerHeroActions"><a className="button buttonLight" href="https://wa.me/919940058623?text=Hello%20San%20Bakes%2C%20I%27d%20like%20a%20corporate%20order%20proposal.%0ACompany%3A%0ARequired%20date%3A%0AProduct%20and%20quantity%3A%0ABudget%3A%0AOne%20or%20multiple%20addresses%3A" target="_blank" rel="noreferrer">{en ? "Request a proposal" : "விலை மதிப்பீடு கேட்க"}</a><a className="button buttonOutlineLight" href="/menu?category=corporate">{en ? "View Corporate menu" : "நிறுவன மெனு"}</a></div>
+        <div className="innerHeroActions"><a className="button buttonLight" href="#corporate-collection">{en ? "Choose a Corporate format" : "நிறுவன வகையைத் தேர்ந்தெடுக்க"}</a><a className="button buttonOutlineLight" href="/preorder">{en ? "Review cart" : "கார்ட்டைப் பார்க்க"}</a></div>
       </section>
 
-      <section className="offerSection">
-        <div className="offerIntro"><p className="eyebrow dark">PLANNING PRICES</p><h2>{en ? "Choose the format before the finish." : "அலங்காரத்திற்கு முன் வடிவத்தைத் தேர்ந்தெடுக்கவும்."}</h2><p>{en ? "These recommendations keep a premium product viable at controlled volumes. Delivery, printed sleeves, individual names, artwork changes and multiple addresses are additional." : "கட்டுப்படுத்தப்பட்ட அளவில் பிரீமியம் தயாரிப்பை நிலைத்திருக்க இந்த விலைகள் பரிந்துரைக்கப்படுகின்றன. டெலிவரி, அச்சிடப்பட்ட ஸ்லீவ், தனிப்பட்ட பெயர்கள், வடிவமைப்பு மாற்றங்கள் மற்றும் பல முகவரிகள் கூடுதல்."}</p></div>
-        <div className="offerGrid">{corporateFormats.map((item) => <article key={item.title}><small>CORPORATE FORMAT</small><h3>{en ? item.title : item.titleTa}</h3><strong>{item.price}</strong><p>{en ? item.detail : item.detailTa}</p></article>)}</div>
-        <p className="planningNote">{en ? "Planning prices are pending recipe yield, final packaging, supplier invoice and margin validation. Egg and Eggless are proposed at the same launch price." : "ரெசிபி யீல்ட், இறுதி பேக்கிங், சப்ளையர் இன்வாய்ஸ் மற்றும் மார்ஜின் சோதனை வரை திட்ட விலைகள் தற்காலிகமானவை. Egg மற்றும் Eggless ஒரே அறிமுக விலையில் பரிந்துரைக்கப்படுகின்றன."}</p>
-      </section>
+      <div id="corporate-collection">
+        <ProductCollection
+          productIds={["corporate-mini-box", "bespoke-corporate"]}
+          eyebrowEn="CORPORATE COLLECTION"
+          eyebrowTa="நிறுவன தொகுப்பு"
+          titleEn="Choose the format before the finish."
+          titleTa="அலங்காரத்திற்கு முன் வடிவத்தைத் தேர்ந்தெடுக்கவும்."
+          introEn="Select a volume tier and add the minimum quantity directly to the cart. Bespoke branding remains quotation-led because artwork, packaging and fulfilment affect the final price."
+          introTa="அளவு நிலையைத் தேர்ந்தெடுத்து குறைந்தபட்ச எண்ணிக்கையை நேரடியாக கார்ட்டில் சேர்க்கவும். வடிவமைப்பு, பேக்கிங் மற்றும் நிறைவேற்றம் இறுதி விலையை மாற்றுவதால் தனிப்பயன் பிராண்டிங் விலை மதிப்பீட்டில் தொடரும்."
+        />
+      </div>
 
       <section className="corporateSection">
         <div className="corporateIntro"><p className="eyebrow dark">LEAD TIME</p><h2>{en ? "Enough time protects consistency." : "போதுமான நேரம் ஒரே தரத்தை உறுதி செய்கிறது."}</h2><p>{en ? "The enquiry date is not reserved until the specification, capacity and payment plan are confirmed in writing." : "விவரங்கள், திறன் மற்றும் கட்டண திட்டம் எழுத்தில் உறுதி செய்யப்படும் வரை தேதி முன்பதிவு செய்யப்படாது."}</p></div>

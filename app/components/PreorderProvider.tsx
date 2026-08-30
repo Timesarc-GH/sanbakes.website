@@ -7,7 +7,7 @@ type EnquiryItems = Record<string, number>;
 const PreorderContext = createContext<{
   items: EnquiryItems;
   count: number;
-  addItem: (id: string) => void;
+  addItem: (id: string, quantity?: number) => void;
   updateItem: (id: string, quantity: number) => void;
   removeItem: (id: string) => void;
   clearItems: () => void;
@@ -44,7 +44,7 @@ export function PreorderProvider({ children }: { children: React.ReactNode }) {
     () => ({
       items,
       count: Object.values(items).reduce((sum, quantity) => sum + quantity, 0),
-      addItem: (id: string) => commit({ ...items, [id]: (items[id] ?? 0) + 1 }),
+      addItem: (id: string, quantity = 1) => commit({ ...items, [id]: (items[id] ?? 0) + quantity }),
       updateItem: (id: string, quantity: number) => {
         if (quantity <= 0) {
           const next = { ...items };

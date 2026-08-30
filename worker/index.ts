@@ -6,6 +6,8 @@ interface Env {
   ASSETS: Fetcher;
   DB: D1Database;
   SAN_BAKES_ADMIN_USER_ID?: string;
+  SAN_BAKES_UPI_ID?: string;
+  SAN_BAKES_UPI_NAME?: string;
   IMAGES: {
     input(stream: ReadableStream): {
       transform(options: Record<string, unknown>): {
@@ -43,9 +45,13 @@ const worker = {
 
     const routedHeaders = new Headers(request.headers);
     routedHeaders.delete("x-san-bakes-admin-authorized");
+    routedHeaders.delete("x-san-bakes-upi-id");
+    routedHeaders.delete("x-san-bakes-upi-name");
     if (env.SAN_BAKES_ADMIN_USER_ID && routedHeaders.get("oai-authenticated-user-id") === env.SAN_BAKES_ADMIN_USER_ID) {
       routedHeaders.set("x-san-bakes-admin-authorized", "1");
     }
+    if (env.SAN_BAKES_UPI_ID) routedHeaders.set("x-san-bakes-upi-id", env.SAN_BAKES_UPI_ID);
+    if (env.SAN_BAKES_UPI_NAME) routedHeaders.set("x-san-bakes-upi-name", env.SAN_BAKES_UPI_NAME);
 
     return handler.fetch(new Request(request, { headers: routedHeaders }), env, ctx);
   },

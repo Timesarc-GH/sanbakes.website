@@ -29,7 +29,7 @@ export function SiteHeader() {
     <>
       <div className="announcement">
         <span>{language === "en" ? "Preorder only · Chennai delivery within 20 km" : "முன்பதிவு மட்டும் · சென்னையில் 20 கி.மீ. வரை"}</span>
-        <span className="announcementNote">FSSAI registration pending · Enquiries open, payment disabled</span>
+        <span className="announcementNote">FSSAI registration pending · Preorders subject to confirmation</span>
       </div>
       <header className="siteHeader">
         <a className="brand" href="/" aria-label="San Bakes home">
@@ -45,7 +45,7 @@ export function SiteHeader() {
               {language === "en" ? link.en : link.ta}
             </a>
           ))}
-          <a className="mobileOrderLink" href="/preorder" onClick={() => setMenuOpen(false)}>{language === "en" ? "Start preorder enquiry" : "முன்பதிவு விசாரணை"}</a>
+          <a className="mobileOrderLink" href="/preorder" onClick={() => setMenuOpen(false)}>{language === "en" ? "Review cart & order" : "கார்ட் & ஆர்டரைப் பார்க்க"}</a>
         </nav>
         <div className="headerTools">
           <div className="languageToggle" aria-label="Language">
@@ -53,7 +53,7 @@ export function SiteHeader() {
             <button className={language === "ta" ? "selected" : ""} onClick={() => setLanguage("ta")} type="button">தமிழ்</button>
           </div>
           <a className="headerCta" href="/preorder">
-            {language === "en" ? "Enquiry" : "விசாரணை"}{count > 0 ? ` (${count})` : ""}
+            {language === "en" ? "Cart" : "கார்ட்"}{count > 0 ? ` (${count})` : ""}
           </a>
           <button className="menuToggle" type="button" aria-expanded={menuOpen} aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen((current) => !current)}>
             <span /> <span /> <span />

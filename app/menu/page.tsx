@@ -15,7 +15,7 @@ const groupedCategoryProducts: Record<string, Set<string>> = {
   corporate: new Set(["corporate-mini-box", "bespoke-corporate", "party-single-brownies", "party-brownie-tins", "party-brownie-tubs"]),
 };
 
-const mainMenuProducts = products.filter((product) => product.category !== "cupcakes");
+const mainMenuProducts = products.filter((product) => !["cupcakes", "parties", "corporate"].includes(product.category));
 
 export default function MenuPage() {
   const query = useSearchParams();
@@ -52,7 +52,7 @@ export default function MenuPage() {
         <div className="filterBar" aria-label="Filter menu by collection">
           {menuCategories.map((category) => <button className={active === category.id ? "active" : ""} key={category.id} onClick={() => setActive(category.id)} type="button">{en ? category.name : category.nameTa}</button>)}
         </div>
-        <div className="menuNotice"><strong>{en ? "Enquiry mode" : "விசாரணை நிலை"}</strong><span>{en ? "Online checkout is intentionally disabled while FSSAI registration and final recipe validation are pending." : "FSSAI பதிவு மற்றும் இறுதி ரெசிபி சோதனை நிலுவையில் உள்ளதால் ஆன்லைன் கட்டணம் முடக்கப்பட்டுள்ளது."}</span></div>
+        <div className="menuNotice"><strong>{en ? "Preorder cart" : "முன்பதிவு கார்ட்"}</strong><span>{en ? "Add a pack, review the planning subtotal and send the completed order on WhatsApp. Pay by UPI only after San Bakes confirms the total." : "பேக்கை சேர்த்து, திட்டமிட்ட மொத்தத்தை சரிபார்த்து முழுமையான ஆர்டரை WhatsApp-ல் அனுப்புங்கள். San Bakes மொத்தத்தை உறுதி செய்த பிறகு மட்டும் UPI மூலம் செலுத்துங்கள்."}</span></div>
         <div className="menuGrid">
           {visible.map((product) => {
             const pricing = getPricing(product.id);
@@ -81,12 +81,12 @@ export default function MenuPage() {
                   <small>{en ? selectedOption.note : selectedOption.noteTa}</small>
                 </label>
                 <div className="selectedPrice"><span>{en ? "Recommended price" : "பரிந்துரைக்கப்பட்ட விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
-                <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id,selectedOption.id))} type="button">{unavailable ? (en ? "Currently unavailable" : "தற்போது கிடைக்கவில்லை") : (en ? "Add option to enquiry" : "விருப்பத்தை விசாரணையில் சேர்க்க")}</button>
+                <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id,selectedOption.id))} type="button">{unavailable ? (en ? "Currently unavailable" : "தற்போது கிடைக்கவில்லை") : (en ? "Add to cart" : "கார்ட்டில் சேர்க்க")}</button>
               </div>
             </article>;
           })}
         </div>
-        {count > 0 && <div className="basketDock"><span>{en ? `${count} item${count === 1 ? "" : "s"} in your enquiry` : `விசாரணையில் ${count} பொருட்கள்`}</span><a className="button buttonLight" href="/preorder">{en ? "Review enquiry" : "விசாரணையைப் பார்க்க"}</a></div>}
+        {count > 0 && <div className="basketDock"><span>{en ? `${count} item${count === 1 ? "" : "s"} in your cart` : `கார்ட்டில் ${count} பொருட்கள்`}</span><a className="button buttonLight" href="/preorder">{en ? "Review cart" : "கார்ட்டைப் பார்க்க"}</a></div>}
       </section>
     </main>
   );
