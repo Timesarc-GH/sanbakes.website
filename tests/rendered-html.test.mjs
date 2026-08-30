@@ -18,6 +18,9 @@ test("renders the San Bakes storefront", async () => {
   assert.match(html, /Dark cacao/);
   assert.match(html, /class="heroTamil">Made in small batches, with care, after your preorder\./);
   assert.match(html, /Start a preorder/);
+  assert.match(html, /Delivery within Chennai/);
+  assert.match(html, /addresses beyond 20 km include additional distance-based charges/i);
+  assert.doesNotMatch(html, /Eggless/i);
   assert.match(html, /one continuous brownie with three topping sections/i);
   assert.match(html, /home-brownie-tins-dual-format-v3\.webp/);
   assert.match(html, /san-bakes-product-collection\.mp4/);
@@ -58,6 +61,8 @@ test("renders the complete menu and preorder route", async () => {
   assert.match(menu, /₹760/);
   assert.match(menu, /Three-Piece Brownie Tin/);
   assert.match(menu, /Whole Brownie Tin/);
+  assert.match(menu, /Egg formulation/);
+  assert.doesNotMatch(menu, /Eggless/i);
   assert.match(menu, /1 whole Brownie Tin · 3 flavour-topping sections/);
   assert.match(menu, /one continuous brownie baked as a full Tin slab—not separate pieces/i);
   assert.doesNotMatch(menu, /Brownie Tin Flight/);
@@ -72,6 +77,9 @@ test("renders the complete menu and preorder route", async () => {
   assert.match(preorder, /Place order through WhatsApp/);
   assert.match(preorder, /UPI PAYMENT/);
   assert.match(preorder, /A QR tied to the confirmed amount/);
+  assert.match(preorder, /Delivery within Chennai/);
+  assert.match(preorder, /additional charges beyond 20 km/i);
+  assert.doesNotMatch(preorder, /Eggless/i);
 });
 
 test("applies the 30% base-price revision and nearest-₹10 rounding", async () => {
@@ -120,7 +128,10 @@ test("renders the expanded customer information pages", async () => {
   assert.match(faq, /Are San Bakes products healthy/);
   assert.match(faq, /How does UPI payment work/);
   const delivery = await (await render("/delivery")).text();
-  assert.match(delivery, /20 km road radius/);
+  assert.match(delivery, /Delivery is available within Chennai/);
+  assert.match(delivery, /Beyond 20 km · Chennai/);
+  assert.match(delivery, /Live quote \+ distance surcharge/);
+  assert.match(delivery, /additional distance-based charge/);
   assert.match(delivery, /appointment pickup/i);
   const gifting = await (await render("/gifting")).text();
   assert.match(gifting, /PERSONAL GIFTING/);
@@ -163,7 +174,9 @@ test("keeps UPI payment disabled until a verified recipient is configured", asyn
 test("renders the owner pricing and approval review", async () => {
   const review = await (await render("/launch-review")).text();
   assert.match(review, /Menu, quantity and pricing approval/);
-  assert.match(review, /Same price for Egg and Eggless/);
+  assert.match(review, /Egg formulation only at launch/);
+  assert.match(review, /distance-based charge for addresses beyond 20 km/);
+  assert.doesNotMatch(review, /Eggless/i);
   assert.match(review, /Classic Brownie Tub/);
   assert.match(review, /Customer recommendations are 30% below their original base prices and rounded to the nearest ₹10/);
   assert.match(review, /Three-Piece Brownie Tin contains three separate brownie pieces/);

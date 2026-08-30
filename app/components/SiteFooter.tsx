@@ -18,7 +18,7 @@ export function SiteFooter() {
         <div><strong>{en ? "Order" : "ஆர்டர்"}</strong><a href="/preorder">{en ? "Preorder enquiry" : "முன்பதிவு விசாரணை"}</a><a href="/delivery">{en ? "Delivery & pickup" : "டெலிவரி & பிக்கப்"}</a><a href="/policies">{en ? "Policies & allergens" : "கொள்கைகள் & அலர்ஜன்கள்"}</a></div>
         <div><strong>{en ? "Gifting & business" : "பரிசுகள் & நிறுவனங்கள்"}</strong><a href="/gifting">{en ? "Personal gifting" : "தனிப்பட்ட பரிசுகள்"}</a><a href="/corporate">{en ? "Corporate orders" : "நிறுவன ஆர்டர்கள்"}</a><span>{en ? "Corporate minimum: 25 boxes or ₹15,000" : "குறைந்தபட்சம்: 25 பெட்டிகள் அல்லது ₹15,000"}</span></div>
         <div><strong>{en ? "Follow" : "பின்தொடர"}</strong><a href="https://www.instagram.com/san.homebakes/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://wa.me/919940058623" target="_blank" rel="noreferrer">WhatsApp ↗</a></div>
-        <div><strong>{en ? "Kitchen" : "சமையலறை"}</strong><span>{en ? "Pickup by confirmed appointment" : "உறுதி செய்யப்பட்ட நேரத்தில் பிக்கப்"}</span><span>{en ? "Keelkattalai, Chennai 600117" : "கீழ்க்கட்டளை, சென்னை 600117"}</span><span>{en ? "Delivery within a validated 20 km radius" : "சோதிக்கப்பட்ட 20 கி.மீ. சுற்றளவில் டெலிவரி"}</span></div>
+        <div><strong>{en ? "Kitchen" : "சமையலறை"}</strong><span>{en ? "Pickup by confirmed appointment" : "உறுதி செய்யப்பட்ட நேரத்தில் பிக்கப்"}</span><span>{en ? "Keelkattalai, Chennai 600117" : "கீழ்க்கட்டளை, சென்னை 600117"}</span><span>{en ? "Delivery within Chennai · additional charges beyond 20 km" : "சென்னை முழுவதும் டெலிவரி · 20 கி.மீ.க்கு அப்பால் கூடுதல் கட்டணம்"}</span></div>
       </div>
       <div className="footerBottom">
         <span>© 2026 San Bakes</span>

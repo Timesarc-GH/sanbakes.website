@@ -28,7 +28,7 @@ export function SiteHeader() {
   return (
     <>
       <div className="announcement">
-        <span>{language === "en" ? "Preorder only · Chennai delivery within 20 km" : "முன்பதிவு மட்டும் · சென்னையில் 20 கி.மீ. வரை"}</span>
+        <span>{language === "en" ? "Preorder only · Delivery within Chennai" : "முன்பதிவு மட்டும் · சென்னை முழுவதும் டெலிவரி"}</span>
         <span className="announcementNote">FSSAI registration pending · Preorders subject to confirmation</span>
       </div>
       <header className="siteHeader">

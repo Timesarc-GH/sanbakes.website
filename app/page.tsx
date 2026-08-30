@@ -59,8 +59,8 @@ export default function Home() {
 
       <section className="trustStrip" aria-label="Service highlights">
         <div><span>01</span><strong>{en ? "Small batch" : "குறைந்த அளவு"}</strong><p>{en ? "Home-kitchen capacity is protected so each confirmed batch gets focused attention." : "ஒவ்வொரு உறுதி செய்யப்பட்ட தொகுதியும் கவனமாக தயாரிக்கப்படுகிறது."}</p></div>
-        <div><span>02</span><strong>{en ? "Egg or eggless" : "முட்டை அல்லது முட்டையில்லா"}</strong><p>{en ? "Choose your formulation when you enquire; separate-process limitations are declared clearly." : "விசாரணையின் போது உங்கள் விருப்பத்தைத் தேர்ந்தெடுக்கலாம்."}</p></div>
-        <div><span>03</span><strong>{en ? "Preorder only" : "முன்பதிவு மட்டும்"}</strong><p>{en ? "Planned production, pickup by appointment and delivery within a validated 20 km radius." : "திட்டமிட்ட தயாரிப்பு, முன்பதிவு பிக்கப் மற்றும் 20 கி.மீ. வரை டெலிவரி."}</p></div>
+        <div><span>02</span><strong>{en ? "Made after you order" : "ஆர்டருக்குப் பிறகு தயாரிப்பு"}</strong><p>{en ? "Every confirmed batch is scheduled for its reserved date rather than held as ready stock." : "ரெடி ஸ்டாக்காக வைக்காமல், உறுதி செய்யப்பட்ட தேதிக்காக ஒவ்வொரு தொகுதியும் தயாரிக்கப்படுகிறது."}</p></div>
+        <div><span>03</span><strong>{en ? "Delivery within Chennai" : "சென்னை முழுவதும் டெலிவரி"}</strong><p>{en ? "Appointment pickup or Chennai delivery; addresses beyond 20 km include additional distance-based charges." : "முன்பதிவு பிக்கப் அல்லது சென்னை டெலிவரி; 20 கி.மீ.க்கு அப்பால் கூடுதல் தூரக் கட்டணம் சேர்க்கப்படும்."}</p></div>
       </section>
 
       <section className="collectionSection">
@@ -76,7 +76,7 @@ export default function Home() {
                 <p className="cardEyebrow">{item.label}</p>
                 <h3>{en ? item.title : item.titleTa}</h3>
                 <p>{en ? item.copy : item.copyTa}</p>
-                <div><span>{en ? "Egg & eggless options" : "முட்டை & முட்டையில்லா"}</span><a href="/menu">{en ? "View menu →" : "மெனு →"}</a></div>
+                <div><span>{en ? "Egg formulation" : "முட்டை வகை"}</span><a href="/menu">{en ? "View menu →" : "மெனு →"}</a></div>
               </div>
             </article>
           ))}

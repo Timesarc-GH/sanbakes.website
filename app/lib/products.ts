@@ -40,7 +40,7 @@ export const products: Product[] = [
     price: "₹760–₹1,110",
     status: "validation",
     image: "/images/brownie-closeup.png",
-    format: "Egg or Eggless",
+    format: "Egg formulation",
   },
   {
     id: "ragi-no-01",
@@ -52,7 +52,7 @@ export const products: Product[] = [
     price: "₹760–₹1,110",
     status: "validation",
     image: "/images/products/ragi-dark-cacao-brownie-v2.webp",
-    format: "Egg or Eggless",
+    format: "Egg formulation",
   },
   {
     id: "walnut-reserve",
@@ -64,7 +64,7 @@ export const products: Product[] = [
     price: "₹830–₹1,220",
     status: "validation",
     image: "/images/products/walnut-reserve-brownie-v2.webp",
-    format: "Egg or Eggless",
+    format: "Egg formulation",
   },
   {
     id: "pista-rose-cardamom",
@@ -76,7 +76,7 @@ export const products: Product[] = [
     price: "₹900–₹1,320",
     status: "validation",
     image: "/images/products/pista-rose-cardamom-v2.webp",
-    format: "Egg or Eggless",
+    format: "Egg formulation",
   },
   {
     id: "biscoff-crunch",
@@ -124,7 +124,7 @@ export const products: Product[] = [
     price: "₹760–₹830 recommended",
     status: "validation",
     image: "/images/products/signature-discovery-box-6-v3.webp",
-    format: "Egg or Eggless · House Six or 3+3 mix",
+    format: "Egg formulation · House Six or 3+3 mix",
   },
   {
     id: "reserve-collection",
@@ -136,7 +136,7 @@ export const products: Product[] = [
     price: "₹1,110–₹1,320 recommended",
     status: "validation",
     image: "/images/products/reserve-collection-box-9-v3.webp",
-    format: "Egg or Eggless · House Nine or mix and match",
+    format: "Egg formulation · House Nine or mix and match",
   },
   {
     id: "brownie-tin-3-piece",
@@ -196,7 +196,7 @@ export const products: Product[] = [
     price: "₹600 recommended",
     status: "coming-soon",
     image: "/images/products/ragi-dark-cacao-tea-cake-v1.webp",
-    format: "Egg or Eggless after testing",
+    format: "Egg formulation after testing",
   },
   {
     id: "pista-cardamom-tea-cake",
@@ -208,7 +208,7 @@ export const products: Product[] = [
     price: "₹670 recommended",
     status: "coming-soon",
     image: "/images/products/pista-cardamom-millet-tea-cake-v1.webp",
-    format: "Egg or Eggless after testing",
+    format: "Egg formulation after testing",
   },
   {
     id: "birthday-250",
@@ -220,7 +220,7 @@ export const products: Product[] = [
     price: "₹670–₹760 recommended",
     status: "validation",
     image: "/images/products/little-celebration-250g-v1.webp",
-    format: "Egg or Eggless · preorder 5 days ahead",
+    format: "Egg formulation · preorder 5 days ahead",
   },
   {
     id: "birthday-500",
@@ -232,7 +232,7 @@ export const products: Product[] = [
     price: "₹1,230–₹1,390 recommended",
     status: "validation",
     image: "/images/birthday-cake-500g.jpg",
-    format: "Egg or Eggless · preorder 5 days ahead",
+    format: "Egg formulation · preorder 5 days ahead",
   },
   {
     id: "birthday-1kg",
@@ -244,7 +244,7 @@ export const products: Product[] = [
     price: "₹2,210–₹2,510 recommended",
     status: "validation",
     image: "/images/birthday-cake-1kg.jpg",
-    format: "Egg or Eggless · preorder 5 days ahead",
+    format: "Egg formulation · preorder 5 days ahead",
   },
   {
     id: "mini-brownie-tower",
@@ -340,7 +340,7 @@ export const products: Product[] = [
     price: "From ₹3,060 · minimum 25",
     status: "quotation",
     image: "/images/products/party-individually-packed-brownies-v1.webp",
-    format: "25, 50 or 100 pieces · Egg or Eggless",
+    format: "25, 50 or 100 pieces · Egg formulation",
   },
   {
     id: "party-brownie-tins",
@@ -376,7 +376,7 @@ export const products: Product[] = [
     price: "₹1,110–₹2,280 recommended",
     status: "quotation",
     image: "/images/products/occasion-brownie-cake-v1.webp",
-    format: "500 g or 1 kg · Egg or Eggless · 5-day lead time",
+    format: "500 g or 1 kg · Egg formulation · 5-day lead time",
   },
 ];
 

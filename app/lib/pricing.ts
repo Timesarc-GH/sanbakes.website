@@ -23,7 +23,7 @@ const baseProductPricing: Record<string, ProductPricing> = {
     option("box-9","Box of 9 pieces","9 துண்டு பெட்டி",1590,"Recommended sharing and gifting format","பகிர்வு மற்றும் பரிசளிப்பு அளவு"),
   ]},
   "ragi-no-01": { decision:"approve", options:[
-    option("box-6","Box of 6 pieces","6 துண்டு பெட்டி",1090,"Same launch price for Egg and Eggless","முட்டை மற்றும் முட்டையில்லா வகைகளுக்கு ஒரே விலை"),
+    option("box-6","Box of 6 pieces","6 துண்டு பெட்டி",1090,"Current launch formulation uses egg","தற்போதைய அறிமுக வகையில் முட்டை பயன்படுத்தப்படுகிறது"),
     option("box-9","Box of 9 pieces","9 துண்டு பெட்டி",1590,"Recommended sharing and gifting format","பகிர்வு மற்றும் பரிசளிப்பு அளவு"),
   ]},
   "walnut-reserve": { decision:"approve", options:[
