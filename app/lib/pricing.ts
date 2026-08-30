@@ -47,21 +47,26 @@ const baseProductPricing: Record<string, ProductPricing> = {
     option("box-9","Seasonal box of 9","பருவகால 9 துண்டு பெட்டி",1890,"Limited verified dates only","சோதிக்கப்பட்ட குறிப்பிட்ட தேதிகளில் மட்டும்"),
   ]},
   "signature-discovery-box": { decision:"approve", options:[
-    option("box-6","6 pieces · curated flavours","6 துண்டுகள் · தேர்ந்தெடுத்த சுவைகள்",1090,"One controlled flavour mix selected by San Bakes","San Bakes தேர்ந்தெடுக்கும் கட்டுப்படுத்தப்பட்ட சுவை கலவை"),
+    option("house-six","House Six · one of each listed flavour","ஹவுஸ் சிக்ஸ் · பட்டியலிட்ட ஒவ்வொரு சுவையிலும் ஒன்று",1090,"Dark Cacao, Walnut, Pista, Strawberry, Biscoff and Wafer when all are validated","அனைத்தும் சோதிக்கப்பட்டால் டார்க் காகாவ், வால்நட், பிஸ்தா, ஸ்ட்ராபெரி, பிஸ்காஃப் மற்றும் வேஃபர்"),
+    option("ragi-walnut-3-3","3 Ragi + 3 Walnut Reserve","3 ராகி + 3 வால்நட் ரிசர்வ்",1150,"Recommended two-flavour mix; one formulation per box","பரிந்துரைக்கப்பட்ட இரண்டு சுவை கலவை; ஒரு பெட்டிக்கு ஒரே வகை"),
+    option("choose-two-3-3","Choose 2 validated flavours · 3+3","சோதிக்கப்பட்ட 2 சுவைகள் · 3+3",1190,"Premium and seasonal flavours may be subject to availability","பிரீமியம் மற்றும் பருவகால சுவைகள் கிடைப்பதற்கு உட்பட்டவை"),
   ]},
   "reserve-collection": { decision:"approve", options:[
-    option("box-9","9 pieces · curated flavours","9 துண்டுகள் · தேர்ந்தெடுத்த சுவைகள்",1590,"Best-value premium sharing format","பிரீமியம் பகிர்வுக்கான பரிந்துரைக்கப்பட்ட அளவு"),
+    option("house-nine","House Nine · curated assortment","ஹவுஸ் நைன் · தேர்ந்தெடுத்த கலவை",1590,"Six flavour identities with three considered repeats","ஆறு சுவைகளுடன் கவனமாக தேர்ந்தெடுத்த மூன்று மறுபதிப்புகள்"),
+    option("ragi-walnut-pista-3-3-3","3 Ragi + 3 Walnut + 3 Pista","3 ராகி + 3 வால்நட் + 3 பிஸ்தா",1790,"Recommended three-flavour mix; one formulation per box","பரிந்துரைக்கப்பட்ட மூன்று சுவை கலவை; ஒரு பெட்டிக்கு ஒரே வகை"),
+    option("six-flavour-nine","Six-flavour mix · 9 pieces","ஆறு சுவை கலவை · 9 துண்டுகள்",1890,"One of each available flavour plus three customer-selected repeats","கிடைக்கும் ஒவ்வொரு சுவையிலும் ஒன்று மற்றும் வாடிக்கையாளர் தேர்ந்தெடுக்கும் மூன்று மறுபதிப்புகள்"),
   ]},
   "brownie-tin-3-piece": { decision:"conditional", options:[
-    option("same-classic","Same-flavour classic · 3 pieces","ஒரே கிளாசிக் சுவை · 3 துண்டுகள்",549,"Dark Cacao or Biscoff; final flavour confirmed personally","டார்க் காகாவ் அல்லது பிஸ்காஃப்; இறுதி சுவை தனிப்பட்ட முறையில் உறுதி செய்யப்படும்"),
-    option("same-premium","Same-flavour premium · 3 pieces","ஒரே பிரீமியம் சுவை · 3 துண்டுகள்",649,"Walnut, Pista, seasonal strawberry or chocolate wafer; availability applies","வால்நட், பிஸ்தா, பருவகால ஸ்ட்ராபெரி அல்லது சாக்லேட் வேஃபர்; கிடைப்பதற்கு உட்பட்டது"),
-    option("curated-assorted","Curated assorted · 3 pieces","தேர்ந்தெடுத்த கலவை · 3 துண்டுகள்",625,"Three flavours selected from the validated six-flavour Tin list","சோதிக்கப்பட்ட ஆறு சுவை டின் பட்டியலிலிருந்து மூன்று சுவைகள் தேர்ந்தெடுக்கப்படும்"),
+    option("one-flavour-classic","1 flavour · 3 Classic pieces","1 சுவை · 3 கிளாசிக் துண்டுகள்",549,"Three matching Dark Cacao or Ragi pieces","ஒரே டார்க் காகாவ் அல்லது ராகி சுவையில் மூன்று துண்டுகள்"),
+    option("two-flavour-duo","2 flavours · 2+1 composition","2 சுவைகள் · 2+1 கலவை",599,"Choose two confirmed flavours; premium availability applies","உறுதி செய்யப்பட்ட இரண்டு சுவைகளைத் தேர்வு செய்யலாம்; பிரீமியம் கிடைப்புக்கு உட்பட்டது"),
+    option("three-flavour-trio","3 flavours · 1+1+1 composition","3 சுவைகள் · 1+1+1 கலவை",625,"Choose three confirmed flavours for one Tin","ஒரு டினுக்கு உறுதி செய்யப்பட்ட மூன்று சுவைகளைத் தேர்வு செய்யலாம்"),
+    option("one-flavour-premium","1 premium flavour · 3 pieces","1 பிரீமியம் சுவை · 3 துண்டுகள்",649,"Walnut, Pista or a validated seasonal/confectionery flavour","வால்நட், பிஸ்தா அல்லது சோதிக்கப்பட்ட பருவகால/கான்ஃபெக்ஷனரி சுவை"),
   ]},
   "brownie-tin-flight": { decision:"conditional", options:[
     option("flight-2","2 Tins · 6 pieces","2 டின்கள் · 6 துண்டுகள்",1190,"Same-flavour or assorted after confirmation","உறுதிப்படுத்திய பிறகு ஒரே சுவை அல்லது கலவை"),
     option("flight-3","3 Tins · 9 pieces","3 டின்கள் · 9 துண்டுகள்",1740,"Recommended sharing and gifting flight","பகிர்வு மற்றும் பரிசளிப்புக்கான பரிந்துரைக்கப்பட்ட தொகுப்பு"),
-    option("flight-5","5 Tins · 15 pieces","5 டின்கள் · 15 துண்டுகள்",2850,"Choose five of the six validated Tin flavours","சோதிக்கப்பட்ட ஆறு டின் சுவைகளிலிருந்து ஐந்தைத் தேர்வு செய்யலாம்"),
-    option("flight-6","6-Tin Full Flavour Flight · 18 pieces","6 டின் முழு சுவை தொகுப்பு · 18 துண்டுகள்",3390,"One Tin of every validated flavour when all six are available","ஆறு சுவைகளும் கிடைக்கும் போது ஒவ்வொரு சுவையிலும் ஒரு டின்"),
+    option("flight-5","5 Tins · 15 pieces","5 டின்கள் · 15 துண்டுகள்",2850,"Choose five confirmed Tin flavours","உறுதி செய்யப்பட்ட டின் சுவைகளிலிருந்து ஐந்தைத் தேர்வு செய்யலாம்"),
+    option("flight-6","6-Tin Full Flavour Flight · 18 pieces","6 டின் முழு சுவை தொகுப்பு · 18 துண்டுகள்",3390,"Choose six confirmed flavours when availability allows","கிடைப்புக்கு ஏற்ப உறுதி செய்யப்பட்ட ஆறு சுவைகளைத் தேர்வு செய்யலாம்"),
   ]},
   "classic-brownie-tub": { decision:"conditional", options:[
     option("single-tub","1 regular tub · target 250 g","1 சாதாரண டப் · இலக்கு 250 கிராம்",449,"Recommended replacement for the historical ₹299 price","பழைய ₹299 விலைக்குப் பதிலான பரிந்துரை"),
@@ -97,16 +102,24 @@ const baseProductPricing: Record<string, ProductPricing> = {
   ]},
   "cupcake-ragi": { decision:"conditional", options:[
     option("box-6","Box of 6 cupcakes","6 கப் கேக் பெட்டி",1290,"Release only after transport test","போக்குவரத்து சோதனைக்குப் பிறகு மட்டும்"),
+    option("box-9","Box of 9 cupcakes","9 கப் கேக் பெட்டி",1890,"Single flavour; 5-day preorder after launch","ஒரே சுவை; அறிமுகத்திற்குப் பிறகு 5 நாள் முன்பதிவு"),
     option("box-12","Box of 12 cupcakes","12 கப் கேக் பெட்டி",2490,"Single flavour and finish","ஒரே சுவை மற்றும் அலங்காரம்"),
   ]},
   "cupcake-pista": { decision:"conditional", options:[
     option("box-6","Box of 6 cupcakes","6 கப் கேக் பெட்டி",1390,"Pistachio premium; transport test pending","பிஸ்தா பிரீமியம்; போக்குவரத்து சோதனை நிலுவையில்"),
+    option("box-9","Box of 9 cupcakes","9 கப் கேக் பெட்டி",2090,"Single flavour; 5-day preorder after launch","ஒரே சுவை; அறிமுகத்திற்குப் பிறகு 5 நாள் முன்பதிவு"),
     option("box-12","Box of 12 cupcakes","12 கப் கேக் பெட்டி",2690,"Single flavour and finish","ஒரே சுவை மற்றும் அலங்காரம்"),
   ]},
+  "cupcake-discovery": { decision:"conditional", options:[
+    option("box-6","Discovery box of 6 · one of each","6 டிஸ்கவரி பெட்டி · ஒவ்வொரு சுவையிலும் ஒன்று",1390,"Six planned flavours; only validated flavours will launch","திட்டமிட்ட ஆறு சுவைகள்; சோதிக்கப்பட்டவை மட்டுமே அறிமுகமாகும்"),
+    option("box-9","Discovery box of 9 · six flavours + 3 repeats","9 டிஸ்கவரி பெட்டி · ஆறு சுவைகள் + 3 மறுபதிப்புகள்",2090,"Customer selects three repeats after availability confirmation","கிடைப்பை உறுதி செய்த பிறகு மூன்று மறுபதிப்புகளைத் தேர்வு செய்யலாம்"),
+    option("box-12","Discovery box of 12 · two of each","12 டிஸ்கவரி பெட்டி · ஒவ்வொரு சுவையிலும் இரண்டு",2690,"Balanced paired assortment across the six planned flavours","திட்டமிட்ட ஆறு சுவைகளில் சமமான ஜோடி கலவை"),
+  ]},
   "corporate-mini-box": { decision:"quotation", options:[
-    option("tier-25","25–49 boxes · price per box","25–49 பெட்டிகள் · ஒரு பெட்டியின் விலை",690,"Up to two flavours; one common message","இரண்டு சுவைகள் வரை; ஒரு பொதுவான செய்தி"),
-    option("tier-50","50–99 boxes · price per box","50–99 பெட்டிகள் · ஒரு பெட்டியின் விலை",655,"Up to 5% volume adjustment","5% வரை அளவு விலை மாற்றம்"),
-    option("tier-100","100+ boxes · price per box","100+ பெட்டிகள் · ஒரு பெட்டியின் விலை",635,"Up to 8% adjustment; margin floor still applies","8% வரை மாற்றம்; மார்ஜின் வரம்பு பொருந்தும்"),
+    option("tier-25-ragi-walnut","25–49 boxes · 2 Ragi + 2 Walnut · per box","25–49 பெட்டிகள் · 2 ராகி + 2 வால்நட் · ஒரு பெட்டி",690,"Recommended lead composition; one common message","பரிந்துரைக்கப்பட்ட முக்கிய கலவை; ஒரு பொதுவான செய்தி"),
+    option("tier-25-four-flavour","25–49 boxes · 4-flavour curated · per box","25–49 பெட்டிகள் · 4 சுவை கலவை · ஒரு பெட்டி",745,"One of four confirmed flavours; premium ingredients included","உறுதி செய்யப்பட்ட நான்கு சுவைகளில் ஒவ்வொன்றும் ஒன்று; பிரீமியம் பொருட்கள் சேர்க்கப்பட்டுள்ளன"),
+    option("tier-50","50–99 boxes · 2 Ragi + 2 Walnut · per box","50–99 பெட்டிகள் · 2 ராகி + 2 வால்நட் · ஒரு பெட்டி",655,"Controlled 2+2 mix and one common message","கட்டுப்படுத்தப்பட்ட 2+2 கலவை மற்றும் ஒரு பொதுவான செய்தி"),
+    option("tier-100","100+ boxes · 2 Ragi + 2 Walnut · per box","100+ பெட்டிகள் · 2 ராகி + 2 வால்நட் · ஒரு பெட்டி",635,"Margin floor and home-kitchen capacity approval still apply","மார்ஜின் வரம்பும் வீட்டு சமையலறை திறன் அனுமதியும் பொருந்தும்"),
   ]},
   "seasonal-hamper": { decision:"conditional", options:[
     option("classic-hamper","Classic seasonal hamper","கிளாசிக் பருவகால ஹாம்பர்",1990,"Final contents fixed for each season","ஒவ்வொரு பருவத்திற்கும் இறுதி உள்ளடக்கம் நிர்ணயிக்கப்படும்"),

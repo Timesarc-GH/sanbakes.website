@@ -65,9 +65,25 @@ test("renders the complete menu and preorder route", async () => {
   assert.match(menu, /10 Classic three-piece Tins/);
   assert.match(menu, /Party Brownie Tubs/);
   assert.match(menu, /Occasion Brownie Cake/);
+  assert.match(menu, /Cupcakes have their own planned-launch page/);
+  assert.doesNotMatch(menu, /Dark Cacao Ragi Cupcake Collection/);
   const preorder = await (await render("/preorder")).text();
   assert.match(preorder, /Send request on WhatsApp/);
   assert.match(preorder, /No payment will be collected here/);
+});
+
+test("renders Cupcakes as a separate planned-launch collection", async () => {
+  const cupcakes = await (await render("/cupcakes")).text();
+  assert.match(cupcakes, /PLANNED NEW LAUNCH · COMING SOON/);
+  assert.match(cupcakes, /Dark Cacao Ragi Cupcake Collection/);
+  assert.match(cupcakes, /Pista Cardamom Cupcake Collection/);
+  assert.match(cupcakes, /Cupcake Discovery Collection/);
+  assert.match(cupcakes, /Box of 6 cupcakes/);
+  assert.match(cupcakes, /Box of 9 cupcakes/);
+  assert.match(cupcakes, /Box of 12 cupcakes/);
+  assert.match(cupcakes, /Discovery box of 12 · two of each/);
+  assert.match(cupcakes, /Add planned option to enquiry/);
+  assert.match(cupcakes, /transport test/);
 });
 
 test("renders the expanded customer information pages", async () => {
@@ -110,7 +126,9 @@ test("renders the owner pricing and approval review", async () => {
   assert.match(review, /Classic Brownie Tub/);
   assert.match(review, /Legacy consumer recommendations are 15% below the previous proposal/);
   assert.match(review, /3 Tins · 9 pieces/);
-  assert.match(review, /six flavours are Dark Cacao, Walnut Reserve/);
+  assert.match(review, /3\+0, 2\+1 or 1\+1\+1 flavour composition/);
+  assert.match(review, /Ragi Dark Cacao, Walnut Reserve/);
+  assert.match(review, /boxes of 6, 9 and 12/);
   assert.match(review, /DOMAIN PURCHASE STATUS/);
   assert.match(review, /sanbakes\.com/);
   assert.match(review, /₹449/);

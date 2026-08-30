@@ -67,7 +67,7 @@ export default function Home() {
       <section className="collectionSection">
         <div className="sectionHeading">
           <div><p className="eyebrow dark">THE OPENING COLLECTION</p><h2>{en ? "Familiar pleasure, considered differently." : "பழக்கமான சுவை, புதிய கவனத்துடன்."}</h2></div>
-          <p>{en ? "A focused menu spanning signature brownies, true Brownie Tins, Brownie Tubs, millet tea cakes, cupcakes, birthday and party formats, personal gifting and corporate orders." : "சிக்னேச்சர் பிரௌனிகள், பிரௌனி டின்கள், பிரௌனி டப்கள், சிறுதானிய டீ கேக்குகள், கப் கேக்குகள், பிறந்தநாள் மற்றும் பார்ட்டி வடிவங்கள், தனிப்பட்ட பரிசுகள் மற்றும் நிறுவன ஆர்டர்கள்."}</p>
+          <p>{en ? "A focused menu spanning signature brownies, true Brownie Tins, Brownie Tubs, millet tea cakes, birthday and party formats, personal gifting and corporate orders—with Cupcakes presented separately as a planned launch." : "சிக்னேச்சர் பிரௌனிகள், பிரௌனி டின்கள், பிரௌனி டப்கள், சிறுதானிய டீ கேக்குகள், பிறந்தநாள் மற்றும் பார்ட்டி வடிவங்கள், பரிசுகள் மற்றும் நிறுவன ஆர்டர்கள்; கப் கேக்குகள் தனி திட்டமிட்ட அறிமுகமாக வழங்கப்படுகின்றன."}</p>
         </div>
         <div className="productGrid">
           {featured.map((item) => (

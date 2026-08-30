@@ -606,3 +606,62 @@ h1 { margin: 0; font-size: clamp(52px, 6.3vw, 94px); line-height: .94; letter-sp
   .validationGrid article { min-height: 280px; }
   .approvalPrompt { padding: 38px 25px; }
 }
+
+/* Dedicated planned-launch Cupcakes collection */
+.menuCrossLink { display: flex; justify-content: space-between; align-items: center; gap: 30px; margin: 34px 0 26px; padding: 24px 28px; border-left: 4px solid var(--pistachio); background: #e4e5cf; }
+.menuCrossLink > div { display: grid; gap: 7px; }
+.menuCrossLink strong { font-family: Georgia, serif; font-size: 18px; font-weight: 400; }
+.menuCrossLink span { color: #6e6953; font-size: 10px; line-height: 1.55; }
+.menuCrossLink .button { flex: 0 0 auto; }
+.cupcakePage { background: #eee8df; }
+.cupcakeHero { display: grid; grid-template-columns: 1.45fr .55fr; gap: 8vw; align-items: end; padding: 110px 8vw 120px; background: radial-gradient(circle at 88% 20%, rgba(118,115,73,.72), transparent 30%), var(--cacao); color: white; }
+.cupcakeHero h1 { max-width: 1000px; margin: 0; font-size: clamp(54px, 7vw, 104px); line-height: .94; letter-spacing: -.045em; }
+.cupcakeHero > div > p:not(.eyebrow) { max-width: 790px; margin: 30px 0 0; color: #dbc9bd; font-size: 14px; line-height: 1.8; }
+.cupcakeHeroActions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+.cupcakeHero aside { padding: 28px; border-top: 1px solid rgba(255,255,255,.3); border-bottom: 1px solid rgba(255,255,255,.3); }
+.cupcakeHero aside span { display: block; color: #cfc9a7; font-size: 8px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.cupcakeHero aside strong { display: block; margin: 16px 0; font-family: Georgia, serif; font-size: 25px; font-weight: 400; }
+.cupcakeHero aside p { margin: 0; color: #d5c2b6; font-size: 10px; line-height: 1.7; }
+.cupcakePlan { max-width: 1500px; margin: 0 auto; padding: 100px 5vw 80px; }
+.cupcakePlanIntro { display: grid; grid-template-columns: 1fr 1fr; gap: 7vw; align-items: end; margin-bottom: 42px; }
+.cupcakePlanIntro .eyebrow { grid-column: 1; }
+.cupcakePlanIntro h2 { grid-column: 1; margin: 0; font-size: clamp(42px, 5vw, 72px); line-height: .98; letter-spacing: -.035em; }
+.cupcakePlanIntro > p:last-child { grid-column: 2; grid-row: 1/3; margin: 0; color: #77645b; font-size: 12px; line-height: 1.75; }
+.cupcakeFacts { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.cupcakeFacts article { min-height: 240px; display: grid; align-content: space-between; gap: 20px; padding: 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--cream); }
+.cupcakeFacts span { color: #9a725e; font-family: Georgia, serif; font-size: 31px; font-style: italic; }
+.cupcakeFacts strong { font-family: Georgia, serif; font-size: 25px; font-weight: 400; }
+.cupcakeFacts p { margin: 0; color: #79685f; font-size: 10px; line-height: 1.65; }
+.cupcakeFlavours { display: grid; grid-template-columns: .7fr 1.3fr; gap: 8vw; padding: 90px 8vw; background: #2b1d18; color: white; }
+.cupcakeFlavours h2 { max-width: 560px; margin: 0; font-size: clamp(42px, 5vw, 72px); line-height: 1; letter-spacing: -.035em; }
+.cupcakeFlavours ol { margin: 0; padding: 0; list-style: none; border-top: 1px solid rgba(255,255,255,.19); }
+.cupcakeFlavours li { display: grid; grid-template-columns: 44px 1fr auto; gap: 20px; align-items: center; padding: 19px 0; border-bottom: 1px solid rgba(255,255,255,.19); }
+.cupcakeFlavours li span { color: #b7b187; font-family: Georgia, serif; font-style: italic; }
+.cupcakeFlavours li strong { font-family: Georgia, serif; font-size: 19px; font-weight: 400; }
+.cupcakeFlavours li small { color: #c9b6aa; font-size: 9px; }
+.cupcakeCollection { padding-top: 90px; scroll-margin-top: 100px; }
+.cupcakeGate { display: grid; grid-template-columns: .75fr 1.25fr; gap: 8vw; padding: 95px 8vw 115px; background: #e4e5cf; }
+.cupcakeGate h2 { max-width: 650px; margin: 0; font-size: clamp(40px, 4.8vw, 68px); line-height: 1; letter-spacing: -.035em; }
+.cupcakeGate ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid rgba(43,33,29,.2); }
+.cupcakeGate li { padding: 18px 0 18px 28px; border-bottom: 1px solid rgba(43,33,29,.2); color: #6f6655; font-size: 11px; line-height: 1.65; position: relative; }
+.cupcakeGate li::before { content: "•"; position: absolute; left: 3px; color: #7b7752; }
+
+@media (max-width: 900px) {
+  .cupcakeHero, .cupcakePlanIntro, .cupcakeFlavours, .cupcakeGate { grid-template-columns: 1fr; }
+  .cupcakeHero aside { max-width: 520px; }
+  .cupcakePlanIntro > p:last-child { grid-column: 1; grid-row: auto; }
+  .cupcakeFacts { grid-template-columns: 1fr; }
+  .cupcakeFacts article { min-height: 190px; }
+}
+
+@media (max-width: 620px) {
+  .menuCrossLink { align-items: stretch; flex-direction: column; padding: 22px; }
+  .cupcakeHero { padding: 82px 5vw 90px; }
+  .cupcakeHeroActions { align-items: stretch; flex-direction: column; }
+  .cupcakePlan { padding: 78px 5vw 65px; }
+  .cupcakeFlavours { padding: 75px 6vw; }
+  .cupcakeFlavours li { grid-template-columns: 36px 1fr; gap: 10px; }
+  .cupcakeFlavours li small { grid-column: 2; }
+  .cupcakeCollection { padding-top: 70px; }
+  .cupcakeGate { padding: 75px 6vw 90px; }
+}

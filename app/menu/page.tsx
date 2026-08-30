@@ -6,22 +6,24 @@ import { useMemo, useState } from "react";
 import { useLanguage } from "../components/LanguageProvider";
 import { usePreorder } from "../components/PreorderProvider";
 import { decisionLabel, formatPrice, getPricing, makeSelectionKey } from "../lib/pricing";
-import { categories, products, statusLabel } from "../lib/products";
+import { categories, menuCategories, products, statusLabel } from "../lib/products";
 
 const groupedCategoryProducts: Record<string, Set<string>> = {
   gifting: new Set(["signature-discovery-box", "reserve-collection", "brownie-tin-3-piece", "brownie-tin-flight", "seasonal-hamper"]),
   corporate: new Set(["corporate-mini-box", "bespoke-corporate", "party-single-brownies", "party-brownie-tins", "party-brownie-tubs"]),
 };
 
+const mainMenuProducts = products.filter((product) => product.category !== "cupcakes");
+
 export default function MenuPage() {
   const query = useSearchParams();
   const initial = query.get("category");
-  const [active, setActive] = useState(initial && categories.some((c) => c.id === initial) ? initial : "all");
+  const [active, setActive] = useState(initial && menuCategories.some((c) => c.id === initial) ? initial : "all");
   const [selectedOptions, setSelectedOptions] = useState<Record<string,string>>({});
   const { language } = useLanguage();
   const { addItem, count } = usePreorder();
   const en = language === "en";
-  const visible = useMemo(() => active === "all" ? products : products.filter((product) => groupedCategoryProducts[active]?.has(product.id) ?? product.category === active), [active]);
+  const visible = useMemo(() => active === "all" ? mainMenuProducts : mainMenuProducts.filter((product) => groupedCategoryProducts[active]?.has(product.id) ?? product.category === active), [active]);
 
   return (
     <main>
@@ -38,14 +40,14 @@ export default function MenuPage() {
             <div><strong>{en ? "Brownie Tins" : "பிரௌனி டின்கள்"}</strong><span>₹549–₹3,390</span><small>{en ? "3 pieces per Tin · single or 2/3/5/6-Tin flights" : "ஒரு டினில் 3 துண்டுகள் · ஒரு டின் அல்லது 2/3/5/6 டின் தொகுப்பு"}</small></div>
             <div><strong>{en ? "Millet tea cakes" : "சிறுதானிய டீ கேக்குகள்"}</strong><span>₹723–₹808</span><small>{en ? "Recipe/yield validation pending" : "ரெசிபி சோதனை நிலுவையில்"}</small></div>
             <div><strong>{en ? "Birthdays & parties" : "பிறந்தநாள் & பார்ட்டி"}</strong><span>{en ? "Cakes ₹808–₹3,250" : "கேக்குகள் ₹808–₹3,250"}</span><small>{en ? "Packed brownies from 25 · Tins/Tubs from 10" : "தனித்தனி பிரௌனிகள் 25 முதல் · டின்கள்/டப்கள் 10 முதல்"}</small></div>
-            <div><strong>{en ? "Cupcakes" : "கப் கேக்குகள்"}</strong><span>{en ? "Planning ₹1,097 / 6" : "திட்ட விலை ₹1,097 / 6"}</span><small>{en ? "Transport test pending" : "போக்குவரத்து சோதனை நிலுவையில்"}</small></div>
             <div><strong>{en ? "Brownie Tubs" : "பிரௌனி டப்கள்"}</strong><span>₹382–₹467</span><small>{en ? "Revised single-tub prices · validation required" : "திருத்திய ஒரு டப் விலை · சோதனை தேவை"}</small></div>
             <div><strong>{en ? "Personal gifting" : "தனிப்பட்ட பரிசுகள்"}</strong><span>₹927–₹2,990</span><small>{en ? "Curated boxes, Tins and seasonal hampers" : "தேர்ந்தெடுத்த பெட்டிகள், டின்கள் மற்றும் பருவகால ஹாம்பர்கள்"}</small></div>
             <div><strong>{en ? "Corporate" : "நிறுவன ஆர்டர்கள்"}</strong><span>{en ? "From 25 boxes / ₹15,000" : "25 பெட்டிகள் / ₹15,000 முதல்"}</span><small>{en ? "Separate proposal, branding and fulfilment rules" : "தனி விலை, பிராண்டிங் மற்றும் நிறைவேற்றும் விதிகள்"}</small></div>
           </div>
         </div>
+        <div className="menuCrossLink"><div><strong>{en ? "Cupcakes have their own planned-launch page." : "கப் கேக்குகளுக்கு தனி திட்டமிட்ட அறிமுக பக்கம் உள்ளது."}</strong><span>{en ? "Preview boxes of 6, 9 and 12, the proposed flavours and validation gates." : "6, 9 மற்றும் 12 பெட்டிகள், திட்டமிட்ட சுவைகள் மற்றும் சோதனை நிலைகளைப் பாருங்கள்."}</span></div><a className="button buttonCacao" href="/cupcakes">{en ? "Preview Cupcakes" : "கப் கேக்குகளைப் பார்க்க"}</a></div>
         <div className="filterBar" aria-label="Filter menu by collection">
-          {categories.map((category) => <button className={active === category.id ? "active" : ""} key={category.id} onClick={() => setActive(category.id)} type="button">{en ? category.name : category.nameTa}</button>)}
+          {menuCategories.map((category) => <button className={active === category.id ? "active" : ""} key={category.id} onClick={() => setActive(category.id)} type="button">{en ? category.name : category.nameTa}</button>)}
         </div>
         <div className="menuNotice"><strong>{en ? "Enquiry mode" : "விசாரணை நிலை"}</strong><span>{en ? "Online checkout is intentionally disabled while FSSAI registration and final recipe validation are pending." : "FSSAI பதிவு மற்றும் இறுதி ரெசிபி சோதனை நிலுவையில் உள்ளதால் ஆன்லைன் கட்டணம் முடக்கப்பட்டுள்ளது."}</span></div>
         <div className="menuGrid">
