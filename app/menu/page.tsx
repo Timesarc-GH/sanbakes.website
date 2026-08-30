@@ -30,12 +30,12 @@ export default function MenuPage() {
         <div className="priceGuide">
           <div className="priceGuideHead"><p className="eyebrow dark">{en ? "LAUNCH PRICING GUIDE" : "அறிமுக விலை வழிகாட்டி"}</p><h2>{en ? "A clear starting point." : "தெளிவான தொடக்க விலை."}</h2><p>{en ? "These are recommended planning prices. A WhatsApp confirmation will state the final recipe, size, customisation, delivery fee and total before payment." : "இவை பரிந்துரைக்கப்பட்ட திட்டமிட்ட விலைகள். கட்டணத்திற்கு முன் இறுதி ரெசிபி, அளவு, தனிப்பயன், டெலிவரி மற்றும் மொத்த விலை WhatsApp மூலம் உறுதி செய்யப்படும்."}</p></div>
           <div className="priceGuideGrid">
-            <div><strong>{en ? "Brownie boxes" : "பிரௌனி பெட்டிகள்"}</strong><span>₹1,090–₹1,590</span><small>{en ? "6 or 9 pieces" : "6 அல்லது 9 துண்டுகள்"}</small></div>
-            <div><strong>{en ? "Brownie Tins" : "பிரௌனி டின்கள்"}</strong><span>₹590–₹790</span><small>{en ? "After net-weight validation" : "எடை சோதனைக்குப் பிறகு"}</small></div>
-            <div><strong>{en ? "Millet tea cakes" : "சிறுதானிய டீ கேக்குகள்"}</strong><span>₹850–₹950</span><small>{en ? "Recipe/yield validation pending" : "ரெசிபி சோதனை நிலுவையில்"}</small></div>
-            <div><strong>{en ? "Birthday brownie cakes" : "பிறந்தநாள் பிரௌனி கேக்குகள்"}</strong><span>₹950–₹3,150</span><small>{en ? "250 g to 1 kg" : "250 கிராம் முதல் 1 கிலோ"}</small></div>
-            <div><strong>{en ? "Cupcakes" : "கப் கேக்குகள்"}</strong><span>{en ? "Planning ₹1,290 / 6" : "திட்ட விலை ₹1,290 / 6"}</span><small>{en ? "Transport test pending" : "போக்குவரத்து சோதனை நிலுவையில்"}</small></div>
-            <div><strong>{en ? "Brownie Tubs" : "பிரௌனி டப்கள்"}</strong><span>₹449–₹549</span><small>{en ? "Recommended single-tub prices · validation required" : "பரிந்துரைக்கப்பட்ட ஒரு டப் விலை · சோதனை தேவை"}</small></div>
+            <div><strong>{en ? "Brownie boxes" : "பிரௌனி பெட்டிகள்"}</strong><span>₹927–₹1,352</span><small>{en ? "Core 6 or 9-piece boxes" : "முக்கிய 6 அல்லது 9 துண்டு பெட்டிகள்"}</small></div>
+            <div><strong>{en ? "Brownie Tins" : "பிரௌனி டின்கள்"}</strong><span>₹502–₹672</span><small>{en ? "After net-weight validation" : "எடை சோதனைக்குப் பிறகு"}</small></div>
+            <div><strong>{en ? "Millet tea cakes" : "சிறுதானிய டீ கேக்குகள்"}</strong><span>₹723–₹808</span><small>{en ? "Recipe/yield validation pending" : "ரெசிபி சோதனை நிலுவையில்"}</small></div>
+            <div><strong>{en ? "Birthday brownie cakes" : "பிறந்தநாள் பிரௌனி கேக்குகள்"}</strong><span>₹808–₹2,678</span><small>{en ? "Classic finish · 250 g to 1 kg" : "கிளாசிக் அலங்காரம் · 250 கிராம் முதல் 1 கிலோ"}</small></div>
+            <div><strong>{en ? "Cupcakes" : "கப் கேக்குகள்"}</strong><span>{en ? "Planning ₹1,097 / 6" : "திட்ட விலை ₹1,097 / 6"}</span><small>{en ? "Transport test pending" : "போக்குவரத்து சோதனை நிலுவையில்"}</small></div>
+            <div><strong>{en ? "Brownie Tubs" : "பிரௌனி டப்கள்"}</strong><span>₹382–₹467</span><small>{en ? "Revised single-tub prices · validation required" : "திருத்திய ஒரு டப் விலை · சோதனை தேவை"}</small></div>
           </div>
         </div>
         <div className="filterBar" aria-label="Filter menu by collection">

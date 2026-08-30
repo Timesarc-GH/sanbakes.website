@@ -5,6 +5,7 @@ export type PricingOption = {
   label: string;
   labelTa: string;
   price: number | null;
+  originalPrice?: number;
   note: string;
   noteTa: string;
 };
@@ -16,7 +17,7 @@ export type ProductPricing = {
 
 const option = (id:string, label:string, labelTa:string, price:number|null, note:string, noteTa:string): PricingOption => ({ id, label, labelTa, price, note, noteTa });
 
-export const productPricing: Record<string, ProductPricing> = {
+const baseProductPricing: Record<string, ProductPricing> = {
   "dark-cacao-sea-salt": { decision:"approve", options:[
     option("box-6","Box of 6 pieces","6 துண்டு பெட்டி",1090,"Recommended core launch format","பரிந்துரைக்கப்பட்ட முக்கிய அறிமுக அளவு"),
     option("box-9","Box of 9 pieces","9 துண்டு பெட்டி",1590,"Recommended sharing and gifting format","பகிர்வு மற்றும் பரிசளிப்பு அளவு"),
@@ -116,6 +117,27 @@ export const productPricing: Record<string, ProductPricing> = {
     option("proposal","Custom proposal · minimum 25 boxes or ₹15,000","தனிப்பயன் விலை · குறைந்தபட்சம் 25 பெட்டிகள் அல்லது ₹15,000",null,"7–21 day lead time based on branding and addresses","பிராண்டிங் மற்றும் முகவரிகளுக்கு ஏற்ப 7–21 நாட்கள்"),
   ]},
 };
+
+export const priceRevisionPercent = 15;
+export const priceRevisionExclusions = new Set([
+  "corporate-mini-box",
+  "seasonal-hamper",
+  "bespoke-corporate",
+]);
+
+export const productPricing: Record<string, ProductPricing> = Object.fromEntries(
+  Object.entries(baseProductPricing).map(([productId, pricing]) => [
+    productId,
+    priceRevisionExclusions.has(productId) ? pricing : {
+      ...pricing,
+      options: pricing.options.map((item) => item.price === null ? item : {
+        ...item,
+        originalPrice: item.price,
+        price: Math.round(item.price * (1 - priceRevisionPercent / 100)),
+      }),
+    },
+  ]),
+);
 
 export const formatPrice = (price:number|null) => price === null ? "By quotation" : new Intl.NumberFormat("en-IN", { style:"currency", currency:"INR", maximumFractionDigits:0 }).format(price);
 export const makeSelectionKey = (productId:string, optionId:string) => `${productId}::${optionId}`;

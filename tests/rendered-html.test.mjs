@@ -26,7 +26,8 @@ test("renders the complete menu and preorder route", async () => {
   assert.match(menu, /Millet Tea Cakes/);
   assert.match(menu, /The Grand Celebration/);
   assert.match(menu, /Pack \/ quantity option/);
-  assert.match(menu, /₹449/);
+  assert.match(menu, /₹382/);
+  assert.match(menu, /₹927/);
   const preorder = await (await render("/preorder")).text();
   assert.match(preorder, /Send request on WhatsApp/);
   assert.match(preorder, /No payment will be collected here/);
@@ -50,6 +51,13 @@ test("renders the owner pricing and approval review", async () => {
   assert.match(review, /Menu, quantity and pricing approval/);
   assert.match(review, /Same price for Egg and Eggless/);
   assert.match(review, /Classic Brownie Tub/);
+  assert.match(review, /15% below the previous proposal/);
+  assert.match(review, /DOMAIN PURCHASE STATUS/);
+  assert.match(review, /sanbakes\.com/);
+  assert.match(review, /₹449/);
+  assert.match(review, /₹382/);
+  assert.match(review, /Corporate Mini Box/);
+  assert.match(review, /₹635/);
   assert.match(review, /Pending owner approval/);
   assert.match(review, /name="robots" content="noindex, nofollow"/);
 });
