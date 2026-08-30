@@ -118,6 +118,10 @@ test("renders Cupcakes as a separate planned-launch collection", async () => {
   assert.match(cupcakes, /Box of 9 cupcakes/);
   assert.match(cupcakes, /Box of 12 cupcakes/);
   assert.match(cupcakes, /Discovery box of 12 · two of each/);
+  assert.match(cupcakes, /one fitted individual holder for each cupcake/i);
+  assert.match(cupcakes, /cupcake-ragi-box-6-v2\.webp/);
+  assert.match(cupcakes, /cupcake-pista-box-9-v2\.webp/);
+  assert.match(cupcakes, /cupcake-discovery-box-12-v2\.webp/);
   assert.match(cupcakes, /Add planned box to cart/);
   assert.match(cupcakes, /transport test/);
 });
