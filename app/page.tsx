@@ -41,7 +41,7 @@ export default function Home() {
         <HeroProductVideo />
         <div className="heroShade" />
         <div className="heroContent">
-          <p className="eyebrow">SAN BAKES · KĪḺKKAṬṬAḶAI, CHENNAI</p>
+          <p className="eyebrow">SAN BAKES · CHENNAI</p>
           <h1>{en ? <>Dark cacao.<br />Ancient grains.</> : <>டார்க் காகாவ்.<br />பழமையான தானியங்கள்.</>}</h1>
           <p className="heroCopy">
             {en
