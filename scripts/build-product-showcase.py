@@ -14,8 +14,10 @@ from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 WIDTH = 1280
 HEIGHT = 720
 FPS = 24
-FRAMES_PER_SLIDE = 35
-TRANSITION_FRAMES = 8
+# A calm three-second cadence with a final 0.83-second crossfade gives each
+# product time to settle without making the looping Home hero feel static.
+FRAMES_PER_SLIDE = 72
+TRANSITION_FRAMES = 20
 
 PRODUCT_SEQUENCE = [
     ("ragi-dark-cacao-brownie-v2.webp", "Ragi Dark Cacao Brownie"),
@@ -24,13 +26,10 @@ PRODUCT_SEQUENCE = [
     ("seasonal-strawberry-cacao-concept-v2.webp", "Seasonal Strawberry & Cacao Brownie"),
     ("biscoff-crunch-v2.webp", "Biscoff Crunch Brownie"),
     ("chocolate-wafer-crunch-v2.webp", "Chocolate Wafer Crunch Brownie"),
-    ("signature-discovery-box-6-v2.webp", "Signature Discovery Box — Classic Six"),
-    ("signature-discovery-box-6-v3.webp", "Signature Discovery Box — House Six"),
-    ("reserve-collection-box-9-v2.webp", "Reserve Collection — Classic Nine"),
+    ("signature-discovery-box-6-v3.webp", "Signature Discovery Box — Six Flavours"),
     ("reserve-collection-box-9-v3.webp", "Reserve Collection — Six-Flavour Assortment"),
     ("brownie-tin-3-piece-v2.webp", "Three Separate Brownie Pieces"),
-    ("brownie-tin-flavour-configurations-v1.webp", "Piece-Based Tin Configurations"),
-    ("brownie-tin-flight-v1.webp", "Whole Brownie Tin · Flavour Toppings"),
+    ("whole-brownie-tin-flavour-toppings-v2.webp", "Whole Brownie Tin · Three Topping Sections"),
     ("party-brownie-tins-v1.webp", "Party Brownie Tins"),
     ("party-brownie-tubs-v1.webp", "Party Brownie Tubs"),
     ("party-individually-packed-brownies-v1.webp", "Individually Packed Brownies"),
@@ -38,14 +37,24 @@ PRODUCT_SEQUENCE = [
     ("occasion-brownie-cake-v1.webp", "Occasion Brownie Cake"),
     ("ragi-dark-cacao-tea-cake-v1.webp", "Ragi Dark Cacao Tea Cake"),
     ("pista-cardamom-millet-tea-cake-v1.webp", "Pista Cardamom Millet Tea Cake"),
-    ("cupcake-ragi-box-6-v1.webp", "Dark Cacao Ragi Cupcakes — Box of 6"),
-    ("cupcake-pista-box-9-v1.webp", "Pista Cardamom Cupcakes — Box of 9"),
-    ("cupcake-discovery-box-12-v1.webp", "Cupcake Discovery Collection — Box of 12"),
-    ("corporate-mini-box-4-v2.webp", "Corporate Mini Box — Classic Four"),
+    ("cupcake-ragi-box-6-v2.webp", "Dark Cacao Ragi Cupcakes — Box of 6"),
+    ("cupcake-pista-box-9-v2.webp", "Pista Cardamom Cupcakes — Box of 9"),
+    ("cupcake-discovery-box-12-v2.webp", "Cupcake Discovery Collection — Box of 12"),
     ("corporate-mini-box-4-v3.webp", "Corporate Mini Box — Ragi & Walnut"),
     ("bespoke-corporate-gifting-v1.webp", "Bespoke Corporate Gifting"),
     ("seasonal-hamper-concept-v1.webp", "Seasonal Hamper Collection"),
 ]
+
+SUPERSEDED_IMAGES = {
+    "brownie-tin-flight-v1.webp",
+    "brownie-tin-flavour-configurations-v1.webp",
+    "corporate-mini-box-4-v2.webp",
+    "cupcake-discovery-box-12-v1.webp",
+    "cupcake-pista-box-9-v1.webp",
+    "cupcake-ragi-box-6-v1.webp",
+    "reserve-collection-box-9-v2.webp",
+    "signature-discovery-box-6-v2.webp",
+}
 
 
 def font(path: Path, size: int) -> ImageFont.FreeTypeFont:
@@ -55,14 +64,30 @@ def font(path: Path, size: int) -> ImageFont.FreeTypeFont:
 def cover_frame(source: Image.Image, progress: float, index: int) -> Image.Image:
     source = ImageEnhance.Color(source.convert("RGB")).enhance(0.97)
     source = ImageEnhance.Contrast(source).enhance(1.03)
-    scale = max(WIDTH / source.width, HEIGHT / source.height) * (1.015 + progress * 0.045)
+    if source.width / source.height < 0.95:
+        background = ImageOps.fit(source, (WIDTH, HEIGHT), method=Image.Resampling.LANCZOS)
+        background = background.filter(ImageFilter.GaussianBlur(28))
+        background = ImageEnhance.Brightness(background).enhance(0.72)
+        foreground = ImageOps.contain(source, (int(WIDTH * 0.68), HEIGHT), method=Image.Resampling.LANCZOS)
+        shadow = Image.new("RGBA", (foreground.width + 34, foreground.height + 24), (0, 0, 0, 0))
+        shadow_mask = Image.new("L", shadow.size, 0)
+        ImageDraw.Draw(shadow_mask).rounded_rectangle((12, 7, shadow.width - 12, shadow.height - 7), radius=12, fill=120)
+        shadow.putalpha(shadow_mask.filter(ImageFilter.GaussianBlur(12)))
+        canvas = background.convert("RGBA")
+        x = (WIDTH - foreground.width) // 2
+        y = (HEIGHT - foreground.height) // 2
+        canvas.alpha_composite(shadow, (x - 17, y - 12))
+        canvas.alpha_composite(foreground.convert("RGBA"), (x, y))
+        return canvas.convert("RGB")
+
+    # Static editorial framing avoids the end-of-shot position reset that made
+    # the previous pan-and-zoom treatment appear to jump between products.
+    scale = max(WIDTH / source.width, HEIGHT / source.height) * 1.018
     resized = source.resize((math.ceil(source.width * scale), math.ceil(source.height * scale)), Image.Resampling.LANCZOS)
     max_x = max(0, resized.width - WIDTH)
     max_y = max(0, resized.height - HEIGHT)
-    direction = 1 if index % 2 == 0 else -1
-    x_ratio = 0.5 + direction * (progress - 0.5) * 0.16
     y_ratio = 0.48 + ((index % 3) - 1) * 0.025
-    left = int(max_x * min(1, max(0, x_ratio)))
+    left = max_x // 2
     top = int(max_y * min(1, max(0, y_ratio)))
     return resized.crop((left, top, left + WIDTH, top + HEIGHT))
 
@@ -81,6 +106,23 @@ def prepare_shade() -> Image.Image:
     return Image.fromarray(rgba, "RGBA")
 
 
+def wrap_caption(draw: ImageDraw.ImageDraw, caption: str, title_font: ImageFont.FreeTypeFont, max_width: int = 610) -> str:
+    words = caption.split()
+    lines: list[str] = []
+    current = ""
+    for word in words:
+        candidate = f"{current} {word}".strip()
+        width = draw.textbbox((0, 0), candidate, font=title_font)[2]
+        if current and width > max_width:
+            lines.append(current)
+            current = word
+        else:
+            current = candidate
+    if current:
+        lines.append(current)
+    return "\n".join(lines)
+
+
 def overlay_branding(frame: Image.Image, logo: Image.Image, shade: Image.Image, caption: str, title_font: ImageFont.FreeTypeFont, small_font: ImageFont.FreeTypeFont) -> Image.Image:
     canvas = frame.convert("RGBA")
     canvas = Image.alpha_composite(canvas, shade)
@@ -92,9 +134,14 @@ def overlay_branding(frame: Image.Image, logo: Image.Image, shade: Image.Image, 
     draw = ImageDraw.Draw(canvas)
     right = WIDTH - 50
     bottom = HEIGHT - 48
-    draw.text((right + 2, bottom + 2), caption, font=title_font, fill=(20, 11, 8, 135), anchor="rs")
-    draw.text((right, bottom), caption, font=title_font, fill=(255, 247, 235, 218), anchor="rs")
-    draw.text((right, bottom - 49), "SAN BAKES · SMALL-BATCH CHENNAI", font=small_font, fill=(244, 226, 209, 188), anchor="rs")
+    wrapped = wrap_caption(draw, caption, title_font)
+    box = draw.multiline_textbbox((0, 0), wrapped, font=title_font, spacing=3, align="right")
+    title_width = box[2] - box[0]
+    title_height = box[3] - box[1]
+    title_position = (right - title_width, bottom - title_height)
+    draw.multiline_text((title_position[0] + 2, title_position[1] + 2), wrapped, font=title_font, fill=(20, 11, 8, 130), spacing=3, align="right")
+    draw.multiline_text(title_position, wrapped, font=title_font, fill=(255, 247, 235, 205), spacing=3, align="right")
+    draw.text((right, title_position[1] - 16), "SAN BAKES · SMALL-BATCH CHENNAI", font=small_font, fill=(244, 226, 209, 178), anchor="rs")
     return canvas.convert("RGB")
 
 
@@ -213,17 +260,21 @@ def main() -> None:
 
     known = {name for name, _ in PRODUCT_SEQUENCE}
     discovered = {path.name for path in products_dir.iterdir() if path.suffix.lower() in {".webp", ".png", ".jpg", ".jpeg"}}
-    if discovered != known:
-        missing = sorted(discovered - known)
-        absent = sorted(known - discovered)
-        raise RuntimeError(f"Product image manifest mismatch. Unmapped={missing}; missing={absent}")
+    absent = sorted(known - discovered)
+    unexpected = sorted(discovered - known - SUPERSEDED_IMAGES)
+    if absent or unexpected:
+        raise RuntimeError(f"Product image manifest mismatch. Unmapped={unexpected}; missing={absent}")
 
     windows_fonts = Path(os.environ.get("WINDIR", "C:/Windows")) / "Fonts"
-    title_font = font(windows_fonts / "georgiab.ttf", 37)
+    title_font = font(windows_fonts / "georgiab.ttf", 34)
     small_font = font(windows_fonts / "segoeuib.ttf", 13)
     logo = prepare_logo(project / "public" / "brand" / "san-bakes-logo.jpg")
     shade = prepare_shade()
     sources = [Image.open(products_dir / filename).convert("RGB") for filename, _ in PRODUCT_SEQUENCE]
+    slides = [
+        overlay_branding(cover_frame(source, 0, index), logo, shade, caption, title_font, small_font)
+        for index, ((_, caption), source) in enumerate(zip(PRODUCT_SEQUENCE, sources))
+    ]
     total_frames = len(sources) * FRAMES_PER_SLIDE
     duration = total_frames / FPS
     audio_path = build_dir / "san-bakes-original-ambient.wav"
@@ -243,25 +294,24 @@ def main() -> None:
         "-f", "rawvideo", "-vcodec", "rawvideo", "-pix_fmt", "rgb24",
         "-s", f"{WIDTH}x{HEIGHT}", "-r", str(FPS), "-i", "-",
         "-i", str(audio_path),
-        "-c:v", "libx264", "-preset", "slow", "-crf", "25",
-        "-maxrate", "1600k", "-bufsize", "3200k", "-pix_fmt", "yuv420p",
-        "-c:a", "aac", "-b:a", "96k", "-shortest", "-movflags", "+faststart",
+        "-c:v", "libx264", "-preset", "slow", "-crf", "28",
+        "-maxrate", "900k", "-bufsize", "1800k", "-pix_fmt", "yuv420p",
+        "-profile:v", "high", "-level", "4.0", "-g", str(FPS * 4),
+        "-c:a", "aac", "-b:a", "64k", "-shortest", "-movflags", "+faststart",
         str(output_path),
     ]
     process = subprocess.Popen(command, stdin=subprocess.PIPE)
     assert process.stdin is not None
     poster_written = False
     try:
-        for slide_index, ((_, caption), source) in enumerate(zip(PRODUCT_SEQUENCE, sources)):
-            next_source = sources[(slide_index + 1) % len(sources)]
-            next_caption = PRODUCT_SEQUENCE[(slide_index + 1) % len(sources)][1]
+        for slide_index, frame_source in enumerate(slides):
+            incoming_source = slides[(slide_index + 1) % len(slides)]
             for frame_index in range(FRAMES_PER_SLIDE):
-                progress = frame_index / max(1, FRAMES_PER_SLIDE - 1)
-                frame = overlay_branding(cover_frame(source, progress, slide_index), logo, shade, caption, title_font, small_font)
+                frame = frame_source
                 if frame_index >= FRAMES_PER_SLIDE - TRANSITION_FRAMES:
-                    transition = (frame_index - (FRAMES_PER_SLIDE - TRANSITION_FRAMES)) / TRANSITION_FRAMES
-                    incoming = overlay_branding(cover_frame(next_source, transition * 0.16, slide_index + 1), logo, shade, next_caption, title_font, small_font)
-                    frame = Image.blend(frame, incoming, transition)
+                    transition = (frame_index - (FRAMES_PER_SLIDE - TRANSITION_FRAMES)) / max(1, TRANSITION_FRAMES - 1)
+                    eased_transition = transition * transition * (3 - 2 * transition)
+                    frame = Image.blend(frame_source, incoming_source, eased_transition)
                 if not poster_written:
                     frame.save(poster_path, "WEBP", quality=90, method=6)
                     poster_written = True

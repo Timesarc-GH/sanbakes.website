@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile, readdir } from "node:fs/promises";
+import { readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 
@@ -30,6 +30,20 @@ test("renders the San Bakes storefront", async () => {
   assert.match(html, /Play music/);
   assert.match(html, />Policies</);
   assert.match(html, /FSSAI registration pending/);
+});
+
+test("uses the extended optimized product showcase", async () => {
+  const video = await stat(new URL("../public/video/san-bakes-product-collection.mp4", import.meta.url));
+  const captions = await readFile(new URL("../public/video/san-bakes-product-collection.en.vtt", import.meta.url), "utf8");
+  const builder = await readFile(new URL("../scripts/build-product-showcase.py", import.meta.url), "utf8");
+  assert.ok(video.size < 6.5 * 1024 * 1024, `Expected an optimized video below 6.5 MiB, received ${video.size} bytes`);
+  assert.match(captions, /00:01:06\.000 --> 00:01:09\.000/);
+  assert.match(captions, /Whole Brownie Tin · Three Topping Sections/);
+  assert.match(captions, /Cupcake Discovery Collection — Box of 12/);
+  assert.match(builder, /whole-brownie-tin-flavour-toppings-v2\.webp/);
+  assert.match(builder, /cupcake-ragi-box-6-v2\.webp/);
+  assert.match(builder, /cupcake-pista-box-9-v2\.webp/);
+  assert.match(builder, /cupcake-discovery-box-12-v2\.webp/);
 });
 
 test("uses each customer-facing content image in only one source placement", async () => {
