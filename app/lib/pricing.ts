@@ -115,6 +115,28 @@ const baseProductPricing: Record<string, ProductPricing> = {
   "bespoke-corporate": { decision:"quotation", options:[
     option("proposal","Custom proposal · minimum 25 boxes or ₹15,000","தனிப்பயன் விலை · குறைந்தபட்சம் 25 பெட்டிகள் அல்லது ₹15,000",null,"7–21 day lead time based on branding and addresses","பிராண்டிங் மற்றும் முகவரிகளுக்கு ஏற்ப 7–21 நாட்கள்"),
   ]},
+  "party-single-brownies": { decision:"quotation", options:[
+    option("classic-25","25 Classic brownies · individually packed","25 கிளாசிக் பிரௌனிகள் · தனித்தனி பேக்கிங்",4375,"₹175 each · up to two flavours","ஒன்றுக்கு ₹175 · இரண்டு சுவைகள் வரை"),
+    option("reserve-25","25 Reserve / assorted brownies · individually packed","25 ரிசர்வ் / கலவை பிரௌனிகள் · தனித்தனி பேக்கிங்",4875,"₹195 each · up to two flavours","ஒன்றுக்கு ₹195 · இரண்டு சுவைகள் வரை"),
+    option("classic-50","50 Classic brownies · individually packed","50 கிளாசிக் பிரௌனிகள் · தனித்தனி பேக்கிங்",8500,"₹170 each · up to four flavours","ஒன்றுக்கு ₹170 · நான்கு சுவைகள் வரை"),
+    option("classic-100","100 Classic brownies · individually packed","100 கிளாசிக் பிரௌனிகள் · தனித்தனி பேக்கிங்",16500,"₹165 each · 10–14 day lead time","ஒன்றுக்கு ₹165 · 10–14 நாட்கள் முன்னதாக"),
+  ]},
+  "party-brownie-tins": { decision:"quotation", options:[
+    option("classic-10","10 Classic three-piece Tins","10 கிளாசிக் மூன்று-துண்டு டின்கள்",5250,"₹525 per Tin · one or two flavours","ஒரு டினுக்கு ₹525 · ஒன்று அல்லது இரண்டு சுவைகள்"),
+    option("assorted-10","10 Curated assorted three-piece Tins","10 தேர்ந்தெடுத்த கலவை மூன்று-துண்டு டின்கள்",6100,"₹610 per Tin · curated premium mix","ஒரு டினுக்கு ₹610 · தேர்ந்தெடுத்த பிரீமியம் கலவை"),
+    option("larger","25+ Tins · custom proposal","25+ டின்கள் · தனிப்பயன் விலை",null,"Quoted after flavour, packaging and margin validation","சுவை, பேக்கிங் மற்றும் மார்ஜின் சோதனைக்குப் பிறகு விலை"),
+  ]},
+  "party-brownie-tubs": { decision:"quotation", options:[
+    option("classic-10","10 Classic Brownie Tubs","10 கிளாசிக் பிரௌனி டப்கள்",3750,"₹375 per Tub · one coordinated finish","ஒரு டப்புக்கு ₹375 · ஒருங்கிணைந்த அலங்காரம்"),
+    option("loaded-10","10 Loaded Brownie Tubs","10 லோடெட் பிரௌனி டப்கள்",4550,"₹455 per Tub · topping validation required","ஒரு டப்புக்கு ₹455 · டாப்பிங் சோதனை தேவை"),
+    option("larger","25+ Tubs · custom proposal","25+ டப்கள் · தனிப்பயன் விலை",null,"Quoted after topping, seal and delivery validation","டாப்பிங், சீல் மற்றும் டெலிவரி சோதனைக்குப் பிறகு விலை"),
+  ]},
+  "occasion-brownie-cake": { decision:"quotation", options:[
+    option("classic-500","500 g · classic occasion finish","500 கிராம் · கிளாசிக் நிகழ்ச்சி அலங்காரம்",1590,"Short message and restrained finish included","குறுகிய செய்தி மற்றும் அளவான அலங்காரம் சேர்க்கப்பட்டுள்ளது"),
+    option("reserve-500","500 g · reserve occasion finish","500 கிராம் · ரிசர்வ் நிகழ்ச்சி அலங்காரம்",1790,"Walnut or pistachio-led finish","வால்நட் அல்லது பிஸ்தா அலங்காரம்"),
+    option("classic-1kg","1 kg · classic occasion finish","1 கிலோ · கிளாசிக் நிகழ்ச்சி அலங்காரம்",2850,"Recommended for a fuller gathering","பெரிய நிகழ்ச்சிக்கான பரிந்துரை"),
+    option("reserve-1kg","1 kg · reserve occasion finish","1 கிலோ · ரிசர்வ் நிகழ்ச்சி அலங்காரம்",3250,"Premium nut finish; custom topper separate","பிரீமியம் நட் அலங்காரம்; தனிப்பயன் டாப்பர் கூடுதல்"),
+  ]},
 };
 
 export const priceRevisionPercent = 15;
@@ -127,6 +149,10 @@ export const priceRevisionExclusions = new Set([
 export const directPlanningPriceIds = new Set([
   "brownie-tin-3-piece",
   "brownie-tin-flight",
+  "party-single-brownies",
+  "party-brownie-tins",
+  "party-brownie-tubs",
+  "occasion-brownie-cake",
 ]);
 
 export const productPricing: Record<string, ProductPricing> = Object.fromEntries(

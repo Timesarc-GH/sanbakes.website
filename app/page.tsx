@@ -68,7 +68,7 @@ export default function Home() {
       <section className="collectionSection">
         <div className="sectionHeading">
           <div><p className="eyebrow dark">THE OPENING COLLECTION</p><h2>{en ? "Familiar pleasure, considered differently." : "பழக்கமான சுவை, புதிய கவனத்துடன்."}</h2></div>
-          <p>{en ? "A focused menu spanning signature brownies, true Brownie Tins, new Brownie Tubs, millet tea cakes, cupcakes, birthday brownie cakes and gifting." : "சிக்னேச்சர் பிரௌனிகள், பிரௌனி டின்கள், புதிய பிரௌனி டப்கள், சிறுதானிய டீ கேக்குகள், கப் கேக்குகள், பிறந்தநாள் பிரௌனி கேக்குகள் மற்றும் பரிசுகள்."}</p>
+          <p>{en ? "A focused menu spanning signature brownies, true Brownie Tins, Brownie Tubs, millet tea cakes, cupcakes, birthday and party formats, personal gifting and corporate orders." : "சிக்னேச்சர் பிரௌனிகள், பிரௌனி டின்கள், பிரௌனி டப்கள், சிறுதானிய டீ கேக்குகள், கப் கேக்குகள், பிறந்தநாள் மற்றும் பார்ட்டி வடிவங்கள், தனிப்பட்ட பரிசுகள் மற்றும் நிறுவன ஆர்டர்கள்."}</p>
         </div>
         <div className="productGrid">
           {featured.map((item) => (
@@ -108,7 +108,7 @@ export default function Home() {
 
       <section className="occasionSection">
         <div className="occasionImage"><Image src="/images/editorial/home-birthday-brownie-celebration-v2.webp" alt="San Bakes brownie birthday cake" fill sizes="(max-width: 900px) 100vw, 50vw" /></div>
-        <div className="occasionCopy"><p className="eyebrow dark">BROWNIE BIRTHDAY CAKES</p><h2>{en ? "A birthday cake, with the soul of a brownie." : "பிரௌனியின் சுவையுடன் ஒரு பிறந்தநாள் கேக்."}</h2><p>{en ? "Choose a 250 g little celebration, 500 g signature cake, 1 kg grand celebration or a brownie tower. Short messages and restrained finishes keep the brownie at the centre." : "250 கிராம், 500 கிராம், 1 கிலோ அல்லது பிரௌனி டவரைத் தேர்ந்தெடுக்கலாம்."}</p><Link className="button buttonCacao" href="/menu?category=celebrations">{en ? "Explore celebration cakes" : "கொண்டாட்ட கேக்குகள்"}</Link></div>
+        <div className="occasionCopy"><p className="eyebrow dark">BIRTHDAYS & PARTIES</p><h2>{en ? "A celebration, with the soul of a brownie." : "பிரௌனியின் சுவையுடன் ஒரு கொண்டாட்டம்."}</h2><p>{en ? "Choose a birthday cake, occasion cake, brownie tower, individually packed brownie, Tin or Tub plan. Every event order is designed around your guest count and date." : "பிறந்தநாள் கேக், நிகழ்ச்சி கேக், பிரௌனி டவர், தனித்தனி பிரௌனி, டின் அல்லது டப் திட்டத்தை விருந்தினர் எண்ணிக்கை மற்றும் தேதிக்கு ஏற்ப தேர்ந்தெடுக்கலாம்."}</p><Link className="button buttonCacao" href="/parties">{en ? "Plan a birthday or party" : "பிறந்தநாள் அல்லது பார்ட்டியைத் திட்டமிட"}</Link></div>
       </section>
 
       <section className="preorder">

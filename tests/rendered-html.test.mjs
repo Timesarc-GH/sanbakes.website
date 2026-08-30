@@ -58,6 +58,13 @@ test("renders the complete menu and preorder route", async () => {
   assert.match(menu, /₹3,390/);
   assert.match(menu, /Walnut Reserve/);
   assert.match(menu, /6-Tin Full Flavour Flight · 18 pieces/);
+  assert.match(menu, /Individually Packed Party Brownies/);
+  assert.match(menu, /25 Classic brownies · individually packed/);
+  assert.match(menu, /₹4,375/);
+  assert.match(menu, /Party Brownie Tins/);
+  assert.match(menu, /10 Classic three-piece Tins/);
+  assert.match(menu, /Party Brownie Tubs/);
+  assert.match(menu, /Occasion Brownie Cake/);
   const preorder = await (await render("/preorder")).text();
   assert.match(preorder, /Send request on WhatsApp/);
   assert.match(preorder, /No payment will be collected here/);
@@ -72,8 +79,28 @@ test("renders the expanded customer information pages", async () => {
   assert.match(delivery, /20 km road radius/);
   assert.match(delivery, /appointment pickup/i);
   const gifting = await (await render("/gifting")).text();
-  assert.match(gifting, /25 four-piece boxes or ₹15,000/);
-  assert.match(gifting, /corporate gifting/i);
+  assert.match(gifting, /PERSONAL GIFTING/);
+  assert.match(gifting, /Corporate orders now have their own planning desk/);
+  assert.doesNotMatch(gifting, /25 four-piece boxes or ₹15,000/);
+  const giftingMenu = await (await render("/menu?category=gifting")).text();
+  assert.match(giftingMenu, /Signature Discovery Box/);
+  assert.match(giftingMenu, /Seasonal Hamper/);
+  assert.doesNotMatch(giftingMenu, /Corporate Mini Box/);
+  const corporate = await (await render("/corporate")).text();
+  assert.match(corporate, /CORPORATE ORDERS/);
+  assert.match(corporate, /25 boxes or ₹15,000/);
+  assert.match(corporate, /Minimum 10 · from ₹5,250/);
+  assert.match(corporate, /7 calendar days/);
+  const corporateMenu = await (await render("/menu?category=corporate")).text();
+  assert.match(corporateMenu, /Corporate Mini Box/);
+  assert.match(corporateMenu, /Individually Packed Party Brownies/);
+  const parties = await (await render("/parties")).text();
+  assert.match(parties, /BIRTHDAYS &amp; PARTIES/);
+  assert.match(parties, /Five days is the working minimum/);
+  assert.match(parties, /25 from ₹4,375/);
+  assert.match(parties, /10 from ₹5,250/);
+  assert.match(parties, /10 from ₹3,750/);
+  assert.match(parties, /Within 72 hours of handover/);
 });
 
 test("renders the owner pricing and approval review", async () => {
@@ -90,6 +117,9 @@ test("renders the owner pricing and approval review", async () => {
   assert.match(review, /₹382/);
   assert.match(review, /Corporate Mini Box/);
   assert.match(review, /₹635/);
+  assert.match(review, /Party minimums/);
+  assert.match(review, /25 individually packed brownies/);
+  assert.match(review, /Five-day event cutoff/);
   assert.match(review, /Pending owner approval/);
   assert.match(review, /name="robots" content="noindex, nofollow"/);
 });

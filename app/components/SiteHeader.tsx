@@ -10,8 +10,10 @@ import { usePreorder } from "./PreorderProvider";
 const links = [
   { href: "/", en: "Home", ta: "முகப்பு" },
   { href: "/menu", en: "Menu & Pricing", ta: "மெனு & விலை" },
-  { href: "/about", en: "Our Standard", ta: "எங்கள் தரநிலை" },
+  { href: "/parties", en: "Birthdays & Parties", ta: "பிறந்தநாள் & பார்ட்டி" },
   { href: "/gifting", en: "Gifting", ta: "பரிசுகள்" },
+  { href: "/corporate", en: "Corporate", ta: "நிறுவனங்கள்" },
+  { href: "/about", en: "Our Standard", ta: "எங்கள் தரநிலை" },
   { href: "/delivery", en: "Delivery", ta: "டெலிவரி" },
   { href: "/faq", en: "FAQ", ta: "கேள்விகள்" },
   { href: "/policies", en: "Policies", ta: "கொள்கைகள்" },
