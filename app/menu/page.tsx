@@ -57,7 +57,6 @@ export default function MenuPage() {
                 <p className="cardEyebrow">{en ? categories.find((c) => c.id === product.category)?.name : categories.find((c) => c.id === product.category)?.nameTa}</p>
                 <h2>{en ? product.name : product.nameTa}</h2>
                 <p>{en ? product.description : product.descriptionTa}</p>
-                <div className="productMeta"><span>{en ? "Format" : "வடிவம்"}</span><small>{product.format}</small></div>
                 {(availabilityNote || unavailable) && <div className={`availabilityLine ${availability.status}`}><strong>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}</strong>{availabilityNote && <span>{availabilityNote}</span>}</div>}
                 <label className="variantPicker">
                   <span>{en ? "Pack / quantity option" : "பேக் / அளவு விருப்பம்"}</span>
@@ -66,8 +65,10 @@ export default function MenuPage() {
                   </select>
                   <small>{en ? selectedOption.note : selectedOption.noteTa}</small>
                 </label>
-                <div className="selectedPrice"><span>{en ? "Price" : "விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
-                <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id,selectedOption.id))} type="button">{unavailable ? (en ? "Currently unavailable" : "தற்போது கிடைக்கவில்லை") : (en ? "Add to cart" : "கார்ட்டில் சேர்க்க")}</button>
+                <div className="productPurchaseRow">
+                  <div className="selectedPrice"><span>{en ? "Price" : "விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
+                  <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id,selectedOption.id))} type="button">{unavailable ? (en ? "Currently unavailable" : "தற்போது கிடைக்கவில்லை") : (en ? "Add to cart" : "கார்ட்டில் சேர்க்க")}</button>
+                </div>
               </div>
             </article>;
           })}

@@ -20,6 +20,14 @@ test("renders the San Bakes storefront", async () => {
   assert.match(html, /Start a preorder/);
   assert.match(html, /LAUNCH PRICING GUIDE/);
   assert.ok(html.indexOf("LAUNCH PRICING GUIDE") > html.indexOf("BIRTHDAYS &amp; PARTIES"));
+  const pricingGuideStart = html.indexOf("LAUNCH PRICING GUIDE");
+  const pricingOrder = ["Brownie Tubs", "Brownie Tins", "Personal gifting", "Millet tea cakes", "Birthdays &amp; parties", "Corporate", "Cupcake boxes", "Brownie boxes"];
+  let previousPricingItem = pricingGuideStart;
+  for (const item of pricingOrder) {
+    const itemIndex = html.indexOf(item, pricingGuideStart);
+    assert.ok(itemIndex > previousPricingItem, `Expected ${item} to follow the prior minimum-price tier`);
+    previousPricingItem = itemIndex;
+  }
   assert.match(html, /₹520–₹910/);
   assert.match(html, /Delivery within Chennai/);
   assert.match(html, /addresses beyond 20 km include additional distance-based charges/i);
@@ -80,7 +88,8 @@ test("renders the complete menu and preorder route", async () => {
   assert.match(menu, /₹590/);
   assert.match(menu, /Three-Piece Brownie Tin/);
   assert.match(menu, /Whole Brownie Tin/);
-  assert.match(menu, /Egg formulation/);
+  assert.doesNotMatch(menu, /productMeta|>Format<|Egg formulation/);
+  assert.match(menu, /class="productPurchaseRow"[\s\S]*?class="selectedPrice"[\s\S]*?class="button buttonCacao"/);
   assert.doesNotMatch(menu, /Eggless/i);
   assert.match(menu, /1 whole Brownie Tin · 3 flavour-topping sections/);
   assert.match(menu, /one continuous brownie baked as a full Tin slab—not separate pieces/i);
@@ -153,6 +162,8 @@ test("renders Cupcakes as an active orderable collection", async () => {
   assert.match(cupcakes, /₹520/);
   assert.match(cupcakes, /₹910/);
   assert.match(cupcakes, /Preorder boxes of 6 at least three days ahead/);
+  assert.doesNotMatch(cupcakes, /productMeta|>Format</);
+  assert.match(cupcakes, /class="productPurchaseRow"[\s\S]*?class="selectedPrice"[\s\S]*?class="button buttonCacao"/);
   assert.doesNotMatch(cupcakes, /statusBadge|decisionLine|Recommended for approval|Conditional — validation required/);
   assert.doesNotMatch(cupcakes, /planned launch|coming soon/i);
 });
@@ -184,6 +195,8 @@ test("renders the expanded customer information pages", async () => {
   assert.match(corporate, /Add 25 boxes to cart/);
   assert.match(corporate, /Bespoke Corporate Gifting/);
   assert.match(corporate, /7 calendar days/);
+  assert.doesNotMatch(corporate, /productMeta|>Format</);
+  assert.match(corporate, /class="productPurchaseRow"[\s\S]*?class="selectedPrice"[\s\S]*?class="button buttonCacao"/);
   assert.doesNotMatch(corporate, /statusBadge|decisionLine|Recommended for approval|Conditional — validation required|Quotation rules proposed/);
   const corporateMenu = await (await render("/menu?category=corporate")).text();
   assert.doesNotMatch(corporateMenu, /Corporate Mini Box/);
@@ -199,6 +212,8 @@ test("renders the expanded customer information pages", async () => {
   assert.match(parties, /Occasion Brownie Cake/);
   assert.match(parties, /Add to cart/);
   assert.match(parties, /Within 72 hours of handover/);
+  assert.doesNotMatch(parties, /productMeta|>Format</);
+  assert.match(parties, /class="productPurchaseRow"[\s\S]*?class="selectedPrice"[\s\S]*?class="button buttonCacao"/);
   assert.doesNotMatch(parties, /statusBadge|decisionLine|Recommended for approval|Conditional — validation required|Quotation rules proposed/);
 });
 

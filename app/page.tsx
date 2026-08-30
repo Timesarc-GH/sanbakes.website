@@ -113,14 +113,14 @@ export default function Home() {
         <div className="priceGuide">
           <div className="priceGuideHead"><p className="eyebrow dark">{en ? "LAUNCH PRICING GUIDE" : "அறிமுக விலை வழிகாட்டி"}</p><h2>{en ? "A clear starting point." : "தெளிவான தொடக்க விலை."}</h2><p>{en ? "These are current starting prices. Your WhatsApp confirmation will state the selected recipe, size, customisation, delivery charge and final total before payment." : "இவை தற்போதைய தொடக்க விலைகள். கட்டணத்திற்கு முன் தேர்ந்தெடுத்த ரெசிபி, அளவு, தனிப்பயன், டெலிவரி கட்டணம் மற்றும் இறுதி மொத்தம் WhatsApp மூலம் உறுதி செய்யப்படும்."}</p></div>
           <div className="priceGuideGrid">
-            <div><strong>{en ? "Brownie boxes" : "பிரௌனி பெட்டிகள்"}</strong><span>₹590–₹860</span><small>{en ? "Core 6 or 9-piece boxes" : "முக்கிய 6 அல்லது 9 துண்டு பெட்டிகள்"}</small></div>
+            <div><strong>{en ? "Brownie Tubs" : "பிரௌனி டப்கள்"}</strong><span>₹270 / ₹490</span><small>{en ? "Single Tub or duo · recipe confirmation applies" : "ஒரு டப் அல்லது டூயோ · ரெசிபி உறுதிப்படுத்தல் பொருந்தும்"}</small></div>
             <div><strong>{en ? "Brownie Tins" : "பிரௌனி டின்கள்"}</strong><span>₹310–₹360</span><small>{en ? "Three separate pieces, or one whole brownie with 1/2/3 topping sections" : "மூன்று தனித் துண்டுகள் அல்லது 1/2/3 டாப்பிங் பகுதிகளுடன் ஒரு முழு பிரௌனி"}</small></div>
-            <div><strong>{en ? "Cupcake boxes" : "கப் கேக் பெட்டிகள்"}</strong><span>₹520–₹910</span><small>{en ? "Boxes of 6, 9 or 12 · available to preorder" : "6, 9 அல்லது 12 பெட்டிகள் · முன்பதிவுக்கு கிடைக்கும்"}</small></div>
+            <div><strong>{en ? "Personal gifting" : "தனிப்பட்ட பரிசுகள்"}</strong><span>₹310–₹1,490</span><small>{en ? "Curated boxes, Tins and seasonal hampers" : "தேர்ந்தெடுத்த பெட்டிகள், டின்கள் மற்றும் பருவகால ஹாம்பர்கள்"}</small></div>
             <div><strong>{en ? "Millet tea cakes" : "சிறுதானிய டீ கேக்குகள்"}</strong><span>₹420 / ₹790</span><small>{en ? "Single loaf or gift duo · recipe and yield confirmation applies" : "ஒரு லோஃப் அல்லது பரிசு டூயோ · ரெசிபி மற்றும் யீல்ட் உறுதிப்படுத்தல் பொருந்தும்"}</small></div>
             <div><strong>{en ? "Birthdays & parties" : "பிறந்தநாள் & பார்ட்டி"}</strong><span>{en ? "Cakes ₹450–₹1,400" : "கேக்குகள் ₹450–₹1,400"}</span><small>{en ? "Packed brownies from 25 · Tins/Tubs from 10" : "தனித்தனி பிரௌனிகள் 25 முதல் · டின்கள்/டப்கள் 10 முதல்"}</small></div>
-            <div><strong>{en ? "Brownie Tubs" : "பிரௌனி டப்கள்"}</strong><span>₹270 / ₹490</span><small>{en ? "Single Tub or duo · recipe confirmation applies" : "ஒரு டப் அல்லது டூயோ · ரெசிபி உறுதிப்படுத்தல் பொருந்தும்"}</small></div>
-            <div><strong>{en ? "Personal gifting" : "தனிப்பட்ட பரிசுகள்"}</strong><span>₹310–₹1,490</span><small>{en ? "Curated boxes, Tins and seasonal hampers" : "தேர்ந்தெடுத்த பெட்டிகள், டின்கள் மற்றும் பருவகால ஹாம்பர்கள்"}</small></div>
             <div><strong>{en ? "Corporate" : "நிறுவன ஆர்டர்கள்"}</strong><span>{en ? "₹490 per box · minimum 25" : "ஒரு பெட்டி ₹490 · குறைந்தபட்சம் 25"}</span><small>{en ? "Bespoke branding and fulfilment are quoted separately" : "தனிப்பயன் பிராண்டிங் மற்றும் நிறைவேற்றம் தனியாக விலைமதிப்பிடப்படும்"}</small></div>
+            <div><strong>{en ? "Cupcake boxes" : "கப் கேக் பெட்டிகள்"}</strong><span>₹520–₹910</span><small>{en ? "Boxes of 6, 9 or 12 · available to preorder" : "6, 9 அல்லது 12 பெட்டிகள் · முன்பதிவுக்கு கிடைக்கும்"}</small></div>
+            <div><strong>{en ? "Brownie boxes" : "பிரௌனி பெட்டிகள்"}</strong><span>₹590–₹860</span><small>{en ? "Core 6 or 9-piece boxes" : "முக்கிய 6 அல்லது 9 துண்டு பெட்டிகள்"}</small></div>
           </div>
         </div>
       </section>

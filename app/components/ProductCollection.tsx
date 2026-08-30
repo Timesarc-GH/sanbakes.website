@@ -56,7 +56,6 @@ export function ProductCollection({ productIds, eyebrowEn, eyebrowTa, titleEn, t
                 <p className="cardEyebrow">{en ? category?.name : category?.nameTa}</p>
                 <h3>{en ? product.name : product.nameTa}</h3>
                 <p>{en ? product.description : product.descriptionTa}</p>
-                <div className="productMeta"><span>{en ? "Format" : "வடிவம்"}</span><small>{product.format}</small></div>
                 {(availabilityNote || unavailable) && <div className={`availabilityLine ${availability.status}`}><strong>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}</strong>{availabilityNote && <span>{availabilityNote}</span>}</div>}
                 <label className="variantPicker">
                   <span>{en ? "Pack / quantity option" : "பேக் / அளவு விருப்பம்"}</span>
@@ -65,10 +64,12 @@ export function ProductCollection({ productIds, eyebrowEn, eyebrowTa, titleEn, t
                   </select>
                   <small>{en ? selectedOption.note : selectedOption.noteTa}</small>
                 </label>
-                <div className="selectedPrice"><span>{en ? "Price" : "விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
-                <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id, selectedOption.id), minimumQuantity)} type="button">
-                  {unavailable ? (en ? "Currently unavailable" : "தற்போது கிடைக்கவில்லை") : minimumQuantity > 1 ? (en ? `Add ${minimumQuantity} boxes to cart` : `${minimumQuantity} பெட்டிகளை கார்ட்டில் சேர்க்க`) : (en ? "Add to cart" : "கார்ட்டில் சேர்க்க")}
-                </button>
+                <div className="productPurchaseRow">
+                  <div className="selectedPrice"><span>{en ? "Price" : "விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
+                  <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id, selectedOption.id), minimumQuantity)} type="button">
+                    {unavailable ? (en ? "Currently unavailable" : "தற்போது கிடைக்கவில்லை") : minimumQuantity > 1 ? (en ? `Add ${minimumQuantity} boxes to cart` : `${minimumQuantity} பெட்டிகளை கார்ட்டில் சேர்க்க`) : (en ? "Add to cart" : "கார்ட்டில் சேர்க்க")}
+                  </button>
+                </div>
               </div>
             </article>
           );
