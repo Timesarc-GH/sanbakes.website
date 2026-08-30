@@ -30,7 +30,9 @@ test("renders the complete menu and preorder route", async () => {
   assert.match(menu, /₹927/);
   assert.match(menu, /Three-Piece Brownie Tin/);
   assert.match(menu, /Brownie Tin Flight/);
-  assert.match(menu, /₹2,850/);
+  assert.match(menu, /₹3,390/);
+  assert.match(menu, /Walnut Reserve/);
+  assert.match(menu, /6-Tin Full Flavour Flight · 18 pieces/);
   const preorder = await (await render("/preorder")).text();
   assert.match(preorder, /Send request on WhatsApp/);
   assert.match(preorder, /No payment will be collected here/);
@@ -56,6 +58,7 @@ test("renders the owner pricing and approval review", async () => {
   assert.match(review, /Classic Brownie Tub/);
   assert.match(review, /Legacy consumer recommendations are 15% below the previous proposal/);
   assert.match(review, /3 Tins · 9 pieces/);
+  assert.match(review, /six flavours are Dark Cacao, Walnut Reserve/);
   assert.match(review, /DOMAIN PURCHASE STATUS/);
   assert.match(review, /sanbakes\.com/);
   assert.match(review, /₹449/);

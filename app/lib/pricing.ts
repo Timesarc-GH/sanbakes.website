@@ -54,13 +54,14 @@ const baseProductPricing: Record<string, ProductPricing> = {
   ]},
   "brownie-tin-3-piece": { decision:"conditional", options:[
     option("same-classic","Same-flavour classic · 3 pieces","ஒரே கிளாசிக் சுவை · 3 துண்டுகள்",549,"Dark Cacao or Biscoff; final flavour confirmed personally","டார்க் காகாவ் அல்லது பிஸ்காஃப்; இறுதி சுவை தனிப்பட்ட முறையில் உறுதி செய்யப்படும்"),
-    option("same-premium","Same-flavour premium · 3 pieces","ஒரே பிரீமியம் சுவை · 3 துண்டுகள்",649,"Pista, seasonal strawberry or chocolate wafer; availability applies","பிஸ்தா, பருவகால ஸ்ட்ராபெரி அல்லது சாக்லேட் வேஃபர்; கிடைப்பதற்கு உட்பட்டது"),
-    option("curated-assorted","Curated assorted · 3 pieces","தேர்ந்தெடுத்த கலவை · 3 துண்டுகள்",625,"Three flavours selected from the validated Tin list","சோதிக்கப்பட்ட டின் பட்டியலிலிருந்து மூன்று சுவைகள் தேர்ந்தெடுக்கப்படும்"),
+    option("same-premium","Same-flavour premium · 3 pieces","ஒரே பிரீமியம் சுவை · 3 துண்டுகள்",649,"Walnut, Pista, seasonal strawberry or chocolate wafer; availability applies","வால்நட், பிஸ்தா, பருவகால ஸ்ட்ராபெரி அல்லது சாக்லேட் வேஃபர்; கிடைப்பதற்கு உட்பட்டது"),
+    option("curated-assorted","Curated assorted · 3 pieces","தேர்ந்தெடுத்த கலவை · 3 துண்டுகள்",625,"Three flavours selected from the validated six-flavour Tin list","சோதிக்கப்பட்ட ஆறு சுவை டின் பட்டியலிலிருந்து மூன்று சுவைகள் தேர்ந்தெடுக்கப்படும்"),
   ]},
   "brownie-tin-flight": { decision:"conditional", options:[
     option("flight-2","2 Tins · 6 pieces","2 டின்கள் · 6 துண்டுகள்",1190,"Same-flavour or assorted after confirmation","உறுதிப்படுத்திய பிறகு ஒரே சுவை அல்லது கலவை"),
     option("flight-3","3 Tins · 9 pieces","3 டின்கள் · 9 துண்டுகள்",1740,"Recommended sharing and gifting flight","பகிர்வு மற்றும் பரிசளிப்புக்கான பரிந்துரைக்கப்பட்ட தொகுப்பு"),
-    option("flight-5","5 Tins · 15 pieces","5 டின்கள் · 15 துண்டுகள்",2850,"One five-flavour flight when every flavour is validated and available","அனைத்து சுவைகளும் சோதிக்கப்பட்டு கிடைக்கும் போது ஐந்து சுவை தொகுப்பு"),
+    option("flight-5","5 Tins · 15 pieces","5 டின்கள் · 15 துண்டுகள்",2850,"Choose five of the six validated Tin flavours","சோதிக்கப்பட்ட ஆறு டின் சுவைகளிலிருந்து ஐந்தைத் தேர்வு செய்யலாம்"),
+    option("flight-6","6-Tin Full Flavour Flight · 18 pieces","6 டின் முழு சுவை தொகுப்பு · 18 துண்டுகள்",3390,"One Tin of every validated flavour when all six are available","ஆறு சுவைகளும் கிடைக்கும் போது ஒவ்வொரு சுவையிலும் ஒரு டின்"),
   ]},
   "classic-brownie-tub": { decision:"conditional", options:[
     option("single-tub","1 regular tub · target 250 g","1 சாதாரண டப் · இலக்கு 250 கிராம்",449,"Recommended replacement for the historical ₹299 price","பழைய ₹299 விலைக்குப் பதிலான பரிந்துரை"),

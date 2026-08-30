@@ -3,7 +3,7 @@ import { decisionLabel, directPlanningPriceIds, formatPrice, getPricing, priceRe
 import { products } from "../lib/products";
 
 const validationGroups = [
-  { title:"Brownie Tins", recommendation:"Use one three-piece Tin at ₹549–₹649 and a 2/3/5-Tin Flight at ₹1,190/₹1,740/₹2,850. Each Tin may be one flavour or kitchen-curated assorted.", checks:"Final piece and net weight, divider/liner, packaging cost, five-flavour availability, storage and 10/20 km condition test." },
+  { title:"Brownie Tins", recommendation:"Use one three-piece Tin at ₹549–₹649 and a 2/3/5/6-Tin Flight at ₹1,190/₹1,740/₹2,850/₹3,390. The six flavours are Dark Cacao, Walnut Reserve, Pista–Rose–Cardamom, Seasonal Strawberry–Cacao, Biscoff Crunch and Chocolate Wafer Crunch.", checks:"Final piece and net weight, divider/liner, packaging cost, six-flavour availability, walnut and confectionery allergens, storage and 10/20 km condition test." },
   { title:"Brownie Tubs", recommendation:"Use ₹382 Classic and ₹467 Loaded for one target-250 g tub after the 15% base-price revision.", checks:"Actual net weight, chocolate/drizzle specification, topping allergens, kraft-tub seal, spoonability and margin." },
   { title:"Millet Tea Cakes", recommendation:"Use one target-450 g loaf: ₹723 Ragi Dark Cacao and ₹808 Pista Cardamom; offer a two-loaf gift duo only.", checks:"Exact millet quantity, baked yield, slice count, shelf life, loaf packaging and supplier prices." },
   { title:"Cupcakes", recommendation:"Launch only in boxes of 6 or 12; ₹1,097/₹2,117 for Ragi and ₹1,182/₹2,287 for Pista.", checks:"Frosting stability, two-hour ambient test, 20 km transport test, insert fit and remake rate." },
