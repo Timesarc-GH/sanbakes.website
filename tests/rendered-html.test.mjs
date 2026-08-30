@@ -18,6 +18,8 @@ test("renders the San Bakes storefront", async () => {
   assert.match(html, /Dark cacao/);
   assert.match(html, /class="heroTamil">Made in small batches, with care, after your preorder\./);
   assert.match(html, /Start a preorder/);
+  assert.match(html, /LAUNCH PRICING GUIDE/);
+  assert.match(html, /₹900–₹1,880/);
   assert.match(html, /Delivery within Chennai/);
   assert.match(html, /addresses beyond 20 km include additional distance-based charges/i);
   assert.doesNotMatch(html, /Eggless/i);
@@ -54,6 +56,8 @@ test("uses each customer-facing content image in only one source placement", asy
 
 test("renders the complete menu and preorder route", async () => {
   const menu = await (await render("/menu")).text();
+  assert.match(menu, /The Brownie preorder collection/);
+  assert.doesNotMatch(menu, /LAUNCH PRICING GUIDE/);
   assert.match(menu, /Brownie Tubs/);
   assert.match(menu, /Millet Tea Cakes/);
   assert.match(menu, /Pack \/ quantity option/);
@@ -68,7 +72,8 @@ test("renders the complete menu and preorder route", async () => {
   assert.doesNotMatch(menu, /Brownie Tin Flight/);
   assert.match(menu, /Walnut Reserve/);
   assert.doesNotMatch(menu, /6-Tin Full Flavour Flight · 18 pieces/);
-  assert.match(menu, /Cupcakes have their own planned-launch page/);
+  assert.match(menu, /Cupcakes are available on their own ordering page/);
+  assert.match(menu, /Order Cupcakes/);
   assert.doesNotMatch(menu, /Dark Cacao Ragi Cupcake Collection/);
   assert.doesNotMatch(menu, /Corporate Mini Box/);
   assert.doesNotMatch(menu, /Individually Packed Party Brownies/);
@@ -108,9 +113,9 @@ test("protects the owner inventory console and mutation API", async () => {
   assert.deepEqual(await inventoryApi.json(), { error: "Authentication required" });
 });
 
-test("renders Cupcakes as a separate planned-launch collection", async () => {
+test("renders Cupcakes as an active orderable collection", async () => {
   const cupcakes = await (await render("/cupcakes")).text();
-  assert.match(cupcakes, /PLANNED NEW LAUNCH · COMING SOON/);
+  assert.match(cupcakes, /CUPCAKES · AVAILABLE TO PREORDER/);
   assert.match(cupcakes, /Dark Cacao Ragi Cupcake Collection/);
   assert.match(cupcakes, /Pista Cardamom Cupcake Collection/);
   assert.match(cupcakes, /Cupcake Discovery Collection/);
@@ -122,8 +127,13 @@ test("renders Cupcakes as a separate planned-launch collection", async () => {
   assert.match(cupcakes, /cupcake-ragi-box-6-v2\.webp/);
   assert.match(cupcakes, /cupcake-pista-box-9-v2\.webp/);
   assert.match(cupcakes, /cupcake-discovery-box-12-v2\.webp/);
-  assert.match(cupcakes, /Add planned box to cart/);
-  assert.match(cupcakes, /transport test/);
+  assert.match(cupcakes, /Available to preorder/);
+  assert.match(cupcakes, /Add to cart/);
+  assert.match(cupcakes, /₹900/);
+  assert.match(cupcakes, /₹970/);
+  assert.match(cupcakes, /₹1,880/);
+  assert.match(cupcakes, /Preorder boxes of 6 at least three days ahead/);
+  assert.doesNotMatch(cupcakes, /planned launch|coming soon/i);
 });
 
 test("renders the expanded customer information pages", async () => {
@@ -188,7 +198,8 @@ test("renders the owner pricing and approval review", async () => {
   assert.match(review, /one, two or three divided flavour-topping sections/);
   assert.match(review, /Ragi No\. 01 — Dark Cacao Millet Brownie/);
   assert.match(review, /Walnut Reserve/);
-  assert.match(review, /boxes of 6, 9 and 12/);
+  assert.match(review, /Boxes of 6, 9 and 12/);
+  assert.match(review, /Cupcakes active for preorder/);
   assert.match(review, /DOMAIN PURCHASE STATUS/);
   assert.match(review, /sanbakes\.com/);
   assert.match(review, /₹449/);

@@ -51,7 +51,7 @@ export default function Home() {
           <p className="heroTamil">{en ? "Made in small batches, with care, after your preorder." : "குறைந்த அளவில், முன்பதிவுக்குப் பிறகு அன்புடன் தயாரிக்கப்படுகிறது."}</p>
           <div className="heroActions">
             <a className="button buttonLight" href="/preorder">{en ? "Start a preorder" : "முன்பதிவைத் தொடங்க"}</a>
-            <a className="button buttonOutlineLight" href="/menu">{en ? "Menu & pricing" : "மெனு & விலை"}</a>
+            <a className="button buttonOutlineLight" href="/menu">{en ? "Brownie" : "பிரௌனி"}</a>
             <a className="textLink" href="/about">{en ? "Our ingredient standard →" : "எங்கள் பொருள் தரநிலை →"}</a>
           </div>
         </div>
@@ -63,10 +63,26 @@ export default function Home() {
         <div><span>03</span><strong>{en ? "Delivery within Chennai" : "சென்னை முழுவதும் டெலிவரி"}</strong><p>{en ? "Appointment pickup or Chennai delivery; addresses beyond 20 km include additional distance-based charges." : "முன்பதிவு பிக்கப் அல்லது சென்னை டெலிவரி; 20 கி.மீ.க்கு அப்பால் கூடுதல் தூரக் கட்டணம் சேர்க்கப்படும்."}</p></div>
       </section>
 
+      <section className="menuSection homePriceGuide">
+        <div className="priceGuide">
+          <div className="priceGuideHead"><p className="eyebrow dark">{en ? "LAUNCH PRICING GUIDE" : "அறிமுக விலை வழிகாட்டி"}</p><h2>{en ? "A clear starting point." : "தெளிவான தொடக்க விலை."}</h2><p>{en ? "These are current starting prices. Your WhatsApp confirmation will state the selected recipe, size, customisation, delivery charge and final total before payment." : "இவை தற்போதைய தொடக்க விலைகள். கட்டணத்திற்கு முன் தேர்ந்தெடுத்த ரெசிபி, அளவு, தனிப்பயன், டெலிவரி கட்டணம் மற்றும் இறுதி மொத்தம் WhatsApp மூலம் உறுதி செய்யப்படும்."}</p></div>
+          <div className="priceGuideGrid">
+            <div><strong>{en ? "Brownie boxes" : "பிரௌனி பெட்டிகள்"}</strong><span>₹760–₹1,110</span><small>{en ? "Core 6 or 9-piece boxes" : "முக்கிய 6 அல்லது 9 துண்டு பெட்டிகள்"}</small></div>
+            <div><strong>{en ? "Brownie Tins" : "பிரௌனி டின்கள்"}</strong><span>₹380–₹450</span><small>{en ? "Three separate pieces, or one whole brownie with 1/2/3 topping sections" : "மூன்று தனித் துண்டுகள் அல்லது 1/2/3 டாப்பிங் பகுதிகளுடன் ஒரு முழு பிரௌனி"}</small></div>
+            <div><strong>{en ? "Cupcake boxes" : "கப் கேக் பெட்டிகள்"}</strong><span>₹900–₹1,880</span><small>{en ? "Boxes of 6, 9 or 12 · available to preorder" : "6, 9 அல்லது 12 பெட்டிகள் · முன்பதிவுக்கு கிடைக்கும்"}</small></div>
+            <div><strong>{en ? "Millet tea cakes" : "சிறுதானிய டீ கேக்குகள்"}</strong><span>₹600–₹670</span><small>{en ? "Recipe and yield confirmation applies" : "ரெசிபி மற்றும் யீல்ட் உறுதிப்படுத்தல் பொருந்தும்"}</small></div>
+            <div><strong>{en ? "Birthdays & parties" : "பிறந்தநாள் & பார்ட்டி"}</strong><span>{en ? "Cakes ₹670–₹2,510" : "கேக்குகள் ₹670–₹2,510"}</span><small>{en ? "Packed brownies from 25 · Tins/Tubs from 10" : "தனித்தனி பிரௌனிகள் 25 முதல் · டின்கள்/டப்கள் 10 முதல்"}</small></div>
+            <div><strong>{en ? "Brownie Tubs" : "பிரௌனி டப்கள்"}</strong><span>₹310–₹380</span><small>{en ? "Single-Tub prices · recipe confirmation applies" : "ஒரு டப் விலை · ரெசிபி உறுதிப்படுத்தல் பொருந்தும்"}</small></div>
+            <div><strong>{en ? "Personal gifting" : "தனிப்பட்ட பரிசுகள்"}</strong><span>₹760–₹2,990</span><small>{en ? "Curated boxes, Tins and seasonal hampers" : "தேர்ந்தெடுத்த பெட்டிகள், டின்கள் மற்றும் பருவகால ஹாம்பர்கள்"}</small></div>
+            <div><strong>{en ? "Corporate" : "நிறுவன ஆர்டர்கள்"}</strong><span>{en ? "From 25 boxes / ₹15,000" : "25 பெட்டிகள் / ₹15,000 முதல்"}</span><small>{en ? "Separate proposal, branding and fulfilment rules" : "தனி விலை, பிராண்டிங் மற்றும் நிறைவேற்றும் விதிகள்"}</small></div>
+          </div>
+        </div>
+      </section>
+
       <section className="collectionSection">
         <div className="sectionHeading">
           <div><p className="eyebrow dark">THE OPENING COLLECTION</p><h2>{en ? "Familiar pleasure, considered differently." : "பழக்கமான சுவை, புதிய கவனத்துடன்."}</h2></div>
-          <p>{en ? "A focused menu spanning signature brownies, true Brownie Tins, Brownie Tubs, millet tea cakes, birthday and party formats, personal gifting and corporate orders—with Cupcakes presented separately as a planned launch." : "சிக்னேச்சர் பிரௌனிகள், பிரௌனி டின்கள், பிரௌனி டப்கள், சிறுதானிய டீ கேக்குகள், பிறந்தநாள் மற்றும் பார்ட்டி வடிவங்கள், பரிசுகள் மற்றும் நிறுவன ஆர்டர்கள்; கப் கேக்குகள் தனி திட்டமிட்ட அறிமுகமாக வழங்கப்படுகின்றன."}</p>
+          <p>{en ? "A focused menu spanning signature brownies, true Brownie Tins, Brownie Tubs, millet tea cakes, Cupcakes, birthday and party formats, personal gifting and corporate orders." : "சிக்னேச்சர் பிரௌனிகள், பிரௌனி டின்கள், பிரௌனி டப்கள், சிறுதானிய டீ கேக்குகள், கப் கேக்குகள், பிறந்தநாள் மற்றும் பார்ட்டி வடிவங்கள், பரிசுகள் மற்றும் நிறுவன ஆர்டர்கள்."}</p>
         </div>
         <div className="productGrid">
           {featured.map((item) => (
@@ -76,7 +92,7 @@ export default function Home() {
                 <p className="cardEyebrow">{item.label}</p>
                 <h3>{en ? item.title : item.titleTa}</h3>
                 <p>{en ? item.copy : item.copyTa}</p>
-                <div><span>{en ? "Egg formulation" : "முட்டை வகை"}</span><a href="/menu">{en ? "View menu →" : "மெனு →"}</a></div>
+                <div><span>{en ? "Egg formulation" : "முட்டை வகை"}</span><a href="/menu">{en ? "View Brownie →" : "பிரௌனி →"}</a></div>
               </div>
             </article>
           ))}

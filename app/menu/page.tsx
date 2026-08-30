@@ -32,23 +32,11 @@ export default function MenuPage() {
     <main>
       <section className="innerHero menuHero">
         <p className="eyebrow">THE SAN BAKES COLLECTION</p>
-        <h1>{en ? "The preorder menu" : "முன்பதிவு மெனு"}</h1>
-        <p>{en ? "A focused collection for everyday indulgence, considered gifting and celebrations. Planning prices are provisional until recipe, yield and supplier-cost validation is complete." : "தினசரி மகிழ்ச்சி, பரிசுகள் மற்றும் கொண்டாட்டங்களுக்கான மெனு. ரெசிபி மற்றும் செலவு சோதனை முடியும் வரை திட்டமிட்ட விலைகள் தற்காலிகமானவை."}</p>
+        <h1>{en ? "The Brownie preorder collection" : "பிரௌனி முன்பதிவு தொகுப்பு"}</h1>
+        <p>{en ? "Signature Brownies, boxes, Tins, Tubs, millet tea cakes and personal gifting formats—made in small batches after you reserve." : "சிக்னேச்சர் பிரௌனிகள், பெட்டிகள், டின்கள், டப்கள், சிறுதானிய டீ கேக்குகள் மற்றும் தனிப்பட்ட பரிசுகள்—முன்பதிவுக்குப் பிறகு சிறிய தொகுதிகளாக தயாரிக்கப்படும்."}</p>
       </section>
       <section className="menuSection">
-        <div className="priceGuide">
-          <div className="priceGuideHead"><p className="eyebrow dark">{en ? "LAUNCH PRICING GUIDE" : "அறிமுக விலை வழிகாட்டி"}</p><h2>{en ? "A clear starting point." : "தெளிவான தொடக்க விலை."}</h2><p>{en ? "These are recommended planning prices. A WhatsApp confirmation will state the final recipe, size, customisation, delivery fee and total before payment." : "இவை பரிந்துரைக்கப்பட்ட திட்டமிட்ட விலைகள். கட்டணத்திற்கு முன் இறுதி ரெசிபி, அளவு, தனிப்பயன், டெலிவரி மற்றும் மொத்த விலை WhatsApp மூலம் உறுதி செய்யப்படும்."}</p></div>
-          <div className="priceGuideGrid">
-            <div><strong>{en ? "Brownie boxes" : "பிரௌனி பெட்டிகள்"}</strong><span>₹760–₹1,110</span><small>{en ? "Core 6 or 9-piece boxes" : "முக்கிய 6 அல்லது 9 துண்டு பெட்டிகள்"}</small></div>
-            <div><strong>{en ? "Brownie Tins" : "பிரௌனி டின்கள்"}</strong><span>₹380–₹450</span><small>{en ? "Choose 3 separate pieces, or 1 whole brownie with 1/2/3 flavour-topping sections" : "3 தனித்தனி துண்டுகள் அல்லது 1/2/3 சுவை டாப்பிங் பகுதிகளுடன் ஒரு முழு பிரௌனி"}</small></div>
-            <div><strong>{en ? "Millet tea cakes" : "சிறுதானிய டீ கேக்குகள்"}</strong><span>₹600–₹670</span><small>{en ? "Recipe/yield validation pending" : "ரெசிபி சோதனை நிலுவையில்"}</small></div>
-            <div><strong>{en ? "Birthdays & parties" : "பிறந்தநாள் & பார்ட்டி"}</strong><span>{en ? "Cakes ₹670–₹2,510" : "கேக்குகள் ₹670–₹2,510"}</span><small>{en ? "Packed brownies from 25 · Tins/Tubs from 10" : "தனித்தனி பிரௌனிகள் 25 முதல் · டின்கள்/டப்கள் 10 முதல்"}</small></div>
-            <div><strong>{en ? "Brownie Tubs" : "பிரௌனி டப்கள்"}</strong><span>₹310–₹380</span><small>{en ? "Revised single-tub prices · validation required" : "திருத்திய ஒரு டப் விலை · சோதனை தேவை"}</small></div>
-            <div><strong>{en ? "Personal gifting" : "தனிப்பட்ட பரிசுகள்"}</strong><span>₹760–₹2,990</span><small>{en ? "Curated boxes, Tins and seasonal hampers" : "தேர்ந்தெடுத்த பெட்டிகள், டின்கள் மற்றும் பருவகால ஹாம்பர்கள்"}</small></div>
-            <div><strong>{en ? "Corporate" : "நிறுவன ஆர்டர்கள்"}</strong><span>{en ? "From 25 boxes / ₹15,000" : "25 பெட்டிகள் / ₹15,000 முதல்"}</span><small>{en ? "Separate proposal, branding and fulfilment rules" : "தனி விலை, பிராண்டிங் மற்றும் நிறைவேற்றும் விதிகள்"}</small></div>
-          </div>
-        </div>
-        <div className="menuCrossLink"><div><strong>{en ? "Cupcakes have their own planned-launch page." : "கப் கேக்குகளுக்கு தனி திட்டமிட்ட அறிமுக பக்கம் உள்ளது."}</strong><span>{en ? "Preview boxes of 6, 9 and 12, the proposed flavours and validation gates." : "6, 9 மற்றும் 12 பெட்டிகள், திட்டமிட்ட சுவைகள் மற்றும் சோதனை நிலைகளைப் பாருங்கள்."}</span></div><a className="button buttonCacao" href="/cupcakes">{en ? "Preview Cupcakes" : "கப் கேக்குகளைப் பார்க்க"}</a></div>
+        <div className="menuCrossLink"><div><strong>{en ? "Cupcakes are available on their own ordering page." : "கப் கேக்குகள் தனி ஆர்டர் பக்கத்தில் கிடைக்கின்றன."}</strong><span>{en ? "Choose boxes of 6, 9 or 12, select a collection and add it directly to your preorder cart." : "6, 9 அல்லது 12 பெட்டியைத் தேர்ந்து, தொகுப்பை நேரடியாக முன்பதிவு கார்ட்டில் சேர்க்கலாம்."}</span></div><a className="button buttonCacao" href="/cupcakes">{en ? "Order Cupcakes" : "கப் கேக்குகளை ஆர்டர் செய்ய"}</a></div>
         <div className="filterBar" aria-label="Filter menu by collection">
           {menuCategories.map((category) => <button className={active === category.id ? "active" : ""} key={category.id} onClick={() => setActive(category.id)} type="button">{en ? category.name : category.nameTa}</button>)}
         </div>

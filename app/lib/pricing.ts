@@ -99,20 +99,20 @@ const baseProductPricing: Record<string, ProductPricing> = {
     option("tower-12","Tower of 12 pieces","12 துண்டு டவர்",1390,"Pickup preferred during launch validation","அறிமுக சோதனையில் பிக்கப் பரிந்துரைக்கப்படுகிறது"),
     option("tower-18","Tower of 18 pieces","18 துண்டு டவர்",1990,"Delivery route must be approved","டெலிவரி பாதை அனுமதிக்கப்பட வேண்டும்"),
   ]},
-  "cupcake-ragi": { decision:"conditional", options:[
-    option("box-6","Box of 6 cupcakes","6 கப் கேக் பெட்டி",1290,"Release only after transport test","போக்குவரத்து சோதனைக்குப் பிறகு மட்டும்"),
-    option("box-9","Box of 9 cupcakes","9 கப் கேக் பெட்டி",1890,"Single flavour; 5-day preorder after launch","ஒரே சுவை; அறிமுகத்திற்குப் பிறகு 5 நாள் முன்பதிவு"),
-    option("box-12","Box of 12 cupcakes","12 கப் கேக் பெட்டி",2490,"Single flavour and finish","ஒரே சுவை மற்றும் அலங்காரம்"),
+  "cupcake-ragi": { decision:"approve", options:[
+    option("box-6","Box of 6 cupcakes","6 கப் கேக் பெட்டி",1290,"Dark Cacao Ragi · preorder at least 3 days ahead","டார்க் காகாவ் ராகி · குறைந்தது 3 நாட்கள் முன்பதிவு"),
+    option("box-9","Box of 9 cupcakes","9 கப் கேக் பெட்டி",1890,"Single flavour · preorder at least 5 days ahead","ஒரே சுவை · குறைந்தது 5 நாட்கள் முன்பதிவு"),
+    option("box-12","Box of 12 cupcakes","12 கப் கேக் பெட்டி",2490,"Single flavour and finish · preorder at least 5 days ahead","ஒரே சுவை மற்றும் அலங்காரம் · குறைந்தது 5 நாட்கள் முன்பதிவு"),
   ]},
-  "cupcake-pista": { decision:"conditional", options:[
-    option("box-6","Box of 6 cupcakes","6 கப் கேக் பெட்டி",1390,"Pistachio premium; transport test pending","பிஸ்தா பிரீமியம்; போக்குவரத்து சோதனை நிலுவையில்"),
-    option("box-9","Box of 9 cupcakes","9 கப் கேக் பெட்டி",2090,"Single flavour; 5-day preorder after launch","ஒரே சுவை; அறிமுகத்திற்குப் பிறகு 5 நாள் முன்பதிவு"),
-    option("box-12","Box of 12 cupcakes","12 கப் கேக் பெட்டி",2690,"Single flavour and finish","ஒரே சுவை மற்றும் அலங்காரம்"),
+  "cupcake-pista": { decision:"approve", options:[
+    option("box-6","Box of 6 cupcakes","6 கப் கேக் பெட்டி",1390,"Pista Cardamom · preorder at least 3 days ahead","பிஸ்தா ஏலக்காய் · குறைந்தது 3 நாட்கள் முன்பதிவு"),
+    option("box-9","Box of 9 cupcakes","9 கப் கேக் பெட்டி",2090,"Single flavour · preorder at least 5 days ahead","ஒரே சுவை · குறைந்தது 5 நாட்கள் முன்பதிவு"),
+    option("box-12","Box of 12 cupcakes","12 கப் கேக் பெட்டி",2690,"Single flavour and finish · preorder at least 5 days ahead","ஒரே சுவை மற்றும் அலங்காரம் · குறைந்தது 5 நாட்கள் முன்பதிவு"),
   ]},
-  "cupcake-discovery": { decision:"conditional", options:[
-    option("box-6","Discovery box of 6 · one of each","6 டிஸ்கவரி பெட்டி · ஒவ்வொரு சுவையிலும் ஒன்று",1390,"Six planned flavours; only validated flavours will launch","திட்டமிட்ட ஆறு சுவைகள்; சோதிக்கப்பட்டவை மட்டுமே அறிமுகமாகும்"),
+  "cupcake-discovery": { decision:"approve", options:[
+    option("box-6","Discovery box of 6 · one of each","6 டிஸ்கவரி பெட்டி · ஒவ்வொரு சுவையிலும் ஒன்று",1390,"Six flavours · one of each · preorder at least 3 days ahead","ஆறு சுவைகள் · ஒவ்வொன்றிலும் ஒன்று · குறைந்தது 3 நாட்கள் முன்பதிவு"),
     option("box-9","Discovery box of 9 · six flavours + 3 repeats","9 டிஸ்கவரி பெட்டி · ஆறு சுவைகள் + 3 மறுபதிப்புகள்",2090,"Customer selects three repeats after availability confirmation","கிடைப்பை உறுதி செய்த பிறகு மூன்று மறுபதிப்புகளைத் தேர்வு செய்யலாம்"),
-    option("box-12","Discovery box of 12 · two of each","12 டிஸ்கவரி பெட்டி · ஒவ்வொரு சுவையிலும் இரண்டு",2690,"Balanced paired assortment across the six planned flavours","திட்டமிட்ட ஆறு சுவைகளில் சமமான ஜோடி கலவை"),
+    option("box-12","Discovery box of 12 · two of each","12 டிஸ்கவரி பெட்டி · ஒவ்வொரு சுவையிலும் இரண்டு",2690,"Balanced paired assortment across all six flavours · preorder at least 5 days ahead","ஆறு சுவைகளிலும் சமமான ஜோடி கலவை · குறைந்தது 5 நாட்கள் முன்பதிவு"),
   ]},
   "corporate-mini-box": { decision:"quotation", options:[
     option("tier-25-ragi-walnut","25–49 boxes · 2 Ragi + 2 Walnut · per box","25–49 பெட்டிகள் · 2 ராகி + 2 வால்நட் · ஒரு பெட்டி",690,"Recommended lead composition; one common message","பரிந்துரைக்கப்பட்ட முக்கிய கலவை; ஒரு பொதுவான செய்தி"),

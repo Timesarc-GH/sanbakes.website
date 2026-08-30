@@ -8,7 +8,7 @@ import { usePreorder } from "./PreorderProvider";
 
 const links = [
   { href: "/", en: "Home", ta: "முகப்பு" },
-  { href: "/menu", en: "Menu & Pricing", ta: "மெனு & விலை" },
+  { href: "/menu", en: "Brownie", ta: "பிரௌனி" },
   { href: "/cupcakes", en: "Cupcakes", ta: "கப் கேக்குகள்" },
   { href: "/parties", en: "Birthdays & Parties", ta: "பிறந்தநாள் & பார்ட்டி" },
   { href: "/gifting", en: "Gifting", ta: "பரிசுகள்" },

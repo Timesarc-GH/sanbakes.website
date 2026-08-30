@@ -6,18 +6,18 @@ import { useLanguage } from "../components/LanguageProvider";
 import { useInventory } from "../components/InventoryProvider";
 import { usePreorder } from "../components/PreorderProvider";
 import { inventoryStatusLabel, isInventoryUnavailable } from "../lib/inventory";
-import { decisionLabel, formatPrice, getPricing, makeSelectionKey } from "../lib/pricing";
+import { formatPrice, getPricing, makeSelectionKey } from "../lib/pricing";
 import { products, statusLabel } from "../lib/products";
 
 const cupcakeProducts = products.filter((product) => product.category === "cupcakes");
 
-const plannedFlavours = [
+const cupcakeFlavours = [
   { en: "Dark Cacao Ragi", ta: "டார்க் காகாவ் ராகி", note: "Cacao-led · millet crumb" },
   { en: "Walnut Cacao", ta: "வால்நட் காகாவ்", note: "Toasted walnut" },
   { en: "Pista Cardamom", ta: "பிஸ்தா ஏலக்காய்", note: "Measured cardamom finish" },
-  { en: "Strawberry Cacao", ta: "ஸ்ட்ராபெரி காகாவ்", note: "Seasonal · cold-chain validation" },
-  { en: "Biscoff Crunch", ta: "பிஸ்காஃப் கிரஞ்ச்", note: "Ingredient verification required" },
-  { en: "Chocolate Wafer Crunch", ta: "சாக்லேட் வேஃபர் கிரஞ்ச்", note: "Ingredient verification required" },
+  { en: "Strawberry Cacao", ta: "ஸ்ட்ராபெரி காகாவ்", note: "Seasonal availability" },
+  { en: "Biscoff Crunch", ta: "பிஸ்காஃப் கிரஞ்ச்", note: "Caramelised biscuit crunch" },
+  { en: "Chocolate Wafer Crunch", ta: "சாக்லேட் வேஃபர் கிரஞ்ச்", note: "Chocolate wafer finish" },
 ];
 
 export default function CupcakesPage() {
@@ -31,30 +31,20 @@ export default function CupcakesPage() {
     <main className="cupcakePage">
       <section className="cupcakeHero">
         <div>
-          <p className="eyebrow">PLANNED NEW LAUNCH · COMING SOON</p>
+          <p className="eyebrow">CUPCAKES · AVAILABLE TO PREORDER</p>
           <h1>{en ? "Cupcakes, considered from crumb to carry." : "கப் கேக்குகள் — சுவையிலிருந்து பாதுகாப்பான பயணம் வரை கவனமாக."}</h1>
-          <p>{en ? "A separate phase-two collection in boxes of 6, 9 and 12. The names, photography and planning prices are ready for review; recipes, inserts and Chennai-route transport tests must pass before release." : "6, 9 மற்றும் 12 பெட்டிகளில் தனி இரண்டாம் கட்ட தொகுப்பு. பெயர்கள், படங்கள் மற்றும் திட்டமிட்ட விலைகள் மதிப்பாய்வுக்கு தயாராக உள்ளன; அறிமுகத்திற்கு முன் ரெசிபி, இன்சர்ட் மற்றும் சென்னை பாதை போக்குவரத்து சோதனை நிறைவேற வேண்டும்."}</p>
-          <div className="cupcakeHeroActions"><a className="button buttonLight" href="#planned-collection">{en ? "Preview the collection" : "தொகுப்பைப் பார்க்க"}</a><a className="button buttonOutlineLight" href="/preorder">{en ? "Review cart" : "கார்ட்டைப் பார்க்க"}</a></div>
+          <p>{en ? "Order Dark Cacao Ragi, Pista Cardamom or the six-flavour Discovery Collection in boxes of 6, 9 or 12. Select your box below and add it directly to the preorder cart." : "டார்க் காகாவ் ராகி, பிஸ்தா ஏலக்காய் அல்லது ஆறு சுவை டிஸ்கவரி தொகுப்பை 6, 9 அல்லது 12 பெட்டிகளில் ஆர்டர் செய்யலாம். கீழே பெட்டியைத் தேர்ந்து முன்பதிவு கார்ட்டில் சேர்க்கவும்."}</p>
+          <div className="cupcakeHeroActions"><a className="button buttonLight" href="#cupcake-collection">{en ? "Choose a Cupcake box" : "கப் கேக் பெட்டியைத் தேர்வு செய்ய"}</a><a className="button buttonOutlineLight" href="/preorder">{en ? "Review cart" : "கார்ட்டைப் பார்க்க"}</a></div>
         </div>
         <aside>
-          <span>{en ? "Launch rule" : "அறிமுக விதி"}</span>
-          <strong>{en ? "No single cupcakes" : "ஒற்றை கப் கேக் இல்லை"}</strong>
-          <p>{en ? "Box-led ordering protects the premium presentation and makes small-batch production predictable." : "பெட்டி அடிப்படையிலான ஆர்டர் பிரீமியம் தோற்றத்தையும் சிறிய தொகுதி தயாரிப்பையும் பாதுகாக்கிறது."}</p>
+          <span>{en ? "Ordering format" : "ஆர்டர் வடிவம்"}</span>
+          <strong>{en ? "Boxes of 6, 9 or 12" : "6, 9 அல்லது 12 பெட்டிகள்"}</strong>
+          <p>{en ? "Every cupcake is secured in its own fitted holder inside a deeper cupcake-specific presentation box." : "ஒவ்வொரு கப் கேக்கும் ஆழமான கப் கேக் பெட்டியில் தனித்தனி பொருத்தப்பட்ட ஹோல்டரில் பாதுகாக்கப்படுகிறது."}</p>
         </aside>
       </section>
 
-      <section className="cupcakePlan">
-        <div className="cupcakePlanIntro"><p className="eyebrow dark">THE PROPOSED FORMAT</p><h2>{en ? "Six identities. Three box sizes." : "ஆறு சுவைகள். மூன்று பெட்டி அளவுகள்."}</h2><p>{en ? "Every size uses a larger, deeper cupcake-specific box with one fitted individual holder for each cupcake—clearly distinct from the compact Brownie boxes." : "ஒவ்வொரு அளவிலும் ஒவ்வொரு கப் கேக்கிற்கும் தனி ஹோல்டர் கொண்ட பெரிய, ஆழமான கப் கேக் பெட்டி பயன்படுத்தப்படும்; இது பிரௌனி பெட்டிகளிலிருந்து தெளிவாக வேறுபடும்."}</p></div>
-        <div className="cupcakeFacts"><article><span>06</span><strong>{en ? "Discovery" : "டிஸ்கவரி"}</strong><p>{en ? "One of each planned flavour when all six pass validation." : "ஆறு சுவைகளும் சோதனையை கடந்தால் ஒவ்வொன்றிலும் ஒன்று."}</p></article><article><span>09</span><strong>{en ? "Gathering" : "கேதரிங்"}</strong><p>{en ? "Six flavours plus three selected repeats, or a controlled single-flavour box." : "ஆறு சுவைகள் மற்றும் தேர்ந்தெடுத்த மூன்று மறுபதிப்புகள் அல்லது ஒரே சுவை பெட்டி."}</p></article><article><span>12</span><strong>{en ? "Full collection" : "முழு தொகுப்பு"}</strong><p>{en ? "Two of each planned flavour, or one validated flavour throughout." : "ஒவ்வொரு சுவையிலும் இரண்டு அல்லது ஒரே சோதிக்கப்பட்ட சுவை முழுவதும்."}</p></article></div>
-      </section>
-
-      <section className="cupcakeFlavours">
-        <div><p className="eyebrow">PLANNED FLAVOURS</p><h2>{en ? "Familiar cues, a quieter finish." : "பழக்கமான சுவைகள், அளவான அலங்காரம்."}</h2></div>
-        <ol>{plannedFlavours.map((flavour, index) => <li key={flavour.en}><span>{String(index + 1).padStart(2, "0")}</span><strong>{en ? flavour.en : flavour.ta}</strong><small>{flavour.note}</small></li>)}</ol>
-      </section>
-
-      <section className="menuSection cupcakeCollection" id="planned-collection">
-        <div className="menuNotice"><strong>{en ? "Coming soon" : "விரைவில் வருகிறது"}</strong><span>{en ? "You may add a planned box to the cart for review. Production and UPI payment remain subject to San Bakes confirming the launch and total on WhatsApp." : "திட்டமிட்ட பெட்டியை மதிப்பாய்வுக்காக கார்ட்டில் சேர்க்கலாம். தயாரிப்பும் UPI கட்டணமும் San Bakes WhatsApp-ல் அறிமுகம் மற்றும் மொத்தத்தை உறுதி செய்வதற்கு உட்பட்டவை."}</span></div>
+      <section className="menuSection cupcakeCollection" id="cupcake-collection">
+        <div className="menuNotice"><strong>{en ? "Available to preorder" : "முன்பதிவுக்கு கிடைக்கும்"}</strong><span>{en ? "Choose a collection and box size, add it to your cart and place the complete order through WhatsApp. Pay only after San Bakes confirms availability, delivery and the final total." : "தொகுப்பு மற்றும் பெட்டி அளவைத் தேர்ந்து கார்ட்டில் சேர்த்து, முழு ஆர்டரை WhatsApp மூலம் அனுப்பவும். கிடைப்பு, டெலிவரி மற்றும் இறுதி மொத்தத்தை San Bakes உறுதி செய்த பிறகு மட்டும் கட்டணம் செலுத்தவும்."}</span></div>
         <div className="menuGrid">
           {cupcakeProducts.map((product) => {
             const pricing = getPricing(product.id);
@@ -70,21 +60,31 @@ export default function CupcakesPage() {
                 {availability.updatedAt && <span className={`stockBadge ${availability.status}`}>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}{availability.availableQuantity !== null && availability.status !== "out_of_stock" ? ` · ${availability.availableQuantity}` : ""}</span>}
               </div>
               <div className="menuCardBody">
-                <p className="cardEyebrow">{en ? "PLANNED CUPCAKE COLLECTION" : "திட்டமிட்ட கப் கேக் தொகுப்பு"}</p>
+                <p className="cardEyebrow">{en ? "CUPCAKE COLLECTION" : "கப் கேக் தொகுப்பு"}</p>
                 <h2>{en ? product.name : product.nameTa}</h2>
                 <p>{en ? product.description : product.descriptionTa}</p>
-                <div className={`decisionLine ${pricing.decision}`}><span>{en ? decisionLabel[pricing.decision].en : decisionLabel[pricing.decision].ta}</span><small>{product.format}</small></div>
+                <div className="decisionLine approve"><span>{en ? "Available to preorder" : "முன்பதிவுக்கு கிடைக்கும்"}</span><small>{product.format}</small></div>
                 {(availabilityNote || unavailable) && <div className={`availabilityLine ${availability.status}`}><strong>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}</strong>{availabilityNote && <span>{availabilityNote}</span>}</div>}
                 <label className="variantPicker"><span>{en ? "Box / composition option" : "பெட்டி / கலவை விருப்பம்"}</span><select value={selectedOption.id} onChange={(event) => setSelectedOptions((current) => ({ ...current, [product.id]: event.target.value }))}>{pricing.options.map((item) => <option value={item.id} key={item.id}>{en ? item.label : item.labelTa} — {formatPrice(item.price)}</option>)}</select><small>{en ? selectedOption.note : selectedOption.noteTa}</small></label>
-                <div className="selectedPrice"><span>{en ? "Planned price" : "திட்டமிட்ட விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
-                <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id, selectedOption.id))} type="button">{unavailable ? (en ? "Currently unavailable" : "தற்போது கிடைக்கவில்லை") : (en ? "Add planned box to cart" : "திட்டமிட்ட பெட்டியை கார்ட்டில் சேர்க்க")}</button>
+                <div className="selectedPrice"><span>{en ? "Price" : "விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
+                <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id, selectedOption.id))} type="button">{unavailable ? (en ? "Currently unavailable" : "தற்போது கிடைக்கவில்லை") : (en ? "Add to cart" : "கார்ட்டில் சேர்க்க")}</button>
               </div>
             </article>;
           })}
         </div>
       </section>
 
-      <section className="cupcakeGate"><div><p className="eyebrow dark">RELEASE GATES</p><h2>{en ? "The images are concepts. The launch must earn them." : "படங்கள் ஒரு கருத்து. அறிமுகம் அதை உண்மையாக்க வேண்டும்."}</h2></div><ul><li>{en ? "Final egg-recipe yield, allergen declaration and shelf-life record." : "இறுதி முட்டை ரெசிபி யீல்ட், அலர்ஜன் மற்றும் சேமிப்பு பதிவு."}</li><li>{en ? "Low-profile finish that survives two hours ambient and short- and long-distance Chennai route tests." : "இரண்டு மணி நேர அறை வெப்பமும் குறுகிய மற்றும் நீண்ட சென்னை பாதை சோதனை பயணங்களும் தாங்கும் அலங்காரம்."}</li><li>{en ? "Larger 6-, 9- and 12-cupcake boxes tested with one individual holder per cupcake, adequate frosting clearance and no movement or smearing." : "பெரிய 6, 9 மற்றும் 12 கப் கேக் பெட்டிகளில் ஒவ்வொன்றுக்கும் தனி ஹோல்டர், ஃப்ராஸ்டிங் இடைவெளி, நகர்வு மற்றும் தடவல் இல்லாமை சோதிக்கப்பட வேண்டும்."}</li><li>{en ? "Biscoff and wafer flavours released only after ingredient-brand and allergen verification." : "பிஸ்காஃப் மற்றும் வேஃபர் சுவைகள் பொருள் பிராண்ட் மற்றும் அலர்ஜன் சோதனைக்குப் பிறகு மட்டும்."}</li></ul></section>
+      <section className="cupcakePlan">
+        <div className="cupcakePlanIntro"><p className="eyebrow dark">THE BOX FORMAT</p><h2>{en ? "Six identities. Three box sizes." : "ஆறு சுவைகள். மூன்று பெட்டி அளவுகள்."}</h2><p>{en ? "Every size uses a larger, deeper cupcake-specific box with one fitted individual holder for each cupcake—clearly distinct from the compact Brownie boxes." : "ஒவ்வொரு அளவிலும் ஒவ்வொரு கப் கேக்கிற்கும் தனி ஹோல்டர் கொண்ட பெரிய, ஆழமான கப் கேக் பெட்டி பயன்படுத்தப்படும்; இது பிரௌனி பெட்டிகளிலிருந்து தெளிவாக வேறுபடும்."}</p></div>
+        <div className="cupcakeFacts"><article><span>06</span><strong>{en ? "Discovery" : "டிஸ்கவரி"}</strong><p>{en ? "One of each of the six flavours, or a single-flavour box." : "ஆறு சுவைகளில் ஒவ்வொன்றும் ஒன்று அல்லது ஒரே சுவை பெட்டி."}</p></article><article><span>09</span><strong>{en ? "Gathering" : "கேதரிங்"}</strong><p>{en ? "Six flavours plus three selected repeats, or a single-flavour box." : "ஆறு சுவைகள் மற்றும் தேர்ந்தெடுத்த மூன்று மறுபதிப்புகள் அல்லது ஒரே சுவை பெட்டி."}</p></article><article><span>12</span><strong>{en ? "Full collection" : "முழு தொகுப்பு"}</strong><p>{en ? "Two of each flavour, or one flavour throughout." : "ஒவ்வொரு சுவையிலும் இரண்டு அல்லது ஒரே சுவை முழுவதும்."}</p></article></div>
+      </section>
+
+      <section className="cupcakeFlavours">
+        <div><p className="eyebrow">FLAVOURS</p><h2>{en ? "Familiar cues, a quieter finish." : "பழக்கமான சுவைகள், அளவான அலங்காரம்."}</h2></div>
+        <ol>{cupcakeFlavours.map((flavour, index) => <li key={flavour.en}><span>{String(index + 1).padStart(2, "0")}</span><strong>{en ? flavour.en : flavour.ta}</strong><small>{flavour.note}</small></li>)}</ol>
+      </section>
+
+      <section className="cupcakeGate"><div><p className="eyebrow dark">ORDERING & CARE</p><h2>{en ? "Made after you order." : "ஆர்டருக்குப் பிறகு தயாரிக்கப்படுகிறது."}</h2></div><ul><li>{en ? "The current Cupcake menu uses the egg formulation; allergens are declared before confirmation." : "தற்போதைய கப் கேக் மெனுவில் முட்டை பயன்படுத்தப்படுகிறது; உறுதிப்படுத்துவதற்கு முன் அலர்ஜன்கள் தெரிவிக்கப்படும்."}</li><li>{en ? "Preorder boxes of 6 at least three days ahead; boxes of 9 or 12 need at least five days." : "6 பெட்டிக்கு குறைந்தது 3 நாட்களும், 9 அல்லது 12 பெட்டிக்கு குறைந்தது 5 நாட்களும் முன்பதிவு தேவை."}</li><li>{en ? "Every cupcake travels in an individual holder with adequate frosting clearance." : "ஒவ்வொரு கப் கேக்கும் ஃப்ராஸ்டிங் இடைவெளியுடன் தனித்தனி ஹோல்டரில் அனுப்பப்படும்."}</li><li>{en ? "Chennai delivery is confirmed by route; additional distance-based charges apply beyond 20 km." : "சென்னை டெலிவரி பாதைக்கு ஏற்ப உறுதி செய்யப்படும்; 20 கி.மீ.க்கு அப்பால் கூடுதல் தூரக் கட்டணம் பொருந்தும்."}</li></ul></section>
 
       {count > 0 && <div className="basketDock"><span>{en ? `${count} item${count === 1 ? "" : "s"} in your cart` : `கார்ட்டில் ${count} பொருட்கள்`}</span><a className="button buttonLight" href="/preorder">{en ? "Review cart" : "கார்ட்டைப் பார்க்க"}</a></div>}
     </main>

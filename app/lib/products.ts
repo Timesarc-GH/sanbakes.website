@@ -1,4 +1,4 @@
-export type ProductStatus = "validation" | "coming-soon" | "seasonal" | "quotation";
+export type ProductStatus = "available" | "validation" | "coming-soon" | "seasonal" | "quotation";
 
 export type Product = {
   id: string;
@@ -265,10 +265,10 @@ export const products: Product[] = [
     nameTa: "டார்க் காகாவ் ராகி கப் கேக் தொகுப்பு",
     description: "Dark-cacao ragi cupcakes with a restrained ganache finish, presented in larger cupcake-specific boxes with one fitted holder per cupcake.",
     descriptionTa: "அளவான கனாஷ் அலங்காரத்துடன் டார்க் காகாவ் ராகி கப் கேக்குகள்; ஒவ்வொரு கப் கேக்கிற்கும் தனி ஹோல்டர் கொண்ட பெரிய கப் கேக் பெட்டியில் வழங்கப்படும்.",
-    price: "₹900–₹1,740 planned",
-    status: "coming-soon",
+    price: "₹900–₹1,740",
+    status: "available",
     image: "/images/products/cupcake-ragi-box-6-v2.webp",
-    format: "Individual holders · 6, 9 or 12 · stability test pending",
+    format: "Egg formulation · individual holders · boxes of 6, 9 or 12",
   },
   {
     id: "cupcake-pista",
@@ -277,22 +277,22 @@ export const products: Product[] = [
     nameTa: "பிஸ்தா ஏலக்காய் கப் கேக் தொகுப்பு",
     description: "Millet cupcakes with pistachio richness and a measured cardamom finish, each secured in its own holder inside a deeper cupcake box.",
     descriptionTa: "பிஸ்தாவின் செறிவும் அளவான ஏலக்காய் நிறைவும் கொண்ட சிறுதானிய கப் கேக்குகள்; ஆழமான பெட்டியில் ஒவ்வொன்றும் தனி ஹோல்டரில் பாதுகாக்கப்படும்.",
-    price: "₹970–₹1,880 planned",
-    status: "coming-soon",
+    price: "₹970–₹1,880",
+    status: "available",
     image: "/images/products/cupcake-pista-box-9-v2.webp",
-    format: "Individual holders · 6, 9 or 12 · stability test pending",
+    format: "Egg formulation · individual holders · boxes of 6, 9 or 12",
   },
   {
     id: "cupcake-discovery",
     category: "cupcakes",
     name: "Cupcake Discovery Collection",
     nameTa: "கப் கேக் டிஸ்கவரி கலெக்ஷன்",
-    description: "A planned mixed collection across six flavour identities, presented in a spacious cupcake box with one fitted holder per cupcake.",
-    descriptionTa: "ஆறு சுவைகளில் திட்டமிடப்பட்ட கலவை; ஒவ்வொரு கப் கேக்கிற்கும் தனி ஹோல்டர் கொண்ட விசாலமான பெட்டியில் வழங்கப்படும்.",
-    price: "₹970–₹1,880 planned",
-    status: "coming-soon",
+    description: "A mixed collection across six flavour identities, presented in a spacious cupcake box with one fitted holder per cupcake.",
+    descriptionTa: "ஆறு சுவைகளில் கலவை; ஒவ்வொரு கப் கேக்கிற்கும் தனி ஹோல்டர் கொண்ட விசாலமான பெட்டியில் வழங்கப்படும்.",
+    price: "₹970–₹1,880",
+    status: "available",
     image: "/images/products/cupcake-discovery-box-12-v2.webp",
-    format: "Individual holders · mix and match after recipe validation",
+    format: "Egg formulation · individual holders · six-flavour mix",
   },
   {
     id: "corporate-mini-box",
@@ -381,6 +381,7 @@ export const products: Product[] = [
 ];
 
 export const statusLabel: Record<ProductStatus, { en: string; ta: string }> = {
+  available: { en: "Available to preorder", ta: "முன்பதிவுக்கு கிடைக்கும்" },
   validation: { en: "Launch validation", ta: "அறிமுக சோதனை" },
   "coming-soon": { en: "Coming soon", ta: "விரைவில் வருகிறது" },
   seasonal: { en: "Seasonal", ta: "பருவகாலம்" },
