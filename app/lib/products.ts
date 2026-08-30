@@ -295,7 +295,7 @@ export const products: Product[] = [
     descriptionTa: "சோதிக்கப்பட்ட தயாரிப்புகள் மற்றும் பேக்கிங்குடன் பருவகால பரிசுத் தொகுப்பு.",
     price: "Planning ₹1,990–₹2,990",
     status: "seasonal",
-    image: "/images/brownie-tins.png",
+    image: "/images/products/seasonal-hamper-concept-v1.webp",
     format: "Limited edition",
   },
   {

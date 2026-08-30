@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { readFile, readdir } from "node:fs/promises";
+import path from "node:path";
 import test from "node:test";
 
 async function render(path = "/") {
@@ -18,6 +20,29 @@ test("renders the San Bakes storefront", async () => {
   assert.match(html, /Start a preorder/);
   assert.match(html, />Policies</);
   assert.match(html, /FSSAI registration pending/);
+});
+
+test("uses each customer-facing content image in only one source placement", async () => {
+  const appRoot = new URL("../app/", import.meta.url);
+  const sourceFiles = [];
+  async function collect(directory) {
+    for (const entry of await readdir(directory, { withFileTypes: true })) {
+      const target = new URL(`${entry.name}${entry.isDirectory() ? "/" : ""}`, directory);
+      if (entry.isDirectory()) await collect(target);
+      else if (/\.(?:ts|tsx)$/.test(entry.name)) sourceFiles.push(target);
+    }
+  }
+  await collect(appRoot);
+  const placements = new Map();
+  for (const sourceFile of sourceFiles) {
+    const source = await readFile(sourceFile, "utf8");
+    for (const match of source.matchAll(/["'`](\/images\/[^"'`]+)["'`]/g)) {
+      const placement = `${path.basename(sourceFile.pathname)}:${source.slice(0, match.index).split("\n").length}`;
+      placements.set(match[1], [...(placements.get(match[1]) ?? []), placement]);
+    }
+  }
+  const duplicates = [...placements].filter(([, uses]) => uses.length > 1);
+  assert.deepEqual(duplicates, []);
 });
 
 test("renders the complete menu and preorder route", async () => {

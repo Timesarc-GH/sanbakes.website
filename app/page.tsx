@@ -10,7 +10,7 @@ const featured = [
     titleTa: "ராகி நம்பர் 01",
     copy: "Dark cacao and ragi, developed for a dense crumb and a gently roasted grain note.",
     copyTa: "டார்க் காகாவும் ராகியும் இணையும் அடர்த்தியான பிரௌனி.",
-    image: "/images/ragi-brownie-hero.png",
+    image: "/images/editorial/home-ragi-collection-v1.webp",
     label: "Signature brownie",
   },
   {
@@ -18,7 +18,7 @@ const featured = [
     titleTa: "பிரௌனி டின்கள்",
     copy: "A generous, giftable brownie presentation finished only after you reserve a date.",
     copyTa: "முன்பதிவு செய்யப்பட்ட நாளுக்காக தயாரிக்கப்படும் பரிசளிக்க ஏற்ற பிரௌனி டின்.",
-    image: "/images/brownie-tins.png",
+    image: "/images/editorial/home-brownie-tins-collection-v2.webp",
     label: "Celebration format",
   },
   {
@@ -26,7 +26,7 @@ const featured = [
     titleTa: "பிரௌனி டப்கள்",
     copy: "Spoonable brownie pieces with a chocolate-led finish. Final recipe validation is underway.",
     copyTa: "சாக்லேட் அலங்காரத்துடன் பிரௌனி துண்டுகள். இறுதி ரெசிபி சோதனை நடைபெறுகிறது.",
-    image: "/images/brownie-tubs.png",
+    image: "/images/editorial/home-brownie-tubs-collection-v2.webp",
     label: "Coming soon",
   },
 ];
@@ -98,7 +98,7 @@ export default function Home() {
           <Link className="button buttonCacao" href="/about">{en ? "Read our approach" : "எங்கள் அணுகுமுறை"}</Link>
         </div>
         <div className="storyMedia">
-          <video controls preload="metadata" poster="/images/ragi-brownie-hero.png">
+          <video controls preload="metadata" poster="/images/editorial/home-our-standard-video-poster-v1.webp">
             <source src="/video/why-san-bakes.mp4" type="video/mp4" />
             <track kind="captions" src="/video/why-san-bakes.en.vtt" srcLang="en" label="English" default />
           </video>
@@ -107,7 +107,7 @@ export default function Home() {
       </section>
 
       <section className="occasionSection">
-        <div className="occasionImage"><Image src="/images/birthday-cake-500g.jpg" alt="San Bakes brownie birthday cake" fill sizes="(max-width: 900px) 100vw, 50vw" /></div>
+        <div className="occasionImage"><Image src="/images/editorial/home-birthday-brownie-celebration-v2.webp" alt="San Bakes brownie birthday cake" fill sizes="(max-width: 900px) 100vw, 50vw" /></div>
         <div className="occasionCopy"><p className="eyebrow dark">BROWNIE BIRTHDAY CAKES</p><h2>{en ? "A birthday cake, with the soul of a brownie." : "பிரௌனியின் சுவையுடன் ஒரு பிறந்தநாள் கேக்."}</h2><p>{en ? "Choose a 250 g little celebration, 500 g signature cake, 1 kg grand celebration or a brownie tower. Short messages and restrained finishes keep the brownie at the centre." : "250 கிராம், 500 கிராம், 1 கிலோ அல்லது பிரௌனி டவரைத் தேர்ந்தெடுக்கலாம்."}</p><Link className="button buttonCacao" href="/menu?category=celebrations">{en ? "Explore celebration cakes" : "கொண்டாட்ட கேக்குகள்"}</Link></div>
       </section>
 
