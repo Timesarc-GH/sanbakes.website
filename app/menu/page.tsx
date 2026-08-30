@@ -36,7 +36,6 @@ export default function MenuPage() {
         <p>{en ? "Signature Brownies, boxes, Tins, Tubs, millet tea cakes and personal gifting formats—made in small batches after you reserve." : "சிக்னேச்சர் பிரௌனிகள், பெட்டிகள், டின்கள், டப்கள், சிறுதானிய டீ கேக்குகள் மற்றும் தனிப்பட்ட பரிசுகள்—முன்பதிவுக்குப் பிறகு சிறிய தொகுதிகளாக தயாரிக்கப்படும்."}</p>
       </section>
       <section className="menuSection">
-        <div className="menuCrossLink"><div><strong>{en ? "Cupcakes are available on their own ordering page." : "கப் கேக்குகள் தனி ஆர்டர் பக்கத்தில் கிடைக்கின்றன."}</strong><span>{en ? "Choose boxes of 6, 9 or 12, select a collection and add it directly to your preorder cart." : "6, 9 அல்லது 12 பெட்டியைத் தேர்ந்து, தொகுப்பை நேரடியாக முன்பதிவு கார்ட்டில் சேர்க்கலாம்."}</span></div><a className="button buttonCacao" href="/cupcakes">{en ? "Order Cupcakes" : "கப் கேக்குகளை ஆர்டர் செய்ய"}</a></div>
         <div className="filterBar" aria-label="Filter menu by collection">
           {menuCategories.map((category) => <button className={active === category.id ? "active" : ""} key={category.id} onClick={() => setActive(category.id)} type="button">{en ? category.name : category.nameTa}</button>)}
         </div>

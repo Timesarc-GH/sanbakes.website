@@ -19,6 +19,7 @@ test("renders the San Bakes storefront", async () => {
   assert.match(html, /class="heroTamil">Made in small batches, with care, after your preorder\./);
   assert.match(html, /Start a preorder/);
   assert.match(html, /LAUNCH PRICING GUIDE/);
+  assert.ok(html.indexOf("LAUNCH PRICING GUIDE") > html.indexOf("BIRTHDAYS &amp; PARTIES"));
   assert.match(html, /₹900–₹1,880/);
   assert.match(html, /Delivery within Chennai/);
   assert.match(html, /addresses beyond 20 km include additional distance-based charges/i);
@@ -72,8 +73,8 @@ test("renders the complete menu and preorder route", async () => {
   assert.doesNotMatch(menu, /Brownie Tin Flight/);
   assert.match(menu, /Walnut Reserve/);
   assert.doesNotMatch(menu, /6-Tin Full Flavour Flight · 18 pieces/);
-  assert.match(menu, /Cupcakes are available on their own ordering page/);
-  assert.match(menu, /Order Cupcakes/);
+  assert.doesNotMatch(menu, /Cupcakes are available on their own ordering page/);
+  assert.doesNotMatch(menu, /Order Cupcakes/);
   assert.doesNotMatch(menu, /Dark Cacao Ragi Cupcake Collection/);
   assert.doesNotMatch(menu, /Corporate Mini Box/);
   assert.doesNotMatch(menu, /Individually Packed Party Brownies/);
