@@ -120,6 +120,13 @@ test("uses compact banners, a five-card opening collection and responsive produc
   assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.giftImage \{ min-height: 256px/);
   assert.match(css, /\.dedicatedCollection \.collectionIntro \{[\s\S]*?grid-template-areas: "eyebrow eyebrow" "title intro";[\s\S]*?row-gap: 0;/);
   assert.match(css, /\.dedicatedCollection \.collectionIntro \.eyebrow \{[^}]*margin: 0/);
+  assert.match(css, /\.offerSection \{[^}]*max-width: 1560px;[^}]*padding: 54px 4vw 72px/);
+  assert.match(css, /\.offerSection \.offerIntro \{[\s\S]*?grid-template-areas: "eyebrow eyebrow" "title intro";[\s\S]*?row-gap: 0;[\s\S]*?margin-bottom: 34px/);
+  assert.match(css, /\.offerSection \.offerIntro \.eyebrow \{[^}]*margin: 0/);
+  assert.match(css, /\.offerGrid \{[^}]*grid-template-columns: repeat\(5, minmax\(0, 1fr\)\)/);
+  assert.match(css, /\.offerGrid article \{[^}]*min-width: 0/);
+  assert.match(css, /@media \(max-width: 1280px\)[\s\S]*?\.offerGrid \{ grid-template-columns: 1fr 1fr/);
+  assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.offerGrid \{ grid-template-columns: 1fr/);
   assert.match(css, /@media \(min-width: 1241px\)[\s\S]*?\.homeOpening \.trustStrip div \{ padding: 12px 3vw 14px; \}/);
   assert.match(css, /@media \(min-width: 1241px\)[\s\S]*?\.homeOpening \.collectionSection \{ padding: 18px 4vw 20px; \}/);
   assert.match(css, /@media \(min-width: 1241px\)[\s\S]*?\.homeOpening \.openingGrid \.productImage \{ aspect-ratio: 1\.65 \/ 1; \}/);
@@ -386,6 +393,7 @@ test("renders the expanded customer information pages", async () => {
   assert.match(gifting, /Corporate orders now have their own planning desk/);
   assert.match(gifting, /reserve personal gifts at least 48 hours ahead/i);
   assert.match(gifting, /6 pieces · (?:<!-- -->)?₹590–₹620/);
+  assert.equal((gifting.match(/<small>PERSONAL GIFT<\/small>/g) ?? []).length, 5);
   assert.doesNotMatch(gifting, /₹15,000/);
   const giftingMenu = await (await render("/menu?category=gifting")).text();
   assert.match(giftingMenu, /Signature Discovery Box/);
