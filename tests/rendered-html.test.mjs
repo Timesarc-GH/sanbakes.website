@@ -130,8 +130,10 @@ test("uses compact banners, a five-card opening collection and responsive produc
   assert.match(css, /@media \(min-width: 1241px\)[\s\S]*?\.homeOpening \.trustStrip div \{ padding: 12px 3vw 14px; \}/);
   assert.match(css, /@media \(min-width: 1241px\)[\s\S]*?\.homeOpening \.collectionSection \{ padding: 18px 4vw 20px; \}/);
   assert.match(css, /@media \(min-width: 1241px\)[\s\S]*?\.homeOpening \.openingGrid \.productImage \{ aspect-ratio: 1\.65 \/ 1; \}/);
-  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 881px\)[\s\S]*?max-width: 1628px/);
-  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 881px\)[\s\S]*?\.homeOpening \.openingGrid \.productBody h3 \{ font-size: 21px; \}/);
+  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 901px\)[\s\S]*?max-width: 1702px/);
+  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 901px\)[\s\S]*?\.homeOpening \.collectionSection \{ padding: 21px 4vw 23px; \}/);
+  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 901px\)[\s\S]*?\.homeOpening \.openingGrid \{ gap: 14px; \}/);
+  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 901px\)[\s\S]*?\.homeOpening \.openingGrid \.productBody h3 \{ font-size: 22px; \}/);
   assert.match(storyCaptions, /00:15\.000 --> 00:27\.700/);
 });
 
