@@ -17,13 +17,13 @@ export default function CorporatePage() {
 
       <div id="corporate-collection">
         <ProductCollection
-          productIds={["corporate-mini-box", "bespoke-corporate"]}
+          productIds={["party-single-brownies", "corporate-mini-box", "bespoke-corporate"]}
           eyebrowEn="CORPORATE COLLECTION"
           eyebrowTa="நிறுவன தொகுப்பு"
           titleEn="Choose the format before the finish."
           titleTa="அலங்காரத்திற்கு முன் வடிவத்தைத் தேர்ந்தெடுக்கவும்."
-          introEn="Select a volume tier and add the minimum quantity directly to the cart. Bespoke branding remains quotation-led because artwork, packaging and fulfilment affect the final price."
-          introTa="அளவு நிலையைத் தேர்ந்தெடுத்து குறைந்தபட்ச எண்ணிக்கையை நேரடியாக கார்ட்டில் சேர்க்கவும். வடிவமைப்பு, பேக்கிங் மற்றும் நிறைவேற்றம் இறுதி விலையை மாற்றுவதால் தனிப்பயன் பிராண்டிங் விலை மதிப்பீட்டில் தொடரும்."
+          introEn="Start with 25 individually packed brownies, choose the Corporate Mini Box for a four-piece gift, or request a bespoke proposal. Branding remains quotation-led because artwork, packaging and fulfilment affect the final price."
+          introTa="தனித்தனியாக பேக் செய்யப்பட்ட 25 பிரௌனிகளுடன் தொடங்கவும், நான்கு துண்டு பரிசுக்கு Corporate Mini Box-ஐ தேர்ந்தெடுக்கவும் அல்லது தனிப்பயன் திட்டத்தை கேட்கவும். வடிவமைப்பு, பேக்கிங் மற்றும் நிறைவேற்றம் இறுதி விலையை மாற்றுவதால் பிராண்டிங் தனியாக விலைமதிப்பிடப்படும்."
         />
       </div>
 
@@ -35,7 +35,7 @@ export default function CorporatePage() {
           <article><small>{en ? "BRANDED SLEEVE" : "பிராண்டட் ஸ்லீவ்"}</small><strong>{en ? "14 calendar days" : "14 நாட்கள்"}</strong><span>{en ? "One logo, one design, one proof and one correction" : "ஒரு லோகோ, ஒரு வடிவமைப்பு, ஒரு ப்ரூஃப் மற்றும் ஒரு திருத்தம்"}</span></article>
           <article><small>{en ? "MULTI-ADDRESS" : "பல முகவரிகள்"}</small><strong>{en ? "14–21 calendar days" : "14–21 நாட்கள்"}</strong><span>{en ? "Quoted with a separate fulfilment plan" : "தனி நிறைவேற்றும் திட்டத்துடன் விலை"}</span></article>
         </div>
-        <div className="corporateTerms"><h3>{en ? "Commercial conditions" : "வர்த்தக நிபந்தனைகள்"}</h3><ul><li>{en ? "A 50% deposit reserves the production slot after proposal acceptance." : "திட்டத்தை ஏற்ற பிறகு 50% முன்பணம் தயாரிப்பு ஸ்லாட்டை உறுதி செய்யும்."}</li><li>{en ? "The balance is due five business days before dispatch." : "மீதித் தொகை டிஸ்பாட்சுக்கு ஐந்து வேலை நாட்களுக்கு முன் செலுத்த வேண்டும்."}</li><li>{en ? "Up to two flavours for 25–49 units and up to four flavours for 50+ units." : "25–49 யூனிட்களுக்கு இரண்டு சுவைகள் வரை; 50+ யூனிட்களுக்கு நான்கு சுவைகள் வரை."}</li><li>{en ? "Final quantity, wording and artwork close before ingredients or printed material are committed." : "பொருட்கள் அல்லது அச்சு வேலை தொடங்குவதற்கு முன் இறுதி அளவு, வாசகம் மற்றும் வடிவமைப்பு முடிக்கப்பட வேண்டும்."}</li><li>{en ? "The corporate minimum is 25 boxes / ₹12,250 before delivery. Branding and multi-address fulfilment are quoted separately." : "நிறுவன ஆர்டரின் குறைந்தபட்சம் 25 பெட்டிகள் / டெலிவரிக்கு முன் ₹12,250. பிராண்டிங் மற்றும் பல முகவரி டெலிவரி தனியாக விலைமதிப்பிடப்படும்."}</li></ul><a className="button buttonCacao" href="https://wa.me/919940058623?text=Hello%20San%20Bakes%2C%20I%27d%20like%20a%20corporate%20order%20proposal.%0ACompany%3A%0ARequired%20date%3A%0AProduct%20and%20quantity%3A%0ABudget%3A%0AOne%20or%20multiple%20addresses%3A" target="_blank" rel="noreferrer">{en ? "Start a Corporate enquiry" : "நிறுவன விசாரணையைத் தொடங்க"}</a></div>
+        <div className="corporateTerms"><h3>{en ? "Commercial conditions" : "வர்த்தக நிபந்தனைகள்"}</h3><ul><li>{en ? "A 50% deposit reserves the production slot after proposal acceptance." : "திட்டத்தை ஏற்ற பிறகு 50% முன்பணம் தயாரிப்பு ஸ்லாட்டை உறுதி செய்யும்."}</li><li>{en ? "The balance is due five business days before dispatch." : "மீதித் தொகை டிஸ்பாட்சுக்கு ஐந்து வேலை நாட்களுக்கு முன் செலுத்த வேண்டும்."}</li><li>{en ? "Up to two flavours for 25–49 units and up to four flavours for 50+ units." : "25–49 யூனிட்களுக்கு இரண்டு சுவைகள் வரை; 50+ யூனிட்களுக்கு நான்கு சுவைகள் வரை."}</li><li>{en ? "Final quantity, wording and artwork close before ingredients or printed material are committed." : "பொருட்கள் அல்லது அச்சு வேலை தொடங்குவதற்கு முன் இறுதி அளவு, வாசகம் மற்றும் வடிவமைப்பு முடிக்கப்பட வேண்டும்."}</li><li>{en ? "Corporate orders start at 25 individually packed brownies. Corporate Mini Boxes use the product-specific quantity shown above; branding and multi-address fulfilment are quoted separately." : "நிறுவன ஆர்டர்கள் தனித்தனியாக பேக் செய்யப்பட்ட 25 பிரௌனிகளிலிருந்து தொடங்கும். Corporate Mini Box-க்கு மேலே காட்டப்பட்ட தனிப்பட்ட அளவு பொருந்தும்; பிராண்டிங் மற்றும் பல முகவரி டெலிவரி தனியாக விலைமதிப்பிடப்படும்."}</li></ul><a className="button buttonCacao" href="https://wa.me/919940058623?text=Hello%20San%20Bakes%2C%20I%27d%20like%20a%20corporate%20order%20proposal.%0ACompany%3A%0ARequired%20date%3A%0AProduct%20and%20quantity%3A%0ABudget%3A%0AOne%20or%20multiple%20addresses%3A" target="_blank" rel="noreferrer">{en ? "Start a Corporate enquiry" : "நிறுவன விசாரணையைத் தொடங்க"}</a></div>
       </section>
     </main>
   );

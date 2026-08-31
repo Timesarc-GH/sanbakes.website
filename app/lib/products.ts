@@ -274,7 +274,7 @@ export const products: Product[] = [
     description: "Structured gifting for teams and clients, with quantity and branding controls.",
     descriptionTa: "அளவு மற்றும் பிராண்டிங் கட்டுப்பாடுகளுடன் நிறுவன பரிசுகள்.",
     image: "/images/products/bespoke-corporate-gifting-v1.webp",
-    format: "Minimum 25 boxes · ₹12,250 before delivery",
+    format: "Starts at 25 individually packed brownies",
   },
   {
     id: "party-single-brownies",

@@ -40,7 +40,9 @@ test("renders the San Bakes storefront", async () => {
   assert.match(html, /href="\/menu\?category=signature"/);
   assert.match(html, /href="\/menu\?category=tins"/);
   assert.match(html, /href="\/menu\?category=tubs"/);
-  assert.match(html, /₹12,250 minimum before delivery/);
+  assert.match(html, /Individually packed brownies start at 25 pieces/);
+  assert.match(html, />FAQs<\/a>/);
+  assert.doesNotMatch(html, /Corporate minimum:|₹12,250/);
   assert.match(html, /at least 48 hours for standard brownies and personal gifts/i);
   assert.doesNotMatch(html, /Egg formulation/);
   assert.match(html, /ragi-brownie-hero\.png/);
@@ -263,7 +265,8 @@ test("renders the expanded customer information pages", async () => {
   assert.match(faq, /How does UPI payment work/);
   assert.match(faq, /Cupcake boxes of 6 need at least three days/);
   assert.match(faq, /Corporate orders start at seven days/);
-  assert.match(faq, /25 four-piece boxes \/ ₹12,250 before delivery/);
+  assert.match(faq, /Corporate orders start at 25 individually packed brownies/);
+  assert.doesNotMatch(faq, /25 four-piece boxes|₹12,250/);
   assert.doesNotMatch(faq, /₹15,000/);
   const delivery = await (await render("/delivery")).text();
   assert.match(delivery, /Delivery is available within Chennai/);
@@ -283,8 +286,9 @@ test("renders the expanded customer information pages", async () => {
   assert.doesNotMatch(giftingMenu, /Corporate Mini Box/);
   const corporate = await (await render("/corporate")).text();
   assert.match(corporate, /CORPORATE ORDERS/);
-  assert.match(corporate, /25 boxes \/ ₹12,250 before delivery/);
-  assert.doesNotMatch(corporate, /₹15,000/);
+  assert.match(corporate, /Corporate orders start at 25 individually packed brownies/);
+  assert.doesNotMatch(corporate, /The corporate minimum is 25 boxes \/ ₹12,250|₹15,000/);
+  assert.match(corporate, /Individually Packed Party Brownies/);
   assert.match(corporate, /Corporate Mini Box/);
   assert.match(corporate, /25–49 boxes · 2 Ragi \+ 2 Walnut · per box/);
   assert.match(corporate, /Add 25 boxes to cart/);

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useLanguage } from "./components/LanguageProvider";
-import { formatPrice, formatPriceRangeForProducts, formatStartingPriceForProducts, getMinimumOrderQuantity, getProductPriceRange } from "./lib/pricing";
+import { formatPrice, formatPriceRangeForProducts, formatStartingPriceForProducts, getProductPriceRange } from "./lib/pricing";
 
 const featured = [
   {
@@ -47,8 +47,6 @@ export default function Home() {
   const { language } = useLanguage();
   const en = language === "en";
   const corporateUnitPrice = getProductPriceRange("corporate-mini-box")?.minimum ?? null;
-  const corporateMinimum = getMinimumOrderQuantity("corporate-mini-box", "tier-25-ragi-walnut");
-  const corporateMinimumTotal = corporateUnitPrice === null ? null : corporateUnitPrice * corporateMinimum;
 
   return (
     <main>
@@ -141,7 +139,7 @@ export default function Home() {
             <div><strong>{en ? "Personal gifting" : "தனிப்பட்ட பரிசுகள்"}</strong><span>{formatPriceRangeForProducts(["signature-discovery-box", "reserve-collection", "brownie-tin-3-piece", "whole-brownie-tin", "seasonal-hamper"])}</span><small>{en ? "Curated boxes, Tins and seasonal hampers" : "தேர்ந்தெடுத்த பெட்டிகள், டின்கள் மற்றும் பருவகால ஹாம்பர்கள்"}</small></div>
             <div><strong>{en ? "Millet tea cakes" : "சிறுதானிய டீ கேக்குகள்"}</strong><span>{formatPriceRangeForProducts(["ragi-cacao-tea-cake", "pista-cardamom-tea-cake"])}</span><small>{en ? "Single loaf or gift duo" : "ஒரு லோஃப் அல்லது பரிசு டூயோ"}</small></div>
             <div><strong>{en ? "Birthdays & parties" : "பிறந்தநாள் & பார்ட்டி"}</strong><span>{en ? `Cakes ${formatPriceRangeForProducts(["birthday-250", "birthday-500", "birthday-1kg", "occasion-brownie-cake"])}` : `கேக்குகள் ${formatPriceRangeForProducts(["birthday-250", "birthday-500", "birthday-1kg", "occasion-brownie-cake"])}`}</span><small>{en ? "Packed brownies from 25 · Tins/Tubs from 10" : "தனித்தனி பிரௌனிகள் 25 முதல் · டின்கள்/டப்கள் 10 முதல்"}</small></div>
-            <div><strong>{en ? "Corporate" : "நிறுவன ஆர்டர்கள்"}</strong><span>{en ? `${formatPrice(corporateUnitPrice)} per box · minimum ${corporateMinimum}` : `ஒரு பெட்டி ${formatPrice(corporateUnitPrice)} · குறைந்தபட்சம் ${corporateMinimum}`}</span><small>{en ? `${formatPrice(corporateMinimumTotal)} minimum before delivery; branding and fulfilment quoted separately` : `டெலிவரிக்கு முன் குறைந்தபட்சம் ${formatPrice(corporateMinimumTotal)}; பிராண்டிங் மற்றும் நிறைவேற்றம் தனியாக விலைமதிப்பிடப்படும்`}</small></div>
+            <div><strong>{en ? "Corporate" : "நிறுவன ஆர்டர்கள்"}</strong><span>{en ? `Corporate Mini Box · ${formatPrice(corporateUnitPrice)} per box` : `Corporate Mini Box · ஒரு பெட்டி ${formatPrice(corporateUnitPrice)}`}</span><small>{en ? "Individually packed brownies start at 25 pieces; Mini Boxes use their listed box minimum" : "தனித்தனி பேக்கிங் பிரௌனிகள் 25 துண்டுகள் முதல்; Mini Box-க்கு பட்டியலிட்ட குறைந்தபட்ச அளவு பொருந்தும்"}</small></div>
             <div><strong>{en ? "Cupcake boxes" : "கப் கேக் பெட்டிகள்"}</strong><span>{formatPriceRangeForProducts(["cupcake-ragi", "cupcake-pista", "cupcake-discovery"])}</span><small>{en ? "Boxes of 6, 9 or 12 · available to preorder" : "6, 9 அல்லது 12 பெட்டிகள் · முன்பதிவுக்கு கிடைக்கும்"}</small></div>
             <div><strong>{en ? "Brownie boxes" : "பிரௌனி பெட்டிகள்"}</strong><span>{formatPriceRangeForProducts(["dark-cacao-sea-salt", "ragi-no-01"])}</span><small>{en ? "Core 6 or 9-piece boxes" : "முக்கிய 6 அல்லது 9 துண்டு பெட்டிகள்"}</small></div>
           </div>

@@ -122,7 +122,7 @@ export const productPricing: Record<string, ProductPricing> = {
     option("reserve-hamper","Reserve seasonal hamper","ரிசர்வ் பருவகால ஹாம்பர்",1490,"Premium tin/box composition","பிரீமியம் டின்/பெட்டி தொகுப்பு"),
   ]},
   "bespoke-corporate": { options:[
-    option("proposal","Custom proposal · minimum 25 boxes / ₹12,250 before delivery","தனிப்பயன் விலை · குறைந்தபட்சம் 25 பெட்டிகள் / டெலிவரிக்கு முன் ₹12,250",null,"Allow 7–21 calendar days depending on branding and delivery addresses","பிராண்டிங் மற்றும் டெலிவரி முகவரிகளுக்கு ஏற்ப 7–21 நாட்கள் தேவை"),
+    option("proposal","Custom proposal · starts at 25 individually packed brownies","தனிப்பயன் திட்டம் · தனித்தனி பேக்கிங்கில் 25 பிரௌனிகள் முதல்",null,"Allow 7–21 calendar days depending on branding and delivery addresses","பிராண்டிங் மற்றும் டெலிவரி முகவரிகளுக்கு ஏற்ப 7–21 நாட்கள் தேவை"),
   ]},
   "party-single-brownies": { options:[
     option("classic-25","25 Classic brownies · individually packed","25 கிளாசிக் பிரௌனிகள் · தனித்தனி பேக்கிங்",2400,"25-piece bundle · up to two flavours","25 துண்டு தொகுப்பு · இரண்டு சுவைகள் வரை"),
