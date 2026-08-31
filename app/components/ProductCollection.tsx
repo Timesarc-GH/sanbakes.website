@@ -5,8 +5,9 @@ import { useState } from "react";
 import { useLanguage } from "./LanguageProvider";
 import { useInventory } from "./InventoryProvider";
 import { usePreorder } from "./PreorderProvider";
+import { ProductChoiceSelect } from "./ProductChoiceSelect";
 import { isInventoryUnavailable } from "../lib/inventory";
-import { formatPrice, getMinimumOrderQuantity, getPricing, makeSelectionKey } from "../lib/pricing";
+import { formatPrice, getMinimumOrderQuantity, getPricing, makeSelectionKey, parseSelectionKey } from "../lib/pricing";
 import { categories, findProduct } from "../lib/products";
 
 type ProductCollectionProps = {
@@ -23,7 +24,7 @@ export function ProductCollection({ productIds, eyebrowEn, eyebrowTa, titleEn, t
   const { language } = useLanguage();
   const { getInventory } = useInventory();
   const { addItem, count } = usePreorder();
-  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
+  const [selectedChoices, setSelectedChoices] = useState<Record<string, string>>({});
   const en = language === "en";
   const collection = productIds.map(findProduct).filter((product) => Boolean(product));
 
@@ -38,8 +39,9 @@ export function ProductCollection({ productIds, eyebrowEn, eyebrowTa, titleEn, t
         {collection.map((product) => {
           if (!product) return null;
           const pricing = getPricing(product.id);
-          const selectedId = selectedOptions[product.id] ?? pricing.options[0].id;
-          const selectedOption = pricing.options.find((item) => item.id === selectedId) ?? pricing.options[0];
+          const selectedKey = selectedChoices[product.id] ?? makeSelectionKey(product.id, pricing.options[0].id, "regular");
+          const { optionId } = parseSelectionKey(selectedKey);
+          const selectedOption = pricing.options.find((item) => item.id === optionId) ?? pricing.options[0];
           const minimumQuantity = getMinimumOrderQuantity(product.id, selectedOption.id);
           const unavailable = isInventoryUnavailable(getInventory(product.id).status);
           const category = categories.find((item) => item.id === product.category);
@@ -56,15 +58,13 @@ export function ProductCollection({ productIds, eyebrowEn, eyebrowTa, titleEn, t
                 <h3><a href={`/products/${product.id}`}>{en ? product.name : product.nameTa}</a></h3>
                 <p>{en ? product.description : product.descriptionTa}</p>
                 <label className="variantPicker">
-                  <span>{en ? "Pack / quantity option" : "பேக் / அளவு விருப்பம்"}</span>
-                  <select value={selectedOption.id} onChange={(event) => setSelectedOptions((current) => ({ ...current, [product.id]: event.target.value }))}>
-                    {pricing.options.map((item) => <option value={item.id} key={item.id}>{en ? item.label : item.labelTa} — {formatPrice(item.price)}</option>)}
-                  </select>
+                  <span>{en ? "Pack, quantity & formulation" : "பேக், அளவு & தயாரிப்பு வகை"}</span>
+                  <ProductChoiceSelect language={language} pricing={pricing} productId={product.id} value={selectedKey} onChange={(choice) => setSelectedChoices((current) => ({ ...current, [product.id]:choice }))} />
                   <small>{en ? selectedOption.note : selectedOption.noteTa}</small>
                 </label>
                 <div className="productPurchaseRow">
                   <div className="selectedPrice"><span>{en ? "Price" : "விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
-                  <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id, selectedOption.id), minimumQuantity)} type="button">
+                  <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(selectedKey, minimumQuantity)} type="button">
                     {unavailable ? (en ? "Preorders paused" : "முன்பதிவு இடைநிறுத்தப்பட்டுள்ளது") : minimumQuantity > 1 ? (en ? `Add ${minimumQuantity} boxes to cart` : `${minimumQuantity} பெட்டிகளை கார்ட்டில் சேர்க்க`) : (en ? "Add to cart" : "கார்ட்டில் சேர்க்க")}
                   </button>
                 </div>

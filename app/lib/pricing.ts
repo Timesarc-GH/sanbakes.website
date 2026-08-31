@@ -171,8 +171,21 @@ export const formatStartingPriceForProducts = (productIds:string[]) => {
   const range = getPriceRangeForProducts(productIds);
   return formatPrice(range?.minimum ?? null);
 };
-export const makeSelectionKey = (productId:string, optionId:string) => `${productId}::${optionId}`;
-export const parseSelectionKey = (key:string) => { const [productId, optionId] = key.split("::"); return { productId, optionId }; };
+export const productFormulations = [
+  { id:"regular", label:"Regular (with egg)", labelTa:"வழக்கமானது (முட்டையுடன்)" },
+  { id:"eggless", label:"Eggless", labelTa:"முட்டையில்லா" },
+] as const;
+export type ProductFormulation = typeof productFormulations[number]["id"];
+export const getFormulationLabel = (formulation:ProductFormulation, language:"en"|"ta") => {
+  const selected = productFormulations.find((item) => item.id === formulation) ?? productFormulations[0];
+  return language === "ta" ? selected.labelTa : selected.label;
+};
+export const makeSelectionKey = (productId:string, optionId:string, formulation:ProductFormulation) => `${productId}::${optionId}::${formulation}`;
+export const parseSelectionKey = (key:string) => {
+  const [productId = "", optionId = "", storedFormulation] = key.split("::");
+  const formulation:ProductFormulation = storedFormulation === "eggless" ? "eggless" : "regular";
+  return { productId, optionId, formulation };
+};
 export const getPricing = (productId:string) => productPricing[productId];
 export const getMinimumOrderQuantity = (productId:string, optionId:string) => {
   if (productId !== "corporate-mini-box") return 1;

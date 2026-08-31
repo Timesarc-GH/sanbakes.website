@@ -5,8 +5,9 @@ import { useState } from "react";
 import { useInventory } from "../../components/InventoryProvider";
 import { useLanguage } from "../../components/LanguageProvider";
 import { usePreorder } from "../../components/PreorderProvider";
+import { ProductChoiceSelect } from "../../components/ProductChoiceSelect";
 import { isInventoryUnavailable } from "../../lib/inventory";
-import { formatPrice, getMinimumOrderQuantity, makeSelectionKey, type ProductPricing } from "../../lib/pricing";
+import { formatPrice, getMinimumOrderQuantity, makeSelectionKey, parseSelectionKey, type ProductPricing } from "../../lib/pricing";
 import type { Product } from "../../lib/products";
 import styles from "./product-detail.module.css";
 
@@ -57,10 +58,11 @@ export function ProductDetailClient({ product, pricing, category }: ProductDetai
   const { language } = useLanguage();
   const { getInventory, loading } = useInventory();
   const { addItem, count } = usePreorder();
-  const [selectedId, setSelectedId] = useState(pricing.options[0].id);
+  const [selectedKey, setSelectedKey] = useState(makeSelectionKey(product.id, pricing.options[0].id, "regular"));
   const [added, setAdded] = useState(false);
   const en = language === "en";
-  const selectedOption = pricing.options.find((option) => option.id === selectedId) ?? pricing.options[0];
+  const { optionId } = parseSelectionKey(selectedKey);
+  const selectedOption = pricing.options.find((option) => option.id === optionId) ?? pricing.options[0];
   const minimumQuantity = getMinimumOrderQuantity(product.id, selectedOption.id);
   const availability = getInventory(product.id);
   const insufficientQuantity = availability.availableQuantity !== null && availability.availableQuantity < minimumQuantity;
@@ -69,7 +71,7 @@ export function ProductDetailClient({ product, pricing, category }: ProductDetai
   const backHref = collectionHref(product.category);
 
   const addSelectedOption = () => {
-    addItem(makeSelectionKey(product.id, selectedOption.id), minimumQuantity);
+    addItem(selectedKey, minimumQuantity);
     setAdded(true);
   };
 
@@ -99,20 +101,17 @@ export function ProductDetailClient({ product, pricing, category }: ProductDetai
           </div>
 
           <label className={styles.variant}>
-            <span>{en ? "Choose your pack or composition" : "பேக் அல்லது கலவையைத் தேர்ந்தெடுக்கவும்"}</span>
-            <select
-              value={selectedOption.id}
-              onChange={(event) => {
-                setSelectedId(event.target.value);
+            <span>{en ? "Choose your pack, composition & formulation" : "பேக், கலவை & தயாரிப்பு வகையைத் தேர்ந்தெடுக்கவும்"}</span>
+            <ProductChoiceSelect
+              language={language}
+              pricing={pricing}
+              productId={product.id}
+              value={selectedKey}
+              onChange={(choice) => {
+                setSelectedKey(choice);
                 setAdded(false);
               }}
-            >
-              {pricing.options.map((option) => (
-                <option value={option.id} key={option.id}>
-                  {en ? option.label : option.labelTa} — {formatPrice(option.price)}
-                </option>
-              ))}
-            </select>
+            />
             <small>{en ? selectedOption.note : selectedOption.noteTa}</small>
           </label>
 

@@ -6,8 +6,9 @@ import { useMemo, useState } from "react";
 import { useLanguage } from "../components/LanguageProvider";
 import { useInventory } from "../components/InventoryProvider";
 import { usePreorder } from "../components/PreorderProvider";
+import { ProductChoiceSelect } from "../components/ProductChoiceSelect";
 import { isInventoryUnavailable } from "../lib/inventory";
-import { formatPrice, getPricing, makeSelectionKey } from "../lib/pricing";
+import { formatPrice, getPricing, makeSelectionKey, parseSelectionKey } from "../lib/pricing";
 import { categories, menuCategories, products } from "../lib/products";
 
 const groupedCategoryProducts: Record<string, Set<string>> = {
@@ -21,7 +22,7 @@ export default function MenuPage() {
   const query = useSearchParams();
   const initial = query.get("category");
   const [active, setActive] = useState(initial && menuCategories.some((c) => c.id === initial) ? initial : "all");
-  const [selectedOptions, setSelectedOptions] = useState<Record<string,string>>({});
+  const [selectedChoices, setSelectedChoices] = useState<Record<string,string>>({});
   const { language } = useLanguage();
   const { getInventory } = useInventory();
   const { addItem, count } = usePreorder();
@@ -43,8 +44,9 @@ export default function MenuPage() {
         <div className="menuGrid">
           {visible.map((product) => {
             const pricing = getPricing(product.id);
-            const selectedId = selectedOptions[product.id] ?? pricing.options[0].id;
-            const selectedOption = pricing.options.find((item) => item.id === selectedId) ?? pricing.options[0];
+            const selectedKey = selectedChoices[product.id] ?? makeSelectionKey(product.id, pricing.options[0].id, "regular");
+            const { optionId } = parseSelectionKey(selectedKey);
+            const selectedOption = pricing.options.find((item) => item.id === optionId) ?? pricing.options[0];
             const unavailable = isInventoryUnavailable(getInventory(product.id).status);
             return <article className="menuCard" key={product.id}>
               <a href={`/products/${product.id}`} aria-label={`${en ? "View" : "பார்க்க"} ${en ? product.name : product.nameTa}`} style={{ display: "block" }}>
@@ -57,15 +59,13 @@ export default function MenuPage() {
                 <h2><a href={`/products/${product.id}`}>{en ? product.name : product.nameTa}</a></h2>
                 <p>{en ? product.description : product.descriptionTa}</p>
                 <label className="variantPicker">
-                  <span>{en ? "Pack / quantity option" : "பேக் / அளவு விருப்பம்"}</span>
-                  <select value={selectedOption.id} onChange={(event) => setSelectedOptions((current) => ({ ...current, [product.id]:event.target.value }))}>
-                    {pricing.options.map((item) => <option value={item.id} key={item.id}>{en ? item.label : item.labelTa} — {formatPrice(item.price)}</option>)}
-                  </select>
+                  <span>{en ? "Pack, quantity & formulation" : "பேக், அளவு & தயாரிப்பு வகை"}</span>
+                  <ProductChoiceSelect language={language} pricing={pricing} productId={product.id} value={selectedKey} onChange={(choice) => setSelectedChoices((current) => ({ ...current, [product.id]:choice }))} />
                   <small>{en ? selectedOption.note : selectedOption.noteTa}</small>
                 </label>
                 <div className="productPurchaseRow">
                   <div className="selectedPrice"><span>{en ? "Price" : "விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
-                  <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id,selectedOption.id))} type="button">{unavailable ? (en ? "Preorders paused" : "முன்பதிவு இடைநிறுத்தப்பட்டுள்ளது") : (en ? "Add to cart" : "கார்ட்டில் சேர்க்க")}</button>
+                  <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(selectedKey)} type="button">{unavailable ? (en ? "Preorders paused" : "முன்பதிவு இடைநிறுத்தப்பட்டுள்ளது") : (en ? "Add to cart" : "கார்ட்டில் சேர்க்க")}</button>
                 </div>
               </div>
             </article>;

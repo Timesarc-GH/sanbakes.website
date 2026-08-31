@@ -30,13 +30,13 @@ export default function LaunchReviewPage() {
         <article><small>CATALOGUE</small><strong>{products.length} products</strong><span>Brownies, Tins, Tubs, tea cakes, celebrations, cupcakes and gifting</span></article>
         <article><small>APPROVED V5 PRICES</small><strong>{fixedPriceCount} fixed options</strong><span>Owner-entered prices are used directly throughout the website</span></article>
         <article><small>CUSTOM PRICING</small><strong>{customPriceCount} bespoke option</strong><span>Bespoke Corporate Gifting remains individually priced because scope varies</span></article>
-        <article><small>FORMULATION</small><strong>Egg at launch</strong><span>The current customer menu offers the egg formulation only</span></article>
+        <article><small>FORMULATION</small><strong>Regular or Eggless</strong><span>Every product selector records the chosen recipe formulation</span></article>
       </div>
 
       <div className="reviewDecision">
         <div><p className="eyebrow dark">COMMERCIAL RULES</p><h2>The approved operating model.</h2></div>
         <ol>
-          <li><strong>Egg formulation only at launch</strong><span>Alternative formulations remain outside the launch menu until a separate recipe and process are complete.</span></li>
+          <li><strong>Regular and Eggless formulations</strong><span>Every product can be ordered Regular (with egg) or Eggless at the same listed price; the kitchen handling disclosure still applies.</span></li>
           <li><strong>Cupcakes active for preorder</strong><span>Boxes of 6, 9 and 12 are orderable from the dedicated Cupcakes page with three- or five-day minimum lead times.</span></li>
           <li><strong>Delivery charged separately</strong><span>Pass through the live courier quote and add the distance-based charge for addresses beyond 20 km to the confirmed order total.</span></li>
           <li><strong>One short cake message included</strong><span>Reserve-nut finish, toppers, sleeves, artwork and complex changes are paid additions.</span></li>

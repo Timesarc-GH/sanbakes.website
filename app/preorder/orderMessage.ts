@@ -3,6 +3,8 @@ export type OrderMessageSelection = {
   productNameTa: string;
   optionLabel: string;
   optionLabelTa: string;
+  formulationLabel: string;
+  formulationLabelTa: string;
   priceLabel: string;
   quantity: number;
 };
@@ -11,7 +13,6 @@ export type OrderMessageDetails = {
   name: string;
   phone: string;
   date: string;
-  formulation: string;
   fulfilment: string;
   pincode: string;
   address: string;
@@ -34,7 +35,7 @@ function tamilFulfilment(value: string) {
 
 export function buildWhatsAppOrderMessage({ language, selections, subtotalLabel, hasQuotationSelection, details }: BuildOrderMessageInput) {
   const tamil = language === "ta";
-  const lines = selections.map((selection) => `• ${tamil ? selection.productNameTa : selection.productName} · ${tamil ? selection.optionLabelTa : selection.optionLabel} · ${selection.priceLabel} × ${selection.quantity}`);
+  const lines = selections.map((selection) => `• ${tamil ? selection.productNameTa : selection.productName} · ${tamil ? selection.optionLabelTa : selection.optionLabel} · ${tamil ? selection.formulationLabelTa : selection.formulationLabel} · ${selection.priceLabel} × ${selection.quantity}`);
 
   if (!tamil) {
     return [
@@ -42,7 +43,7 @@ export function buildWhatsAppOrderMessage({ language, selections, subtotalLabel,
       "", `SUBTOTAL: ${subtotalLabel}`,
       hasQuotationSelection ? "Bespoke item included: its price and final total will be confirmed separately." : "Delivery and paid customisation are additional until confirmed.",
       "", "CUSTOMER", `Name: ${details.name}`, `Phone: ${details.phone}`,
-      `Required date: ${details.date}`, `Formulation: ${details.formulation}`,
+      `Required date: ${details.date}`,
       `Fulfilment: ${details.fulfilment}`, `Pincode: ${details.pincode || "Not applicable"}`,
       `Address / pickup note: ${details.address || "Not provided"}`,
       `Message / dietary note: ${details.notes || "None"}`, "",
@@ -55,7 +56,7 @@ export function buildWhatsAppOrderMessage({ language, selections, subtotalLabel,
     "", `இடைக்கூட்டுத்தொகை: ${subtotalLabel}`,
     hasQuotationSelection ? "தனிப்பயன் பொருள் சேர்க்கப்பட்டுள்ளது; அதன் விலையும் இறுதி மொத்தமும் தனியாக உறுதி செய்யப்படும்." : "டெலிவரி மற்றும் கட்டணத் தனிப்பயனாக்கம் உறுதிப்படுத்தும் வரை கூடுதலாகும்.",
     "", "வாடிக்கையாளர்", `பெயர்: ${details.name}`, `தொலைபேசி: ${details.phone}`,
-    `தேவையான தேதி: ${details.date}`, `தயாரிப்பு வகை: ${details.formulation === "Egg" ? "முட்டை" : details.formulation}`,
+    `தேவையான தேதி: ${details.date}`,
     `பெறும் முறை: ${tamilFulfilment(details.fulfilment)}`, `அஞ்சல் குறியீடு: ${details.pincode || "பொருந்தாது"}`,
     `முகவரி / பிக்கப் குறிப்பு: ${details.address || "வழங்கப்படவில்லை"}`,
     `செய்தி / உணவுக் குறிப்பு: ${details.notes || "இல்லை"}`, "",

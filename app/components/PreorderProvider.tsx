@@ -1,8 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-
-type EnquiryItems = Record<string, number>;
+import { sanitiseItems, type EnquiryItems } from "../lib/cart";
 
 const CART_STORAGE_KEY = "san-bakes-enquiry";
 const CART_TTL_MS = 7 * 24 * 60 * 60 * 1000;
@@ -20,23 +19,13 @@ function removeSavedItems() {
   }
 }
 
-function sanitiseItems(value: unknown): EnquiryItems {
-  if (!value || typeof value !== "object" || Array.isArray(value)) return {};
-  return Object.fromEntries(
-    Object.entries(value).flatMap(([key, quantity]) => {
-      if (typeof quantity !== "number" || !Number.isFinite(quantity) || quantity <= 0) return [];
-      return [[key, Math.floor(quantity)]];
-    }),
-  );
-}
-
-function saveItems(next: EnquiryItems) {
+function saveItems(next: EnquiryItems, expiresAt = Date.now() + CART_TTL_MS) {
   try {
     if (Object.keys(next).length === 0) {
       removeSavedItems();
       return;
     }
-    const stored: StoredEnquiry = { items: next, expiresAt: Date.now() + CART_TTL_MS };
+    const stored: StoredEnquiry = { items: next, expiresAt };
     window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(stored));
   } catch {
     // The cart still works for this visit when browser storage is unavailable.
@@ -76,7 +65,7 @@ export function PreorderProvider({ children }: { children: React.ReactNode }) {
           return;
         }
       }
-      // Legacy carts were a quantity-only object. Restore and migrate them without changing selections.
+      // Legacy two-part selection keys are migrated to the Regular formulation without losing quantities.
       const restored = sanitiseItems(isStoredEnquiry ? (parsed as Partial<StoredEnquiry>).items : parsed);
       if (Object.keys(restored).length === 0) {
         removeSavedItems();
@@ -84,7 +73,7 @@ export function PreorderProvider({ children }: { children: React.ReactNode }) {
       }
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setItems(restored);
-      if (!isStoredEnquiry) saveItems(restored);
+      saveItems(restored, isStoredEnquiry ? (parsed as Partial<StoredEnquiry>).expiresAt : undefined);
     } catch {
       removeSavedItems();
     }

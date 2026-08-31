@@ -5,8 +5,9 @@ import { useState } from "react";
 import { useLanguage } from "../components/LanguageProvider";
 import { useInventory } from "../components/InventoryProvider";
 import { usePreorder } from "../components/PreorderProvider";
+import { ProductChoiceSelect } from "../components/ProductChoiceSelect";
 import { isInventoryUnavailable } from "../lib/inventory";
-import { formatPrice, getPricing, makeSelectionKey } from "../lib/pricing";
+import { formatPrice, getPricing, makeSelectionKey, parseSelectionKey } from "../lib/pricing";
 import { products } from "../lib/products";
 
 const cupcakeProducts = products.filter((product) => product.category === "cupcakes");
@@ -24,7 +25,7 @@ export default function CupcakesPage() {
   const { language } = useLanguage();
   const { getInventory } = useInventory();
   const { addItem, count } = usePreorder();
-  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
+  const [selectedChoices, setSelectedChoices] = useState<Record<string, string>>({});
   const en = language === "en";
 
   return (
@@ -48,8 +49,9 @@ export default function CupcakesPage() {
         <div className="menuGrid">
           {cupcakeProducts.map((product) => {
             const pricing = getPricing(product.id);
-            const selectedId = selectedOptions[product.id] ?? pricing.options[0].id;
-            const selectedOption = pricing.options.find((item) => item.id === selectedId) ?? pricing.options[0];
+            const selectedKey = selectedChoices[product.id] ?? makeSelectionKey(product.id, pricing.options[0].id, "regular");
+            const { optionId } = parseSelectionKey(selectedKey);
+            const selectedOption = pricing.options.find((item) => item.id === optionId) ?? pricing.options[0];
             const unavailable = isInventoryUnavailable(getInventory(product.id).status);
             return <article className="menuCard" key={product.id}>
               <a href={`/products/${product.id}`} aria-label={`${en ? "View" : "பார்க்க"} ${en ? product.name : product.nameTa}`} style={{ display: "block" }}>
@@ -61,10 +63,10 @@ export default function CupcakesPage() {
                 <p className="cardEyebrow">{en ? "CUPCAKE COLLECTION" : "கப் கேக் தொகுப்பு"}</p>
                 <h2><a href={`/products/${product.id}`}>{en ? product.name : product.nameTa}</a></h2>
                 <p>{en ? product.description : product.descriptionTa}</p>
-                <label className="variantPicker"><span>{en ? "Box / composition option" : "பெட்டி / கலவை விருப்பம்"}</span><select value={selectedOption.id} onChange={(event) => setSelectedOptions((current) => ({ ...current, [product.id]: event.target.value }))}>{pricing.options.map((item) => <option value={item.id} key={item.id}>{en ? item.label : item.labelTa} — {formatPrice(item.price)}</option>)}</select><small>{en ? selectedOption.note : selectedOption.noteTa}</small></label>
+                <label className="variantPicker"><span>{en ? "Box, composition & formulation" : "பெட்டி, கலவை & தயாரிப்பு வகை"}</span><ProductChoiceSelect language={language} pricing={pricing} productId={product.id} value={selectedKey} onChange={(choice) => setSelectedChoices((current) => ({ ...current, [product.id]:choice }))} /><small>{en ? selectedOption.note : selectedOption.noteTa}</small></label>
                 <div className="productPurchaseRow">
                   <div className="selectedPrice"><span>{en ? "Price" : "விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
-                  <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id, selectedOption.id))} type="button">{unavailable ? (en ? "Preorders paused" : "முன்பதிவு இடைநிறுத்தப்பட்டுள்ளது") : (en ? "Add to cart" : "கார்ட்டில் சேர்க்க")}</button>
+                  <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(selectedKey)} type="button">{unavailable ? (en ? "Preorders paused" : "முன்பதிவு இடைநிறுத்தப்பட்டுள்ளது") : (en ? "Add to cart" : "கார்ட்டில் சேர்க்க")}</button>
                 </div>
               </div>
             </article>;
@@ -82,7 +84,7 @@ export default function CupcakesPage() {
         <ol>{cupcakeFlavours.map((flavour, index) => <li key={flavour.en}><span>{String(index + 1).padStart(2, "0")}</span><strong>{en ? flavour.en : flavour.ta}</strong><small>{flavour.note}</small></li>)}</ol>
       </section>
 
-      <section className="cupcakeGate"><div><p className="eyebrow dark">ORDERING & CARE</p><h2>{en ? "Made after you order." : "ஆர்டருக்குப் பிறகு தயாரிக்கப்படுகிறது."}</h2></div><ul><li>{en ? "The current Cupcake menu uses the egg formulation; allergens are declared before confirmation." : "தற்போதைய கப் கேக் மெனுவில் முட்டை பயன்படுத்தப்படுகிறது; உறுதிப்படுத்துவதற்கு முன் அலர்ஜன்கள் தெரிவிக்கப்படும்."}</li><li>{en ? "Preorder boxes of 6 at least three days ahead; boxes of 9 or 12 need at least five days." : "6 பெட்டிக்கு குறைந்தது 3 நாட்களும், 9 அல்லது 12 பெட்டிக்கு குறைந்தது 5 நாட்களும் முன்பதிவு தேவை."}</li><li>{en ? "Every cupcake travels in an individual holder with adequate frosting clearance." : "ஒவ்வொரு கப் கேக்கும் ஃப்ராஸ்டிங் இடைவெளியுடன் தனித்தனி ஹோல்டரில் அனுப்பப்படும்."}</li><li>{en ? "Chennai delivery is confirmed by route; additional distance-based charges apply beyond 20 km." : "சென்னை டெலிவரி பாதைக்கு ஏற்ப உறுதி செய்யப்படும்; 20 கி.மீ.க்கு அப்பால் கூடுதல் தூரக் கட்டணம் பொருந்தும்."}</li></ul></section>
+      <section className="cupcakeGate"><div><p className="eyebrow dark">ORDERING & CARE</p><h2>{en ? "Made after you order." : "ஆர்டருக்குப் பிறகு தயாரிக்கப்படுகிறது."}</h2></div><ul><li>{en ? "Choose Regular (with egg) or Eggless inside the same box selector; the kitchen still handles egg and other declared allergens." : "அதே பெட்டி தேர்வில் வழக்கமானது (முட்டையுடன்) அல்லது முட்டையில்லா என்பதைத் தேர்ந்தெடுக்கலாம்; சமையலறையில் முட்டை மற்றும் அறிவிக்கப்பட்ட பிற அலர்ஜன்கள் கையாளப்படுகின்றன."}</li><li>{en ? "Preorder boxes of 6 at least three days ahead; boxes of 9 or 12 need at least five days." : "6 பெட்டிக்கு குறைந்தது 3 நாட்களும், 9 அல்லது 12 பெட்டிக்கு குறைந்தது 5 நாட்களும் முன்பதிவு தேவை."}</li><li>{en ? "Every cupcake travels in an individual holder with adequate frosting clearance." : "ஒவ்வொரு கப் கேக்கும் ஃப்ராஸ்டிங் இடைவெளியுடன் தனித்தனி ஹோல்டரில் அனுப்பப்படும்."}</li><li>{en ? "Chennai delivery is confirmed by route; additional distance-based charges apply beyond 20 km." : "சென்னை டெலிவரி பாதைக்கு ஏற்ப உறுதி செய்யப்படும்; 20 கி.மீ.க்கு அப்பால் கூடுதல் தூரக் கட்டணம் பொருந்தும்."}</li></ul></section>
 
       {count > 0 && <div className="basketDock"><span>{en ? `${count} item${count === 1 ? "" : "s"} in your cart` : `கார்ட்டில் ${count} பொருட்கள்`}</span><a className="button buttonLight" href="/preorder">{en ? "Review cart" : "கார்ட்டைப் பார்க்க"}</a></div>}
     </main>

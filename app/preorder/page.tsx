@@ -7,7 +7,7 @@ import { useLanguage } from "../components/LanguageProvider";
 import { useInventory } from "../components/InventoryProvider";
 import { usePreorder } from "../components/PreorderProvider";
 import { isInventoryUnavailable } from "../lib/inventory";
-import { formatPrice, getMinimumOrderQuantity, getPricing, parseSelectionKey } from "../lib/pricing";
+import { formatPrice, getFormulationLabel, getMinimumOrderQuantity, getPricing, parseSelectionKey } from "../lib/pricing";
 import { findProduct } from "../lib/products";
 import { buildWhatsAppOrderMessage } from "./orderMessage";
 
@@ -43,19 +43,24 @@ export default function PreorderPage() {
   const [paymentQr, setPaymentQr] = useState("");
   const [paymentConfig, setPaymentConfig] = useState<{ enabled: boolean; upiId?: string; payeeName: string } | null>(null);
   const en = language === "en";
+  const productQuantities = useMemo(() => Object.entries(items).reduce<Record<string, number>>((totals, [key, quantity]) => {
+    const { productId } = parseSelectionKey(key);
+    totals[productId] = (totals[productId] ?? 0) + quantity;
+    return totals;
+  }, {}), [items]);
   const selections = useMemo(() => Object.entries(items).map(([key, quantity]) => {
-    const { productId, optionId } = parseSelectionKey(key);
+    const { productId, optionId, formulation } = parseSelectionKey(key);
     const product = findProduct(productId);
     const pricing = getPricing(productId);
     const selectedOption = pricing?.options.find((option) => option.id === optionId) ?? pricing?.options[0];
     const minimumQuantity = getMinimumOrderQuantity(productId, optionId);
     const availability = getInventory(productId);
-    const exceedsConfirmedCapacity = availability.availableQuantity !== null && quantity > availability.availableQuantity;
+    const exceedsConfirmedCapacity = availability.availableQuantity !== null && productQuantities[productId] > availability.availableQuantity;
     const belowMinimumQuantity = quantity < minimumQuantity;
     const preorderPaused = isInventoryUnavailable(availability.status);
     const cannotSubmit = preorderPaused || exceedsConfirmedCapacity || belowMinimumQuantity;
-    return { key, product, selectedOption, quantity, availability, minimumQuantity, belowMinimumQuantity, preorderPaused, exceedsConfirmedCapacity, cannotSubmit };
-  }).filter((item) => item.product && item.selectedOption), [getInventory, items]);
+    return { key, product, selectedOption, formulation, quantity, availability, minimumQuantity, belowMinimumQuantity, preorderPaused, exceedsConfirmedCapacity, cannotSubmit };
+  }).filter((item) => item.product && item.selectedOption), [getInventory, items, productQuantities]);
   const hasUnavailableSelection = selections.some((item) => item.cannotSubmit);
   const hasQuotationSelection = selections.some((item) => item.selectedOption?.price === null);
   const subtotal = selections.reduce((sum, item) => sum + (item.selectedOption?.price ?? 0) * item.quantity, 0);
@@ -115,11 +120,13 @@ export default function PreorderPage() {
     const form = new FormData(event.currentTarget);
     const message = buildWhatsAppOrderMessage({
       language,
-      selections: selections.map(({ product, selectedOption, quantity }) => ({
+      selections: selections.map(({ product, selectedOption, formulation, quantity }) => ({
         productName: product?.name ?? "",
         productNameTa: product?.nameTa ?? "",
         optionLabel: selectedOption?.label ?? "",
         optionLabelTa: selectedOption?.labelTa ?? "",
+        formulationLabel: getFormulationLabel(formulation, "en"),
+        formulationLabelTa: getFormulationLabel(formulation, "ta"),
         priceLabel: !en && selectedOption?.price === null ? "விலை உறுதிப்படுத்தப்படும்" : formatPrice(selectedOption?.price ?? null),
         quantity,
       })),
@@ -129,7 +136,6 @@ export default function PreorderPage() {
         name: String(form.get("name") ?? ""),
         phone: String(form.get("phone") ?? ""),
         date: String(form.get("date") ?? ""),
-        formulation: String(form.get("formulation") ?? ""),
         fulfilment: String(form.get("fulfilment") ?? ""),
         pincode: String(form.get("pincode") ?? ""),
         address: String(form.get("address") ?? ""),
@@ -155,7 +161,7 @@ export default function PreorderPage() {
         <div className="orderSummary">
           <div className="cartSummaryHeader"><div><p className="eyebrow dark">{en ? "YOUR CART" : "உங்கள் கார்ட்"}</p><h2>{en ? "Order summary" : "ஆர்டர் சுருக்கம்"}</h2></div>{selections.length > 0 && <button className="clearCartButton" onClick={clearCart} type="button">{en ? "Clear cart" : "கார்ட்டை காலி செய்"}</button>}</div>
           {selections.length > 0 && <p className="cartRetentionNote">{en ? "Saved on this device for 7 days from your last cart change." : "கடைசி கார்ட் மாற்றத்திலிருந்து 7 நாட்களுக்கு இந்த சாதனத்தில் சேமிக்கப்படும்."}</p>}
-          {selections.length === 0 ? <div className="emptyState"><p>{en ? "Your cart is empty." : "உங்கள் கார்ட் காலியாக உள்ளது."}</p><a className="button buttonCacao" href="/menu">{en ? "Browse the menu" : "மெனுவைப் பார்க்க"}</a></div> : selections.map(({ key, product, selectedOption, quantity, availability, minimumQuantity, belowMinimumQuantity, preorderPaused, exceedsConfirmedCapacity, cannotSubmit }) => <div className={`summaryItem ${cannotSubmit ? "preorderPaused" : ""}`} key={key}><div><strong>{en ? product?.name : product?.nameTa}</strong><small>{en ? selectedOption?.label : selectedOption?.labelTa} · {formatPrice(selectedOption?.price ?? null)}</small>{belowMinimumQuantity ? <em>{en ? `Minimum ${minimumQuantity} boxes` : `குறைந்தபட்சம் ${minimumQuantity} பெட்டிகள்`}</em> : preorderPaused ? <em>{en ? "Preorders temporarily paused" : "முன்பதிவு தற்காலிகமாக இடைநிறுத்தப்பட்டுள்ளது"}</em> : exceedsConfirmedCapacity ? <em>{en ? "This quantity exceeds the currently confirmed production capacity" : "இந்த அளவு தற்போது உறுதி செய்யப்பட்ட தயாரிப்பு திறனை மீறுகிறது"}</em> : null}</div><div className="quantityControl">{belowMinimumQuantity ? <button className="setMinimum" onClick={() => updateItem(key, minimumQuantity)} type="button">{en ? `Set ${minimumQuantity}` : `${minimumQuantity} அமைக்க`}</button> : <button disabled={quantity <= minimumQuantity} onClick={() => updateItem(key, quantity - 1)} type="button" aria-label={en ? "Decrease quantity" : "அளவைக் குறைக்க"}>−</button>}<span>{quantity}</span><button disabled={availability.availableQuantity !== null && quantity >= availability.availableQuantity} onClick={() => updateItem(key, quantity + 1)} type="button" aria-label={en ? "Increase quantity" : "அளவை அதிகரிக்க"}>+</button><button className="remove" onClick={() => removeItem(key)} type="button">{en ? "Remove" : "நீக்கு"}</button></div></div>)}
+          {selections.length === 0 ? <div className="emptyState"><p>{en ? "Your cart is empty." : "உங்கள் கார்ட் காலியாக உள்ளது."}</p><a className="button buttonCacao" href="/menu">{en ? "Browse the menu" : "மெனுவைப் பார்க்க"}</a></div> : selections.map(({ key, product, selectedOption, formulation, quantity, availability, minimumQuantity, belowMinimumQuantity, preorderPaused, exceedsConfirmedCapacity, cannotSubmit }) => <div className={`summaryItem ${cannotSubmit ? "preorderPaused" : ""}`} key={key}><div><strong>{en ? product?.name : product?.nameTa}</strong><small>{en ? selectedOption?.label : selectedOption?.labelTa} · {getFormulationLabel(formulation, language)} · {formatPrice(selectedOption?.price ?? null)}</small>{belowMinimumQuantity ? <em>{en ? `Minimum ${minimumQuantity} boxes` : `குறைந்தபட்சம் ${minimumQuantity} பெட்டிகள்`}</em> : preorderPaused ? <em>{en ? "Preorders temporarily paused" : "முன்பதிவு தற்காலிகமாக இடைநிறுத்தப்பட்டுள்ளது"}</em> : exceedsConfirmedCapacity ? <em>{en ? "This product’s combined cart quantity exceeds the currently confirmed production capacity" : "இந்த தயாரிப்பின் மொத்த கார்ட் அளவு தற்போது உறுதி செய்யப்பட்ட தயாரிப்பு திறனை மீறுகிறது"}</em> : null}</div><div className="quantityControl">{belowMinimumQuantity ? <button className="setMinimum" onClick={() => updateItem(key, minimumQuantity)} type="button">{en ? `Set ${minimumQuantity}` : `${minimumQuantity} அமைக்க`}</button> : <button disabled={quantity <= minimumQuantity} onClick={() => updateItem(key, quantity - 1)} type="button" aria-label={en ? "Decrease quantity" : "அளவைக் குறைக்க"}>−</button>}<span>{quantity}</span><button disabled={availability.availableQuantity !== null && productQuantities[product?.id ?? ""] >= availability.availableQuantity} onClick={() => updateItem(key, quantity + 1)} type="button" aria-label={en ? "Increase quantity" : "அளவை அதிகரிக்க"}>+</button><button className="remove" onClick={() => removeItem(key)} type="button">{en ? "Remove" : "நீக்கு"}</button></div></div>)}
           {selections.length > 0 && <div className="cartTotal"><span>{en ? "Subtotal" : "இடைக்கூட்டுத்தொகை"}</span><strong>{formatPrice(subtotal)}</strong><small>{hasQuotationSelection ? (en ? "A bespoke item is included; its price is confirmed separately." : "தனிப்பயன் பொருள் சேர்க்கப்பட்டுள்ளது; அதன் விலை தனியாக உறுதி செய்யப்படும்.") : (en ? "Delivery and paid customisation are added after confirmation." : "உறுதிப்படுத்திய பிறகு டெலிவரி மற்றும் கூடுதல் தனிப்பயன் சேர்க்கப்படும்.")}</small></div>}
           {hasUnavailableSelection && <div className="preorderWarning"><strong>{en ? "Update your selection before sending." : "அனுப்பும் முன் உங்கள் தேர்வை மாற்றவும்."}</strong><span>{en ? "One or more selections are paused, exceed confirmed production capacity, or are below the required minimum." : "ஒன்று அல்லது அதற்கு மேற்பட்ட தேர்வுகள் இடைநிறுத்தப்பட்டுள்ளன, உறுதி செய்யப்பட்ட தயாரிப்பு திறனை மீறுகின்றன அல்லது குறைந்தபட்ச அளவிற்குக் கீழே உள்ளன."}</span></div>}
           <div className="enquiryCallout"><strong>{en ? "WhatsApp confirmation comes before payment." : "கட்டணத்திற்கு முன் WhatsApp உறுதிப்படுத்தல் வரும்."}</strong><span>{en ? "San Bakes confirms capacity, recipe, delivery, customisation and the exact payable amount before the UPI QR is used." : "UPI QR பயன்படுத்துவதற்கு முன் தயாரிப்பு, ரெசிபி, டெலிவரி, தனிப்பயன் மற்றும் சரியான கட்டண தொகையை San Bakes உறுதி செய்யும்."}</span></div>
@@ -163,7 +169,7 @@ export default function PreorderPage() {
         <form className="orderForm" onSubmit={sendWhatsApp}>
           <p className="eyebrow dark">{en ? "ORDER DETAILS" : "ஆர்டர் விவரங்கள்"}</p><h2>{en ? "Tell us about the order" : "ஆர்டர் விவரங்களை தெரிவிக்கவும்"}</h2>
           <div className="fieldRow"><label>{en ? "Your name" : "உங்கள் பெயர்"}<input name="name" required autoComplete="name" /></label><label>{en ? "Mobile number" : "மொபைல் எண்"}<input name="phone" required inputMode="tel" pattern="[0-9 +()-]{8,18}" autoComplete="tel" /></label></div>
-          <div className="fieldRow"><label>{en ? "Required date" : "தேவையான தேதி"}<input name="date" required type="date" min={earliestDateInput} aria-describedby="leadTimeGuidance" /></label><input type="hidden" name="formulation" value="Egg" /></div>
+          <div className="fieldRow"><label>{en ? "Required date" : "தேவையான தேதி"}<input name="date" required type="date" min={earliestDateInput} aria-describedby="leadTimeGuidance" /></label></div>
           <div className="leadTimeGuidance" id="leadTimeGuidance"><strong>{en ? `Allow at least ${leadTimeDays} calendar days` : `குறைந்தது ${leadTimeDays} நாட்கள் அனுமதிக்கவும்`}</strong><span>{en ? `Earliest request date for this cart: ${earliestDateLabel}. The date remains subject to capacity confirmation; branding and multi-address orders may need longer.` : `இந்த கார்ட்டிற்கான முதல் கோரிக்கை தேதி: ${earliestDateLabel}. திறன் உறுதிப்படுத்தலுக்கு உட்பட்டது; பிராண்டிங் மற்றும் பல முகவரி ஆர்டர்களுக்கு கூடுதல் நேரம் தேவைப்படலாம்.`}</span></div>
           <fieldset><legend>{en ? "Fulfilment" : "பெறும் முறை"}</legend><label className="radio"><input type="radio" name="fulfilment" value="Pickup by appointment" checked={fulfilment === "pickup"} onChange={() => setFulfilment("pickup")} />{en ? "Pickup by confirmed appointment" : "உறுதி செய்யப்பட்ட நேரத்தில் பிக்கப்"}</label><label className="radio"><input type="radio" name="fulfilment" value="Delivery within Chennai" checked={fulfilment === "delivery"} onChange={() => setFulfilment("delivery")} />{en ? "Delivery within Chennai · additional charges beyond 20 km" : "சென்னை முழுவதும் டெலிவரி · 20 கி.மீ.க்கு அப்பால் கூடுதல் கட்டணம்"}</label></fieldset>
           <div className="fieldRow"><label>{en ? "Delivery pincode" : "டெலிவரி அஞ்சல் குறியீடு"}<input name="pincode" inputMode="numeric" pattern="[0-9]{6}" placeholder="600117" autoComplete="postal-code" required={fulfilment === "delivery"} aria-describedby="deliveryGuidance" /></label><label>{en ? "Address / pickup note" : "முகவரி / பிக்கப் குறிப்பு"}<input name="address" required={fulfilment === "delivery"} aria-describedby="deliveryGuidance" /></label></div>

@@ -91,12 +91,19 @@ test("uses compact banners, a five-card opening collection and responsive produc
   assert.match(css, /--font-display:/);
   assert.match(css, /--font-ui:/);
   assert.match(css, /--price-size: 18px/);
-  assert.match(css, /\.storySection \{[^}]*grid-template-columns: 1\.08fr \.92fr;[^}]*min-height: 360px/);
-  assert.match(css, /\.storyMedia \{[^}]*min-height: 360px/);
+  assert.match(css, /\.storySection \{[^}]*grid-template-columns: 1\.35fr \.65fr;[^}]*min-height: 252px/);
+  assert.match(css, /\.storyMedia \{[^}]*min-height: 252px/);
   assert.match(css, /\.storyMedia video \{[^}]*position: absolute;[^}]*min-height: 0;[^}]*object-fit: cover/);
-  assert.match(css, /\.storyMedia > div \{[^}]*bottom: 48px;[^}]*pointer-events: none/);
-  assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.storyMedia \{ min-height: 300px/);
-  assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.storyMedia \{ min-height: 250px/);
+  assert.match(css, /\.storyMedia > div \{[^}]*bottom: 42px;[^}]*pointer-events: none/);
+  assert.match(css, /\.occasionSection \{[^}]*min-height: 437px/);
+  assert.match(css, /\.occasionImage \{[^}]*min-height: 437px/);
+  assert.match(css, /\.occasionImage img \{[^}]*object-position: center 58%/);
+  assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.storyMedia \{ min-height: 210px/);
+  assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.occasionImage \{ min-height: 414px/);
+  assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.storyMedia \{ min-height: 190px/);
+  assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.occasionImage \{ min-height: 368px/);
+  assert.match(css, /@media \(min-width: 1360px\)[\s\S]*?html:lang\(en\) \.innerHero h1,[\s\S]*?white-space: nowrap/);
+  assert.match(css, /@media \(min-width: 901px\)[\s\S]*?\.cupcakeHero > div > h1 \{ grid-column: 1 \/ -1/);
 });
 
 test("publishes grouped navigation, crawl controls and product-level SEO", async () => {
@@ -125,6 +132,9 @@ test("publishes grouped navigation, crawl controls and product-level SEO", async
   assert.doesNotMatch(product, /In stock|Out of stock|Currently unavailable|Checking availability/);
   const productClient = await readFile(new URL("../app/products/[id]/ProductDetailClient.tsx", import.meta.url), "utf8");
   assert.match(productClient, /Add to cart/);
+  assert.match(product, /Choose your pack, composition &amp; formulation/);
+  assert.match(product, /Regular \(with egg\)/);
+  assert.match(product, /Eggless/);
   assert.equal((await render("/products/not-a-product")).status, 404);
 
   const faq = await (await render("/faq")).text();
@@ -171,14 +181,15 @@ test("renders the complete menu and preorder route", async () => {
   assert.doesNotMatch(menu, /LAUNCH PRICING GUIDE/);
   assert.match(menu, /Brownie Tubs/);
   assert.match(menu, /Millet Tea Cakes/);
-  assert.match(menu, /Pack \/ quantity option/);
+  assert.match(menu, /Pack, quantity &amp; formulation/);
   assert.match(menu, /₹310/);
   assert.match(menu, /₹590/);
   assert.match(menu, /Three-Piece Brownie Tin/);
   assert.match(menu, /Whole Brownie Tin/);
   assert.doesNotMatch(menu, /productMeta|>Format<|Egg formulation/);
   assert.match(menu, /class="productPurchaseRow"[\s\S]*?class="selectedPrice"[\s\S]*?class="button buttonCacao"/);
-  assert.doesNotMatch(menu, /Eggless/i);
+  assert.match(menu, /Regular \(with egg\)/);
+  assert.match(menu, /Eggless/);
   assert.match(menu, /1 whole Brownie Tin · 3 flavour-topping sections/);
   assert.match(menu, /one continuous brownie baked as a full Tin slab—not separate pieces/i);
   assert.doesNotMatch(menu, /Brownie Tin Flight/);
@@ -205,42 +216,61 @@ test("renders the complete menu and preorder route", async () => {
   assert.match(preorder, /Pickup is by confirmed appointment/);
   assert.match(preorder, /View delivery and pickup guide/);
   assert.doesNotMatch(preorder, /Planning subtotal/i);
-  assert.doesNotMatch(preorder, /Eggless/i);
+  assert.doesNotMatch(preorder, /name="formulation"|Formulation:/i);
   assert.doesNotMatch(preorder, /In stock|Out of stock|Currently unavailable|stockBadge|availabilityLine/);
 });
 
-test("keeps a quantity-only cart for seven days and localises WhatsApp checkout", async () => {
+test("keeps a formulation-aware quantity cart for seven days and localises WhatsApp checkout", async () => {
   const provider = await readFile(new URL("../app/components/PreorderProvider.tsx", import.meta.url), "utf8");
   const checkout = await readFile(new URL("../app/preorder/page.tsx", import.meta.url), "utf8");
   const styles = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
   assert.match(provider, /CART_TTL_MS = 7 \* 24 \* 60 \* 60 \* 1000/);
   assert.match(provider, /StoredEnquiry = \{\s*items: EnquiryItems;\s*expiresAt: number;/);
-  assert.match(provider, /Legacy carts were a quantity-only object/);
+  assert.match(provider, /Legacy two-part selection keys are migrated to the Regular formulation/);
   assert.doesNotMatch(provider, /price|subtotal/i);
   assert.match(checkout, /clearItems/);
   assert.match(checkout, /Clear cart/);
   assert.match(checkout, /Saved on this device for 7 days/);
+  assert.match(checkout, /productQuantities/);
+  assert.match(checkout, /combined cart quantity exceeds/);
+  assert.doesNotMatch(checkout, /name="formulation"|value="Egg"/);
   assert.match(styles, /menuSection:has\(> \.basketDock\) \.menuGrid/);
   assert.match(styles, /body:has\(\.basketDock\) \.whatsappFloat/);
 
+  const { makeSelectionKey, parseSelectionKey } = await import("../app/lib/pricing.ts");
+  const { sanitiseItems } = await import("../app/lib/cart.ts");
+  const regularKey = makeSelectionKey("walnut-reserve", "box-6", "regular");
+  const egglessKey = makeSelectionKey("walnut-reserve", "box-6", "eggless");
+  assert.notEqual(regularKey, egglessKey);
+  assert.deepEqual(parseSelectionKey(regularKey), { productId:"walnut-reserve", optionId:"box-6", formulation:"regular" });
+  assert.deepEqual(parseSelectionKey(egglessKey), { productId:"walnut-reserve", optionId:"box-6", formulation:"eggless" });
+  assert.deepEqual(parseSelectionKey("walnut-reserve::box-6"), { productId:"walnut-reserve", optionId:"box-6", formulation:"regular" });
+  assert.deepEqual(sanitiseItems({ "walnut-reserve::box-6":2, [regularKey]:3, [egglessKey]:4, "walnut-reserve::box-6::unknown":99 }), { [regularKey]:5, [egglessKey]:4 });
+
   const { buildWhatsAppOrderMessage } = await import("../app/preorder/orderMessage.ts");
   const base = {
-    selections: [{ productName: "Walnut Reserve", productNameTa: "வால்நட் ரிசர்வ்", optionLabel: "Box of 6", optionLabelTa: "6 துண்டு பெட்டி", priceLabel: "₹620", quantity: 2 }],
-    subtotalLabel: "₹1,240",
+    selections: [
+      { productName: "Walnut Reserve", productNameTa: "வால்நட் ரிசர்வ்", optionLabel: "Box of 6", optionLabelTa: "6 துண்டு பெட்டி", formulationLabel:"Regular (with egg)", formulationLabelTa:"வழக்கமானது (முட்டையுடன்)", priceLabel: "₹620", quantity: 2 },
+      { productName: "Ragi No. 01", productNameTa: "ராகி நம்பர் 01", optionLabel: "Box of 6", optionLabelTa: "6 துண்டு பெட்டி", formulationLabel:"Eggless", formulationLabelTa:"முட்டையில்லா", priceLabel: "₹590", quantity: 1 },
+    ],
+    subtotalLabel: "₹1,830",
     hasQuotationSelection: false,
-    details: { name: "Sangeetha", phone: "9940058623", date: "2026-09-10", formulation: "Egg", fulfilment: "Delivery within Chennai", pincode: "600117", address: "Chennai", notes: "No note" },
+    details: { name: "Sangeetha", phone: "9940058623", date: "2026-09-10", fulfilment: "Delivery within Chennai", pincode: "600117", address: "Chennai", notes: "No note" },
   };
   const english = buildWhatsAppOrderMessage({ ...base, language: "en" });
   assert.match(english, /^Hello San Bakes, I would like to place a preorder\./);
-  assert.match(english, /Walnut Reserve · Box of 6 · ₹620 × 2/);
-  assert.match(english, /SUBTOTAL: ₹1,240/);
+  assert.match(english, /Walnut Reserve · Box of 6 · Regular \(with egg\) · ₹620 × 2/);
+  assert.match(english, /Ragi No\. 01 · Box of 6 · Eggless · ₹590 × 1/);
+  assert.match(english, /SUBTOTAL: ₹1,830/);
   assert.match(english, /Required date: 2026-09-10/);
   assert.match(english, /Fulfilment: Delivery within Chennai/);
+  assert.doesNotMatch(english, /^Formulation:/m);
 
   const tamil = buildWhatsAppOrderMessage({ ...base, language: "ta" });
   assert.match(tamil, /^வணக்கம் San Bakes/);
-  assert.match(tamil, /வால்நட் ரிசர்வ் · 6 துண்டு பெட்டி · ₹620 × 2/);
-  assert.match(tamil, /இடைக்கூட்டுத்தொகை: ₹1,240/);
+  assert.match(tamil, /வால்நட் ரிசர்வ் · 6 துண்டு பெட்டி · வழக்கமானது \(முட்டையுடன்\) · ₹620 × 2/);
+  assert.match(tamil, /ராகி நம்பர் 01 · 6 துண்டு பெட்டி · முட்டையில்லா · ₹590 × 1/);
+  assert.match(tamil, /இடைக்கூட்டுத்தொகை: ₹1,830/);
   assert.match(tamil, /தேவையான தேதி: 2026-09-10/);
   assert.match(tamil, /பெறும் முறை: சென்னை முழுவதும் டெலிவரி/);
   assert.doesNotMatch(tamil, /Required date|Fulfilment|CUSTOMER|Please confirm/);
@@ -298,6 +328,9 @@ test("renders Cupcakes as an active orderable collection", async () => {
   assert.match(cupcakes, /cupcake-discovery-box-12-v2\.webp/);
   assert.match(cupcakes, /Available to preorder/);
   assert.match(cupcakes, /Add to cart/);
+  assert.match(cupcakes, /Box, composition &amp; formulation/);
+  assert.match(cupcakes, /Regular \(with egg\)/);
+  assert.match(cupcakes, /Eggless/);
   assert.match(cupcakes, /₹650/);
   assert.match(cupcakes, /₹520/);
   assert.match(cupcakes, /₹910/);
@@ -311,6 +344,8 @@ test("renders Cupcakes as an active orderable collection", async () => {
 test("renders the expanded customer information pages", async () => {
   const faq = await (await render("/faq")).text();
   assert.match(faq, /Everything to know before you reserve/);
+  assert.match(faq, /Can every product be ordered Eggless/);
+  assert.match(faq, /not presented as vegan or allergen-free/);
   assert.match(faq, /Are San Bakes products healthy/);
   assert.match(faq, /How does UPI payment work/);
   assert.match(faq, /Cupcake boxes of 6 need at least three days/);
@@ -342,6 +377,8 @@ test("renders the expanded customer information pages", async () => {
   assert.match(corporate, /Corporate Mini Box/);
   assert.match(corporate, /25–49 boxes · 2 Ragi \+ 2 Walnut · per box/);
   assert.match(corporate, /Add 25 boxes to cart/);
+  assert.match(corporate, /Regular \(with egg\)/);
+  assert.match(corporate, /Eggless/);
   assert.match(corporate, /Bespoke Corporate Gifting/);
   assert.match(corporate, /7 calendar days/);
   assert.doesNotMatch(corporate, /productMeta|>Format</);
@@ -360,6 +397,8 @@ test("renders the expanded customer information pages", async () => {
   assert.match(parties, /10 Classic Brownie Tubs/);
   assert.match(parties, /Occasion Brownie Cake/);
   assert.match(parties, /Add to cart/);
+  assert.match(parties, /Regular \(with egg\)/);
+  assert.match(parties, /Eggless/);
   assert.match(parties, /Within 72 hours of handover/);
   assert.doesNotMatch(parties, /productMeta|>Format</);
   assert.match(parties, /class="productPurchaseRow"[\s\S]*?class="selectedPrice"[\s\S]*?class="button buttonCacao"/);
@@ -375,9 +414,10 @@ test("keeps UPI payment disabled until a verified recipient is configured", asyn
 test("renders the owner approved-price reference without review statuses", async () => {
   const review = await (await render("/launch-review")).text();
   assert.match(review, /Approved V5 menu, quantities and prices/);
-  assert.match(review, /Egg formulation only at launch/);
+  assert.match(review, /Regular and Eggless formulations/);
+  assert.match(review, /Every product can be ordered Regular \(with egg\) or Eggless/);
   assert.match(review, /distance-based charge for addresses beyond 20 km/);
-  assert.doesNotMatch(review, /Eggless/i);
+  assert.doesNotMatch(review, /Egg formulation only at launch|Egg at launch|offers the egg formulation only/i);
   assert.match(review, /Classic Brownie Tub/);
   assert.match(review, /Every populated New Price value from the V5 Price Review sheet is now treated as an approved selling price/i);
   assert.match(review, /Three-Piece Brownie Tin contains three separate brownie pieces/);
