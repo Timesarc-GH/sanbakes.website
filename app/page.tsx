@@ -6,52 +6,79 @@ import { formatPrice, formatPriceRangeForProducts, formatStartingPriceForProduct
 
 const featured = [
   {
-    title: "Ragi No. 01",
-    titleTa: "ராகி நம்பர் 01",
-    copy: "Dark cacao and ragi, developed for a dense crumb and a gently roasted grain note.",
-    copyTa: "டார்க் காகாவும் ராகியும் இணையும் அடர்த்தியான பிரௌனி.",
-    image: "/images/editorial/home-ragi-collection-v1.webp",
-    label: "Signature brownie",
-    productIds: ["ragi-no-01"],
-    href: "/menu?category=signature",
-    cta: "View signature brownies →",
-    ctaTa: "சிக்னேச்சர் பிரௌனிகளைப் பார்க்க →",
+    title: "The Brownie Atelier",
+    titleTa: "பிரௌனி கலைத் தொகுப்பு",
+    copy: "Signature brownies, true Tins, spoonable Tubs and millet tea cakes, gathered in one small-batch collection.",
+    copyTa: "சிக்னேச்சர் பிரௌனிகள், டின்கள், டப்கள் மற்றும் சிறுதானிய டீ கேக்குகள் கொண்ட சிறுதொகுப்பு.",
+    image: "/images/editorial/home-opening-brownie-atelier-v1.webp",
+    alt: "Brownie Tin, Brownie Tub and sliced ragi millet tea cake",
+    altTa: "பிரௌனி டின், பிரௌனி டப் மற்றும் துண்டாக்கப்பட்ட ராகி சிறுதானிய டீ கேக்",
+    label: "Brownies · Tins · Tubs · Tea cakes",
+    labelTa: "பிரௌனிகள் · டின்கள் · டப்கள் · டீ கேக்குகள்",
+    productIds: ["ragi-no-01", "brownie-tin-3-piece", "whole-brownie-tin", "classic-brownie-tub", "ragi-cacao-tea-cake"],
+    href: "/menu",
+    cta: "Explore brownies →",
+    ctaTa: "பிரௌனி தொகுப்பைப் பார்க்க →",
   },
   {
-    title: "Brownie Tins",
-    titleTa: "பிரௌனி டின்கள்",
-    copy: "Two true Tin formats: three separate pieces, or one continuous brownie with three topping sections.",
-    copyTa: "இரண்டு டின் வடிவங்கள்: மூன்று தனித் துண்டுகள் அல்லது மூன்று டாப்பிங் பகுதிகளுடன் ஒரே தொடர்ச்சியான பிரௌனி.",
-    image: "/images/editorial/home-brownie-tins-dual-format-v3.webp",
-    label: "Celebration formats",
-    productIds: ["brownie-tin-3-piece", "whole-brownie-tin"],
-    href: "/menu?category=tins",
-    cta: "View Brownie Tins →",
-    ctaTa: "பிரௌனி டின்களைப் பார்க்க →",
+    title: "The Cupcake Edit",
+    titleTa: "கப் கேக் தேர்வு",
+    copy: "Boxes of six, nine or twelve; every cupcake sits in its own fitted holder for gifting or sharing.",
+    copyTa: "ஆறு, ஒன்பது அல்லது பன்னிரண்டு கப் கேக்குகள்; ஒவ்வொன்றும் தனிப்பட்ட ஹோல்டரில் அழகாக அமர்த்தப்படும்.",
+    image: "/images/editorial/home-opening-cupcake-edit-v1.webp",
+    alt: "Six assorted San Bakes cupcakes in individual fitted holders",
+    altTa: "தனித்தனி ஹோல்டர்களில் ஆறு வகை San Bakes கப் கேக்குகள்",
+    label: "Boxes of 6 · 9 · 12",
+    labelTa: "6 · 9 · 12 பெட்டிகள்",
+    productIds: ["cupcake-ragi", "cupcake-pista", "cupcake-discovery"],
+    href: "/cupcakes",
+    cta: "Explore cupcakes →",
+    ctaTa: "கப் கேக்குகளைப் பார்க்க →",
   },
   {
-    title: "Brownie Tubs",
-    titleTa: "பிரௌனி டப்கள்",
-    copy: "Spoonable brownie pieces with a chocolate-led finish, offered in Classic and Loaded formats.",
-    copyTa: "சாக்லேட் அலங்காரத்துடன் கிளாசிக் மற்றும் லோடெட் வடிவங்களில் பிரௌனி துண்டுகள்.",
-    image: "/images/editorial/home-brownie-tubs-collection-v2.webp",
-    label: "Dessert format",
-    productIds: ["classic-brownie-tub", "loaded-brownie-tub"],
-    href: "/menu?category=tubs",
-    cta: "View Brownie Tubs →",
-    ctaTa: "பிரௌனி டப்களைப் பார்க்க →",
+    title: "The Celebration Table",
+    titleTa: "கொண்டாட்ட மேசை",
+    copy: "Brownie cakes, individually packed pieces, Tins and Tubs planned around your guest count and date.",
+    copyTa: "உங்கள் விருந்தினர் எண்ணிக்கை மற்றும் தேதிக்கேற்ப பிரௌனி கேக்குகள், தனிப்பட்ட பேக்குகள், டின்கள் மற்றும் டப்கள்.",
+    image: "/images/editorial/home-opening-celebration-table-v1.webp",
+    alt: "Brownie birthday cake, party Brownie Tin and individually packed brownies",
+    altTa: "பிரௌனி பிறந்தநாள் கேக், பார்ட்டி பிரௌனி டின் மற்றும் தனித்தனி பேக்கிங் பிரௌனிகள்",
+    label: "Birthdays · Parties · Occasions",
+    labelTa: "பிறந்தநாள் · பார்ட்டி · நிகழ்ச்சிகள்",
+    productIds: ["birthday-250", "mini-brownie-tower", "party-single-brownies", "party-brownie-tins", "party-brownie-tubs"],
+    href: "/parties",
+    cta: "Plan a celebration →",
+    ctaTa: "கொண்டாட்டத்தைத் திட்டமிட →",
   },
   {
-    title: "Personal Gifting",
-    titleTa: "தனிப்பட்ட பரிசுகள்",
-    copy: "Curated brownie boxes, Tins and seasonal hampers, finished for thoughtful gifting.",
-    copyTa: "கவனமான பரிசளிப்பிற்காகத் தேர்ந்தெடுக்கப்பட்ட பிரௌனி பெட்டிகள், டின்கள் மற்றும் பருவகால ஹாம்பர்கள்.",
-    image: "/images/editorial/home-brownie-tins-collection-v2.webp",
-    label: "Gift formats",
+    title: "The Gifting Room",
+    titleTa: "பரிசுத் தொகுப்பு",
+    copy: "Discovery boxes, reserve assortments, Tins and seasonal hampers composed for a thoughtful handover.",
+    copyTa: "டிஸ்கவரி பெட்டிகள், ரிசர்வ் தொகுப்புகள், டின்கள் மற்றும் பருவகால ஹாம்பர்கள் கவனமாகத் தொகுக்கப்படும்.",
+    image: "/images/editorial/home-opening-gifting-room-v1.webp",
+    alt: "Personal gift box with assorted brownies, a Brownie Tin and ribbon",
+    altTa: "வகை பிரௌனிகள், பிரௌனி டின் மற்றும் ரிப்பன் கொண்ட தனிப்பட்ட பரிசுப் பெட்டி",
+    label: "Personal gifts",
+    labelTa: "தனிப்பட்ட பரிசுகள்",
     productIds: ["signature-discovery-box", "reserve-collection", "seasonal-hamper"],
     href: "/gifting",
-    cta: "View personal gifting →",
-    ctaTa: "பரிசுத் தொகுப்புகளைப் பார்க்க →",
+    cta: "Explore personal gifting →",
+    ctaTa: "பரிசுத் தொகுப்பைப் பார்க்க →",
+  },
+  {
+    title: "Business, Beautifully Boxed",
+    titleTa: "அழகாகப் பெட்டியிடப்பட்ட வணிகப் பரிசுகள்",
+    copy: "Scalable brownie formats, mini boxes and bespoke presentation for clients, teams and branded events.",
+    copyTa: "வாடிக்கையாளர்கள், குழுக்கள் மற்றும் நிறுவன நிகழ்வுகளுக்கான பிரௌனி வடிவங்கள், மினி பெட்டிகள் மற்றும் தனிப்பயன் பேக்கிங்.",
+    image: "/images/editorial/home-opening-corporate-boxed-v1.webp",
+    alt: "Corporate brownie presentation box with mini boxes and a Brownie Tin",
+    altTa: "மினி பெட்டிகள் மற்றும் பிரௌனி டின் கொண்ட நிறுவனப் பரிசுத் தொகுப்பு",
+    label: "Clients · Teams · Events",
+    labelTa: "வாடிக்கையாளர்கள் · குழுக்கள் · நிகழ்வுகள்",
+    productIds: ["corporate-mini-box", "bespoke-corporate"],
+    href: "/corporate",
+    cta: "Plan a corporate order →",
+    ctaTa: "நிறுவன ஆர்டரைத் திட்டமிட →",
   },
 ];
 
@@ -101,12 +128,14 @@ export default function Home() {
           <div><p className="eyebrow dark">THE OPENING COLLECTION</p><h2>{en ? "Familiar pleasure, considered differently." : "பழக்கமான சுவை, புதிய கவனத்துடன்."}</h2></div>
           <p>{en ? "A focused menu spanning signature brownies, true Brownie Tins, Brownie Tubs, millet tea cakes, Cupcakes, birthday and party formats, personal gifting and corporate orders." : "சிக்னேச்சர் பிரௌனிகள், பிரௌனி டின்கள், பிரௌனி டப்கள், சிறுதானிய டீ கேக்குகள், கப் கேக்குகள், பிறந்தநாள் மற்றும் பார்ட்டி வடிவங்கள், பரிசுகள் மற்றும் நிறுவன ஆர்டர்கள்."}</p>
         </div>
-        <div className="productGrid">
+        <div className="productGrid openingGrid">
           {featured.map((item) => (
-            <article className="productCard" key={item.title}>
-              <div className="productImage"><Image src={item.image} alt={item.title} fill sizes="(max-width: 620px) 90vw, (max-width: 900px) 45vw, 24vw" /></div>
+            <article className="productCard" key={item.href}>
+              <a className="productImage" href={item.href} aria-label={`${en ? item.title : item.titleTa}: ${en ? item.cta : item.ctaTa}`}>
+                <Image src={item.image} alt={en ? item.alt : item.altTa} fill sizes="(max-width: 620px) 90vw, (max-width: 900px) 45vw, (max-width: 1100px) 30vw, 20vw" />
+              </a>
               <div className="productBody">
-                <p className="cardEyebrow">{item.label}</p>
+                <p className="cardEyebrow">{en ? item.label : item.labelTa}</p>
                 <h3>{en ? item.title : item.titleTa}</h3>
                 <p>{en ? item.copy : item.copyTa}</p>
                 <div><span>{en ? `From ${formatStartingPriceForProducts(item.productIds)}` : `${formatStartingPriceForProducts(item.productIds)} முதல்`}</span><a href={item.href}>{en ? item.cta : item.ctaTa}</a></div>
@@ -129,7 +158,7 @@ export default function Home() {
           <a className="button buttonCacao" href="/about">{en ? "Read our approach" : "எங்கள் அணுகுமுறை"}</a>
         </div>
         <div className="storyMedia">
-          <video controls preload="metadata" poster="/images/editorial/home-our-standard-video-poster-v1.webp">
+          <video controls preload="metadata" poster="/images/editorial/home-our-standard-video-poster-v1.webp" aria-label={en ? "Why the San Bakes ingredient list matters" : "San Bakes பொருள் பட்டியல் ஏன் முக்கியம்"}>
             <source src="/video/why-san-bakes.mp4" type="video/mp4" />
             <track kind="captions" src="/video/why-san-bakes.en.vtt" srcLang="en" label="English" default />
           </video>

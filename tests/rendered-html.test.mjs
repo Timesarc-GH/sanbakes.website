@@ -32,17 +32,28 @@ test("renders the San Bakes storefront", async () => {
   assert.match(html, /Delivery within Chennai/);
   assert.match(html, /addresses beyond 20 km include additional distance-based charges/i);
   assert.doesNotMatch(html, /Eggless/i);
-  assert.match(html, /one continuous brownie with three topping sections/i);
-  assert.match(html, /home-brownie-tins-dual-format-v3\.webp/);
-  assert.equal((html.match(/class="productCard"/g) ?? []).length, 4);
-  assert.match(html, /home-brownie-tins-collection-v2\.webp/);
-  assert.match(html, /href="\/gifting">View personal gifting/);
-  assert.match(html, /From ₹590/);
-  assert.match(html, /From ₹310/);
+  assert.equal((html.match(/class="productCard"/g) ?? []).length, 5);
+  for (const title of ["The Brownie Atelier", "The Cupcake Edit", "The Celebration Table", "The Gifting Room", "Business, Beautifully Boxed"]) {
+    assert.match(html, new RegExp(title));
+  }
+  for (const image of [
+    "home-opening-brownie-atelier-v1.webp",
+    "home-opening-cupcake-edit-v1.webp",
+    "home-opening-celebration-table-v1.webp",
+    "home-opening-gifting-room-v1.webp",
+    "home-opening-corporate-boxed-v1.webp",
+  ]) {
+    assert.match(html, new RegExp(image.replace(".", "\\.")));
+  }
+  for (const href of ["/menu", "/cupcakes", "/parties", "/gifting", "/corporate"]) {
+    assert.match(html, new RegExp(`<a class="productImage" href="${href}"`));
+  }
+  assert.match(html, /Brownies · Tins · Tubs · Tea cakes/);
   assert.match(html, /From ₹270/);
-  assert.match(html, /href="\/menu\?category=signature"/);
-  assert.match(html, /href="\/menu\?category=tins"/);
-  assert.match(html, /href="\/menu\?category=tubs"/);
+  assert.match(html, /From ₹520/);
+  assert.match(html, /From ₹450/);
+  assert.match(html, /From ₹590/);
+  assert.match(html, /From ₹490/);
   assert.match(html, /Individually packed brownies start at 25 pieces/);
   assert.match(html, />FAQs<\/a>/);
   assert.doesNotMatch(html, /Corporate minimum:|₹12,250/);
@@ -55,7 +66,7 @@ test("renders the San Bakes storefront", async () => {
   assert.match(html, /FSSAI registration pending/);
 });
 
-test("uses compact banners and responsive four-card product grids", async () => {
+test("uses compact banners, a five-card opening collection and responsive product grids", async () => {
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
   const productCss = await readFile(new URL("../app/products/[id]/product-detail.module.css", import.meta.url), "utf8");
   const header = await readFile(new URL("../app/components/SiteHeader.tsx", import.meta.url), "utf8");
@@ -63,10 +74,13 @@ test("uses compact banners and responsive four-card product grids", async () => 
   assert.match(css, /\.innerHero \{[^}]*padding: 28px 8vw 32px/);
   assert.match(css, /\.cupcakeHero \{[^}]*padding: 28px 8vw 32px/);
   assert.match(css, /\.productGrid \{[^}]*grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)/);
+  assert.match(css, /\.openingGrid \{[^}]*grid-template-columns: repeat\(5, minmax\(0, 1fr\)\)/);
   assert.match(css, /\.menuGrid \{[^}]*grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)/);
   assert.match(css, /@media \(max-width: 1100px\)[\s\S]*?\.productGrid, \.menuGrid \{ grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
+  assert.match(css, /@media \(min-width: 901px\) and \(max-width: 1240px\)[\s\S]*?\.openingGrid \{ grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
   assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.productGrid \{ grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
   assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.productGrid \{ grid-template-columns: 1fr/);
+  assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.openingGrid \.productImage \{ aspect-ratio: 4 \/ 3/);
   assert.match(css, /\.priceGuideGrid \{[^}]*grid-template-columns: repeat\(4, 1fr\)/);
   assert.match(css, /\.siteHeader \{[\s\S]*?min-height: 74px;[\s\S]*?overflow: visible;/);
   assert.match(css, /\.brandSeal \{[^}]*position: absolute;[^}]*width: var\(--brand-seal-size\);[^}]*transform: translateY\(-66%\)/);
@@ -77,6 +91,12 @@ test("uses compact banners and responsive four-card product grids", async () => 
   assert.match(css, /--font-display:/);
   assert.match(css, /--font-ui:/);
   assert.match(css, /--price-size: 18px/);
+  assert.match(css, /\.storySection \{[^}]*grid-template-columns: 1\.08fr \.92fr;[^}]*min-height: 360px/);
+  assert.match(css, /\.storyMedia \{[^}]*min-height: 360px/);
+  assert.match(css, /\.storyMedia video \{[^}]*position: absolute;[^}]*min-height: 0;[^}]*object-fit: cover/);
+  assert.match(css, /\.storyMedia > div \{[^}]*bottom: 48px;[^}]*pointer-events: none/);
+  assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.storyMedia \{ min-height: 300px/);
+  assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.storyMedia \{ min-height: 250px/);
 });
 
 test("publishes grouped navigation, crawl controls and product-level SEO", async () => {
