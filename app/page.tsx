@@ -41,6 +41,18 @@ const featured = [
     cta: "View Brownie Tubs →",
     ctaTa: "பிரௌனி டப்களைப் பார்க்க →",
   },
+  {
+    title: "Personal Gifting",
+    titleTa: "தனிப்பட்ட பரிசுகள்",
+    copy: "Curated brownie boxes, Tins and seasonal hampers, finished for thoughtful gifting.",
+    copyTa: "கவனமான பரிசளிப்பிற்காகத் தேர்ந்தெடுக்கப்பட்ட பிரௌனி பெட்டிகள், டின்கள் மற்றும் பருவகால ஹாம்பர்கள்.",
+    image: "/images/editorial/home-brownie-tins-collection-v2.webp",
+    label: "Gift formats",
+    productIds: ["signature-discovery-box", "reserve-collection", "seasonal-hamper"],
+    href: "/gifting",
+    cta: "View personal gifting →",
+    ctaTa: "பரிசுத் தொகுப்புகளைப் பார்க்க →",
+  },
 ];
 
 export default function Home() {
@@ -92,7 +104,7 @@ export default function Home() {
         <div className="productGrid">
           {featured.map((item) => (
             <article className="productCard" key={item.title}>
-              <div className="productImage"><Image src={item.image} alt={item.title} fill sizes="(max-width: 900px) 90vw, 30vw" /></div>
+              <div className="productImage"><Image src={item.image} alt={item.title} fill sizes="(max-width: 620px) 90vw, (max-width: 900px) 45vw, 24vw" /></div>
               <div className="productBody">
                 <p className="cardEyebrow">{item.label}</p>
                 <h3>{en ? item.title : item.titleTa}</h3>

@@ -34,6 +34,9 @@ test("renders the San Bakes storefront", async () => {
   assert.doesNotMatch(html, /Eggless/i);
   assert.match(html, /one continuous brownie with three topping sections/i);
   assert.match(html, /home-brownie-tins-dual-format-v3\.webp/);
+  assert.equal((html.match(/class="productCard"/g) ?? []).length, 4);
+  assert.match(html, /home-brownie-tins-collection-v2\.webp/);
+  assert.match(html, /href="\/gifting">View personal gifting/);
   assert.match(html, /From ₹590/);
   assert.match(html, /From ₹310/);
   assert.match(html, /From ₹270/);
@@ -50,6 +53,19 @@ test("renders the San Bakes storefront", async () => {
   assert.doesNotMatch(html, /san-bakes-product-collection\.mp4|Play music|heroVideo/);
   assert.match(html, />Policies</);
   assert.match(html, /FSSAI registration pending/);
+});
+
+test("uses compact banners and responsive four-card product grids", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(css, /\.hero \{[^}]*min-height: 230px/);
+  assert.match(css, /\.innerHero \{[^}]*padding: 28px 8vw 32px/);
+  assert.match(css, /\.cupcakeHero \{[^}]*padding: 28px 8vw 32px/);
+  assert.match(css, /\.productGrid \{[^}]*grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)/);
+  assert.match(css, /\.menuGrid \{[^}]*grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)/);
+  assert.match(css, /@media \(max-width: 1100px\)[\s\S]*?\.productGrid, \.menuGrid \{ grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
+  assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.productGrid \{ grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+  assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.productGrid \{ grid-template-columns: 1fr/);
+  assert.match(css, /\.priceGuideGrid \{[^}]*grid-template-columns: repeat\(4, 1fr\)/);
 });
 
 test("publishes grouped navigation, crawl controls and product-level SEO", async () => {
