@@ -159,13 +159,13 @@ export default function Home() {
           </ul>
           <a className="button buttonCacao" href="/about">{en ? "Read our approach" : "எங்கள் அணுகுமுறை"}</a>
         </div>
-        <div className="storyMedia">
-          <video controls preload="metadata" poster="/images/editorial/home-our-standard-video-poster-v1.webp" aria-label={en ? "Why the San Bakes ingredient list matters" : "San Bakes பொருள் பட்டியல் ஏன் முக்கியம்"}>
-            <source src="/video/why-san-bakes.mp4" type="video/mp4" />
+        <figure className="storyMedia">
+          <video controls preload="metadata" poster="/images/editorial/home-our-standard-video-poster-v2.webp" aria-label={en ? "Why the San Bakes ingredient list matters" : "San Bakes பொருள் பட்டியல் ஏன் முக்கியம்"} aria-describedby="story-video-caption">
+            <source src="/video/why-san-bakes-wide-v2.mp4" type="video/mp4" />
             <track kind="captions" src="/video/why-san-bakes.en.vtt" srcLang="en" label="English" default />
           </video>
-          <div><strong>{en ? "Why the ingredient list matters" : "பொருள் பட்டியல் ஏன் முக்கியம்"}</strong><span>{en ? "A kitchen note from San Bakes" : "San Bakes சமையலறை குறிப்பு"}</span></div>
-        </div>
+          <figcaption className="storyMediaCaption" id="story-video-caption"><strong>{en ? "Why the ingredient list matters" : "பொருள் பட்டியல் ஏன் முக்கியம்"}</strong><span>{en ? "A kitchen note from San Bakes" : "San Bakes சமையலறை குறிப்பு"}</span></figcaption>
+        </figure>
       </section>
 
       <section className="occasionSection">

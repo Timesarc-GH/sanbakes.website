@@ -63,6 +63,12 @@ test("renders the San Bakes storefront", async () => {
   assert.match(html, /ragi-brownie-hero\.png/);
   assert.match(html, /alt="San Bakes dark cacao brownie with a crackly top"/);
   assert.doesNotMatch(html, /san-bakes-product-collection\.mp4|Play music|heroVideo/);
+  assert.match(html, /<figure class="storyMedia">/);
+  assert.match(html, /aria-describedby="story-video-caption"/);
+  assert.match(html, /why-san-bakes-wide-v2\.mp4/);
+  assert.match(html, /home-our-standard-video-poster-v2\.webp/);
+  assert.match(html, /<figcaption class="storyMediaCaption" id="story-video-caption">/);
+  assert.doesNotMatch(html, /<video[^>]*autoplay/i);
   assert.match(html, />Policies</);
   assert.match(html, /FSSAI registration pending/);
 });
@@ -71,6 +77,7 @@ test("uses compact banners, a five-card opening collection and responsive produc
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
   const productCss = await readFile(new URL("../app/products/[id]/product-detail.module.css", import.meta.url), "utf8");
   const header = await readFile(new URL("../app/components/SiteHeader.tsx", import.meta.url), "utf8");
+  const storyCaptions = await readFile(new URL("../public/video/why-san-bakes.en.vtt", import.meta.url), "utf8");
   assert.match(css, /\.hero \{[^}]*min-height: 230px/);
   assert.match(css, /\.innerHero \{[^}]*padding: 28px 8vw 32px/);
   assert.match(css, /\.cupcakeHero \{[^}]*padding: 28px 8vw 32px/);
@@ -92,16 +99,17 @@ test("uses compact banners, a five-card opening collection and responsive produc
   assert.match(css, /--font-display:/);
   assert.match(css, /--font-ui:/);
   assert.match(css, /--price-size: 18px/);
-  assert.match(css, /\.storySection \{[^}]*grid-template-columns: 1\.35fr \.65fr;[^}]*min-height: 252px/);
-  assert.match(css, /\.storyMedia \{[^}]*min-height: 252px/);
-  assert.match(css, /\.storyMedia video \{[^}]*position: absolute;[^}]*min-height: 0;[^}]*object-fit: cover/);
-  assert.match(css, /\.storyMedia > div \{[^}]*bottom: 42px;[^}]*pointer-events: none/);
+  assert.match(css, /\.storySection \{[^}]*grid-template-columns: 1\.35fr \.65fr;[^}]*min-height: 290px/);
+  assert.match(css, /\.storyMedia \{[^}]*min-height: 290px;[^}]*margin: 0/);
+  assert.match(css, /\.storyMedia video \{[^}]*position: absolute;[^}]*min-height: 0;[^}]*object-fit: contain/);
+  assert.match(css, /\.storyMediaCaption \{[^}]*top: clamp\(12px, 2vw, 22px\);[^}]*right: auto;[^}]*bottom: auto;[^}]*max-width: min\(16rem, 42%\);[^}]*background: transparent;[^}]*pointer-events: none/);
+  assert.doesNotMatch(css, /\.storyMediaCaption \{[^}]*backdrop-filter/);
   assert.match(css, /\.occasionSection \{[^}]*min-height: 437px/);
   assert.match(css, /\.occasionImage \{[^}]*min-height: 437px/);
   assert.match(css, /\.occasionImage img \{[^}]*object-position: center 58%/);
-  assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.storyMedia \{ min-height: 210px/);
+  assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.storyMedia \{ min-height: 242px/);
   assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.occasionImage \{ min-height: 414px/);
-  assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.storyMedia \{ min-height: 190px/);
+  assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.storyMedia \{ min-height: 219px/);
   assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.occasionImage \{ min-height: 368px/);
   assert.match(css, /@media \(min-width: 1360px\)[\s\S]*?html:lang\(en\) \.innerHero h1,[\s\S]*?white-space: nowrap/);
   assert.match(css, /@media \(min-width: 901px\)[\s\S]*?\.cupcakeHero > div > h1 \{ grid-column: 1 \/ -1/);
@@ -115,6 +123,9 @@ test("uses compact banners, a five-card opening collection and responsive produc
   assert.match(css, /@media \(min-width: 1241px\)[\s\S]*?\.homeOpening \.trustStrip div \{ padding: 12px 3vw 14px; \}/);
   assert.match(css, /@media \(min-width: 1241px\)[\s\S]*?\.homeOpening \.collectionSection \{ padding: 18px 4vw 20px; \}/);
   assert.match(css, /@media \(min-width: 1241px\)[\s\S]*?\.homeOpening \.openingGrid \.productImage \{ aspect-ratio: 1\.65 \/ 1; \}/);
+  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 881px\)[\s\S]*?max-width: 1628px/);
+  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 881px\)[\s\S]*?\.homeOpening \.openingGrid \.productBody h3 \{ font-size: 21px; \}/);
+  assert.match(storyCaptions, /00:15\.000 --> 00:27\.700/);
 });
 
 test("publishes grouped navigation, crawl controls and product-level SEO", async () => {
