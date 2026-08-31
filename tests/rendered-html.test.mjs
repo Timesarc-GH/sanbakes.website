@@ -140,6 +140,8 @@ test("uses compact banners, a five-card opening collection and responsive produc
   assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 940px\)[\s\S]*?\.homeOpening \.openingGrid \.cardEyebrow \{ margin-bottom: 6px; font-size: 11px; \}/);
   assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 940px\)[\s\S]*?\.homeOpening \.openingGrid \.productBody h3 \{ font-size: 22px; \}/);
   assert.match(storyCaptions, /00:15\.000 --> 00:27\.700/);
+  assert.match(storyCaptions, /\[Finished brownies and ingredients are shown\.\]/);
+  assert.doesNotMatch(storyCaptions, /while gentle background music continues/i);
 });
 
 test("publishes grouped navigation, crawl controls and product-level SEO", async () => {
