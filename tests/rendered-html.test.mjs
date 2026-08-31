@@ -18,6 +18,7 @@ test("renders the San Bakes storefront", async () => {
   assert.match(html, /Dark cacao/);
   assert.match(html, /class="heroTamil">Made in small batches, with care, after your preorder\./);
   assert.match(html, /Start a preorder/);
+  assert.match(html, /class="homeOpening"/);
   assert.match(html, /LAUNCH PRICING GUIDE/);
   assert.ok(html.indexOf("LAUNCH PRICING GUIDE") > html.indexOf("BIRTHDAYS &amp; PARTIES"));
   const pricingGuideStart = html.indexOf("LAUNCH PRICING GUIDE");
@@ -104,6 +105,16 @@ test("uses compact banners, a five-card opening collection and responsive produc
   assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.occasionImage \{ min-height: 368px/);
   assert.match(css, /@media \(min-width: 1360px\)[\s\S]*?html:lang\(en\) \.innerHero h1,[\s\S]*?white-space: nowrap/);
   assert.match(css, /@media \(min-width: 901px\)[\s\S]*?\.cupcakeHero > div > h1 \{ grid-column: 1 \/ -1/);
+  assert.match(css, /\.giftFeature \{[^}]*min-height: 384px/);
+  assert.match(css, /\.giftImage \{[^}]*min-height: 384px/);
+  assert.match(css, /\.giftCopy h2 \{[^}]*font-size: clamp\(40px, 4\.25vw, 58px\)/);
+  assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.giftImage \{ min-height: 288px/);
+  assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.giftImage \{ min-height: 256px/);
+  assert.match(css, /\.dedicatedCollection \.collectionIntro \{[\s\S]*?grid-template-areas: "eyebrow eyebrow" "title intro";[\s\S]*?row-gap: 0;/);
+  assert.match(css, /\.dedicatedCollection \.collectionIntro \.eyebrow \{[^}]*margin: 0/);
+  assert.match(css, /@media \(min-width: 1241px\)[\s\S]*?\.homeOpening \.trustStrip div \{ padding: 12px 3vw 14px; \}/);
+  assert.match(css, /@media \(min-width: 1241px\)[\s\S]*?\.homeOpening \.collectionSection \{ padding: 18px 4vw 20px; \}/);
+  assert.match(css, /@media \(min-width: 1241px\)[\s\S]*?\.homeOpening \.openingGrid \.productImage \{ aspect-ratio: 1\.65 \/ 1; \}/);
 });
 
 test("publishes grouped navigation, crawl controls and product-level SEO", async () => {

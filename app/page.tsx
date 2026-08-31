@@ -89,6 +89,7 @@ export default function Home() {
 
   return (
     <main>
+      <div className="homeOpening">
       <section className="hero">
         <div className="heroImage">
           <Image
@@ -144,6 +145,7 @@ export default function Home() {
           ))}
         </div>
       </section>
+      </div>
 
       <section className="storySection">
         <div className="storyCopy">

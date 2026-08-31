@@ -303,6 +303,32 @@ body:has(.basketDock) .whatsappFloat { bottom: 112px; }
   .openingGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
+@media (min-width: 1241px) {
+  .homeOpening .trustStrip div { padding: 12px 3vw 14px; }
+  .homeOpening .trustStrip span { top: 9px; right: 16px; font-size: 13px; }
+  .homeOpening .trustStrip strong { margin-bottom: 4px; font-size: 16px; }
+  .homeOpening .trustStrip p { font-size: 10.5px; line-height: 1.4; }
+  .homeOpening .collectionSection { padding: 18px 4vw 20px; }
+  .homeOpening .sectionHeading { gap: 4vw; margin-bottom: 14px; }
+  .homeOpening .sectionHeading .eyebrow { margin-bottom: 4px; }
+  .homeOpening .sectionHeading h2 { font-size: clamp(32px, 3vw, 44px); line-height: .98; }
+  .homeOpening .sectionHeading > p { margin-bottom: 3px; font-size: 11.5px; line-height: 1.45; }
+  .homeOpening .openingGrid { gap: 12px; }
+  .homeOpening .openingGrid .productImage { aspect-ratio: 1.65 / 1; }
+  .homeOpening .openingGrid .productBody { padding: 12px; }
+  .homeOpening .openingGrid .cardEyebrow { margin-bottom: 5px; font-size: 8.5px; }
+  .homeOpening .openingGrid .productBody h3 { font-size: 19px; line-height: 1.08; }
+  .homeOpening .openingGrid .productBody > p:not(.cardEyebrow) { min-height: 32px; margin: 5px 0 8px; font-size: 9.5px; line-height: 1.4; }
+  .homeOpening .openingGrid .productBody > div { align-items: flex-end; gap: 6px; padding-top: 8px; font-size: 9px; }
+}
+
+@media (min-width: 1241px) and (max-height: 800px) {
+  .homeOpening .hero { min-height: 200px; }
+  .homeOpening .heroContent { padding-block: 20px; }
+  .homeOpening .collectionSection { padding-top: 14px; padding-bottom: 16px; }
+  .homeOpening .openingGrid .productImage { aspect-ratio: 1.85 / 1; }
+}
+
 @media (min-width: 1360px) {
   html:lang(en) .innerHero h1,
   html:lang(en) .cupcakeHero h1 { width: max-content; max-width: none; white-space: nowrap; }
@@ -488,12 +514,13 @@ body:has(.basketDock) .whatsappFloat { bottom: 112px; }
 .corporateHero { background: radial-gradient(circle at 82% 18%, #4d5032 0, transparent 30%), #1d120e; }
 .partyHero { background: radial-gradient(circle at 84% 18%, #7a4337 0, transparent 31%), #21120d; }
 .innerHeroActions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
-.giftFeature { display: grid; grid-template-columns: 1.05fr .95fr; min-height: 480px; background: var(--cream); }
-.giftImage { position: relative; min-height: 480px; }
+.giftFeature { display: grid; grid-template-columns: 1.05fr .95fr; min-height: 384px; background: var(--cream); }
+.giftImage { position: relative; min-height: 384px; }
 .giftImage img { object-fit: cover; }
-.giftCopy { align-self: center; padding: 56px 7vw; }
-.giftCopy ul { margin: 34px 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
-.giftCopy li { padding: 15px 0 15px 24px; border-bottom: 1px solid var(--line); color: #725f56; font-size: 12px; line-height: 1.5; }
+.giftCopy { align-self: center; padding: 36px 7vw; }
+.giftCopy h2 { font-size: clamp(40px, 4.25vw, 58px); }
+.giftCopy ul { margin: 22px 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.giftCopy li { padding: 11px 0 11px 24px; border-bottom: 1px solid var(--line); color: #725f56; font-size: 12px; line-height: 1.5; }
 .giftCopy li::before { content: "·"; margin-left: -22px; margin-right: 16px; color: #8b5f4a; }
 .giftSteps { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--pistachio); }
 .giftSteps > div { position: relative; min-height: 190px; padding: 40px 4vw; border-right: 1px solid rgba(43,33,29,.18); }
@@ -518,6 +545,19 @@ body:has(.basketDock) .whatsappFloat { bottom: 112px; }
 .offerIntro .eyebrow { grid-column: 1; }
 .offerIntro h2 { grid-column: 1; margin: 0; font-size: clamp(40px, 5vw, 68px); line-height: 1; letter-spacing: -.035em; }
 .offerIntro > p:last-child { grid-column: 2; grid-row: 1/3; margin: 0; color: #725f56; font-size: 13px; line-height: 1.8; }
+.dedicatedCollection { padding-top: 32px; }
+.dedicatedCollection .collectionIntro {
+  max-width: none;
+  grid-template-columns: minmax(0, 1.05fr) minmax(300px, .95fr);
+  grid-template-areas: "eyebrow eyebrow" "title intro";
+  column-gap: clamp(32px, 5vw, 72px);
+  row-gap: 0;
+  align-items: end;
+  margin-bottom: 24px;
+}
+.dedicatedCollection .collectionIntro .eyebrow { grid-area: eyebrow; margin: 0; }
+.dedicatedCollection .collectionIntro h2 { grid-area: title; margin: 0; font-size: clamp(34px, 4vw, 54px); }
+.dedicatedCollection .collectionIntro > p:last-child { grid-area: intro; max-width: 760px; margin: 0; line-height: 1.65; }
 .offerGrid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .offerGrid article { min-height: 220px; display: grid; align-content: start; gap: 14px; padding: 22px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--cream); }
 .offerGrid small { color: #966f5c; font-size: 8px; font-weight: 700; letter-spacing: .12em; }
@@ -578,10 +618,23 @@ body:has(.basketDock) .whatsappFloat { bottom: 112px; }
   .priceGuideGrid { grid-template-columns: 1fr 1fr; }
   .deliveryPrinciples { grid-template-columns: 1fr; }
   .deliveryPrinciples article { min-height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
-  .giftImage { min-height: 360px; }
+  .giftFeature { min-height: 0; }
+  .giftImage { min-height: 288px; }
+  .giftCopy { padding: 45px 6vw; }
+  .giftCopy ul { margin-block: 27px; }
+  .giftCopy li { padding-block: 12px; }
   .giftSteps { grid-template-columns: 1fr; }
   .giftSteps > div { min-height: auto; border-right: 0; border-bottom: 1px solid rgba(43,33,29,.18); }
   .offerIntro > p:last-child { grid-column: 1; grid-row: auto; margin-top: 22px; }
+  .dedicatedCollection { padding-top: 28px; }
+  .dedicatedCollection .collectionIntro {
+    grid-template-columns: 1fr;
+    grid-template-areas: "eyebrow" "title" "intro";
+    row-gap: 0;
+    margin-bottom: 22px;
+  }
+  .dedicatedCollection .collectionIntro h2 { font-size: clamp(34px, 6vw, 48px); }
+  .dedicatedCollection .collectionIntro > p:last-child { margin-top: 14px; }
   .eventLeadGrid { grid-template-columns: 1fr; }
   .eventLeadGrid article { min-height: 185px; }
   .eventTerms ul { columns: 1; }
@@ -598,13 +651,17 @@ body:has(.basketDock) .whatsappFloat { bottom: 112px; }
   .faqCta { align-items: stretch; flex-direction: column; }
   .deliveryPriceBlock { padding-block: 54px; }
   .pickupBlock { padding: 52px 6vw; }
-  .giftImage { min-height: 320px; }
-  .giftCopy { padding: 48px 6vw; }
+  .giftImage { min-height: 256px; }
+  .giftCopy { padding: 38px 6vw; }
   .corporateSection { padding: 56px 5vw; }
   .corporateFacts { grid-template-columns: 1fr; }
   .corporateFacts article { min-height: 165px; }
   .corporateTerms { padding: 30px 22px; }
   .offerSection { padding: 54px 5vw; }
+  .dedicatedCollection { padding-top: 22px; }
+  .dedicatedCollection .collectionIntro { margin-bottom: 18px; }
+  .dedicatedCollection .collectionIntro h2 { font-size: clamp(32px, 9vw, 40px); }
+  .dedicatedCollection .collectionIntro > p:last-child { margin-top: 12px; }
   .offerGrid { grid-template-columns: 1fr; }
   .offerGrid article { min-height: 195px; }
   .partyCakeSection { padding: 52px 6vw; }
