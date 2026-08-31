@@ -8,7 +8,7 @@ const giftOptions = [
   { productId: "signature-discovery-box", title: "Signature Discovery Box", titleTa: "சிக்னேச்சர் டிஸ்கவரி பாக்ஸ்", pack: "6 pieces", packTa: "6 துண்டுகள்", copy: "A concise introduction to the San Bakes collection.", copyTa: "San Bakes தொகுப்பின் சிறந்த அறிமுகம்." },
   { productId: "reserve-collection", title: "Reserve Collection", titleTa: "ரிசர்வ் கலெக்ஷன்", pack: "9 pieces", packTa: "9 துண்டுகள்", copy: "A generous curated box for sharing or a considered thank-you.", copyTa: "பகிர்வதற்கும் நன்றி பரிசுக்கும் தேர்ந்தெடுக்கப்பட்ட பெரிய பெட்டி." },
   { productId: "brownie-tin-3-piece", title: "Three-Piece Brownie Tin", titleTa: "மூன்று துண்டு பிரௌனி டின்", copy: "A reusable Tin in one flavour or a curated three-flavour mix.", copyTa: "ஒரே சுவை அல்லது தேர்ந்தெடுத்த மூன்று சுவை கலவையுடன் மறுபயன்பாட்டு டின்." },
-  { productId: "whole-brownie-tin", title: "Whole Brownie Tin", titleTa: "முழு பிரௌனி டின்", copy: "One continuous brownie—not separate pieces—with one, two or three flavour-topping sections.", copyTa: "தனித்தனி துண்டுகள் அல்ல; ஒன்று, இரண்டு அல்லது மூன்று சுவை டாப்பிங் பகுதிகளுடன் ஒரு தொடர்ச்சியான பிரௌனி." },
+  { productId: "whole-brownie-tin", title: "Whole Brownie Tin", titleTa: "முழு பிரௌனி டின்", copy: "One continuous brownie Tin with 1/2/3 flavour-topping sections.", copyTa: "1/2/3 சுவை டாப்பிங் பகுதிகளுடன் ஒரு தொடர்ச்சியான முழு பிரௌனி டின்." },
   { productId: "seasonal-hamper", title: "Seasonal Hamper", titleTa: "பருவகால ஹாம்பர்", copy: "A limited collection curated for the season in San Bakes presentation.", copyTa: "San Bakes பேக்கிங்கில் பருவத்திற்காக தேர்ந்தெடுக்கப்பட்ட சிறப்பு தொகுப்பு." },
 ];
 

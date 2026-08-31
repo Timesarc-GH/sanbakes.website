@@ -93,6 +93,8 @@ test("uses compact banners, a five-card opening collection and responsive produc
   assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.productGrid \{ grid-template-columns: 1fr/);
   assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.openingGrid \.productImage \{ aspect-ratio: 4 \/ 3/);
   assert.match(css, /\.priceGuideGrid \{[^}]*grid-template-columns: repeat\(4, 1fr\)/);
+  assert.match(css, /\.menuCardBody > p:not\(\.cardEyebrow\) \{[\s\S]*?height: 35px;[\s\S]*?min-height: 35px;[\s\S]*?display: -webkit-box;[\s\S]*?overflow: hidden;[\s\S]*?-webkit-box-orient: vertical;[\s\S]*?-webkit-line-clamp: 2;/);
+  assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.menuCardBody h2, \.menuCardBody h3 \{ min-height: 0; \}/);
   assert.match(css, /\.siteHeader \{[\s\S]*?min-height: 74px;[\s\S]*?overflow: visible;/);
   assert.match(css, /\.brandSeal \{[^}]*position: absolute;[^}]*width: var\(--brand-seal-size\);[^}]*transform: translateY\(-66%\)/);
   assert.match(header, /width=\{96\} height=\{96\}/);
@@ -229,7 +231,8 @@ test("renders the complete menu and preorder route", async () => {
   assert.match(menu, /Regular \(with egg\)/);
   assert.match(menu, /Eggless/);
   assert.match(menu, /1 whole Brownie Tin · 3 flavour-topping sections/);
-  assert.match(menu, /one continuous brownie baked as a full Tin slab—not separate pieces/i);
+  assert.match(menu, /One continuous brownie Tin with 1\/2\/3 clearly divided flavour-topping sections/i);
+  assert.doesNotMatch(menu, /not separate pieces|one, two or three/i);
   assert.doesNotMatch(menu, /Brownie Tin Flight/);
   assert.match(menu, /Walnut Reserve/);
   assert.doesNotMatch(menu, /6-Tin Full Flavour Flight · 18 pieces/);
@@ -336,6 +339,7 @@ test("uses the owner-selected V5 prices directly", async () => {
   assert.equal(formatPriceRangeForProducts(["brownie-tin-3-piece", "whole-brownie-tin"]), "₹310–₹360");
   assert.equal(formatStartingPriceForProducts(["classic-brownie-tub", "loaded-brownie-tub"]), "₹270");
   assert.equal(products.find((product) => product.id === "biscoff-crunch")?.name, "Caramelised Biscuit Crunch Brownie");
+  assert.equal(products.find((product) => product.id === "whole-brownie-tin")?.descriptionTa, "1/2/3 சுவை டாப்பிங் பகுதிகளுடன் ஒரு தொடர்ச்சியான முழு பிரௌனி டின்.");
   assert.doesNotMatch(options.map((option) => option.note).join(" "), /V5|test required|verification required|yield confirmation|cost and|margin floor|home-kitchen capacity|after testing/i);
   assert.doesNotMatch(products.map((product) => product.format).join(" "), /Egg formulation|verification required|after testing|recipe details pending|₹15,000/i);
 });
@@ -460,8 +464,8 @@ test("renders the owner approved-price reference without review statuses", async
   assert.match(review, /Classic Brownie Tub/);
   assert.match(review, /Every populated New Price value from the V5 Price Review sheet is now treated as an approved selling price/i);
   assert.match(review, /Three-Piece Brownie Tin contains three separate brownie pieces/);
-  assert.match(review, /Whole Brownie Tin is one continuous brownie slab—not separate pieces/);
-  assert.match(review, /one, two or three divided flavour-topping sections/);
+  assert.match(review, /Whole Brownie Tin is one continuous brownie slab with 1\/2\/3 divided flavour-topping sections/);
+  assert.doesNotMatch(review, /not separate pieces|one, two or three/i);
   assert.match(review, /Ragi No\. 01 — Dark Cacao Millet Brownie/);
   assert.match(review, /Walnut Reserve/);
   assert.match(review, /Boxes of 6, 9 and 12/);

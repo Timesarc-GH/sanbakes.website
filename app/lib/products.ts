@@ -119,8 +119,8 @@ export const products: Product[] = [
   {
     id: "brownie-tin-3-piece",
     category: "tins",
-    name: "Three-Piece Brownie Tin — 1, 2 or 3 Flavours",
-    nameTa: "மூன்று துண்டு பிரௌனி டின் — 1, 2 அல்லது 3 சுவைகள்",
+    name: "Three-Piece Brownie Tin — 1/2/3 Flavours",
+    nameTa: "மூன்று துண்டு பிரௌனி டின் — 1/2/3 சுவைகள்",
     description: "Three separate pieces in a slim reusable Tin: 3 of one flavour, a 2+1 duo or a 1+1+1 trio from the confirmed list.",
     descriptionTa: "மெல்லிய மறுபயன்பாட்டு டினில் மூன்று தனித்தனி துண்டுகள்: ஒரே சுவையில் 3, 2+1 இரண்டு சுவைகள் அல்லது 1+1+1 மூன்று சுவைகள்.",
     image: "/images/products/brownie-tin-3-piece-v2.webp",
@@ -129,12 +129,12 @@ export const products: Product[] = [
   {
     id: "whole-brownie-tin",
     category: "tins",
-    name: "Whole Brownie Tin — 1, 2 or 3 Flavour Toppings",
-    nameTa: "முழு பிரௌனி டின் — 1, 2 அல்லது 3 சுவை டாப்பிங்ஸ்",
-    description: "One continuous brownie baked as a full Tin slab—not separate pieces—finished with one, two or three clearly divided flavour-topping sections.",
-    descriptionTa: "தனித்தனி துண்டுகளாக அல்லாமல், டின் முழுவதும் ஒரே தொடர்ச்சியான பிரௌனி; ஒன்று, இரண்டு அல்லது மூன்று சுவை டாப்பிங் பகுதிகளுடன் முடிக்கப்படும்.",
+    name: "Whole Brownie Tin — 1/2/3 Flavour Toppings",
+    nameTa: "முழு பிரௌனி டின் — 1/2/3 சுவை டாப்பிங்ஸ்",
+    description: "One continuous brownie Tin with 1/2/3 clearly divided flavour-topping sections.",
+    descriptionTa: "1/2/3 சுவை டாப்பிங் பகுதிகளுடன் ஒரு தொடர்ச்சியான முழு பிரௌனி டின்.",
     image: "/images/products/whole-brownie-tin-flavour-toppings-v2.webp",
-    format: "1 whole brownie slab · 1, 2 or 3 topping sections",
+    format: "1 whole brownie slab · 1/2/3 topping sections",
   },
   {
     id: "classic-brownie-tub",
