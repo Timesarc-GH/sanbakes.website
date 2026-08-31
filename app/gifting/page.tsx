@@ -2,15 +2,7 @@
 
 import Image from "next/image";
 import { useLanguage } from "../components/LanguageProvider";
-import { formatProductPriceRange } from "../lib/pricing";
-
-const giftOptions = [
-  { productId: "signature-discovery-box", title: "Signature Discovery Box", titleTa: "சிக்னேச்சர் டிஸ்கவரி பாக்ஸ்", pack: "6 pieces", packTa: "6 துண்டுகள்", copy: "A concise introduction to the San Bakes collection.", copyTa: "San Bakes தொகுப்பின் சிறந்த அறிமுகம்." },
-  { productId: "reserve-collection", title: "Reserve Collection", titleTa: "ரிசர்வ் கலெக்ஷன்", pack: "9 pieces", packTa: "9 துண்டுகள்", copy: "A generous curated box for sharing or a considered thank-you.", copyTa: "பகிர்வதற்கும் நன்றி பரிசுக்கும் தேர்ந்தெடுக்கப்பட்ட பெரிய பெட்டி." },
-  { productId: "brownie-tin-3-piece", title: "Three-Piece Brownie Tin", titleTa: "மூன்று துண்டு பிரௌனி டின்", copy: "A reusable Tin in one flavour or a curated three-flavour mix.", copyTa: "ஒரே சுவை அல்லது தேர்ந்தெடுத்த மூன்று சுவை கலவையுடன் மறுபயன்பாட்டு டின்." },
-  { productId: "whole-brownie-tin", title: "Whole Brownie Tin", titleTa: "முழு பிரௌனி டின்", copy: "One continuous brownie Tin with 1/2/3 flavour-topping sections.", copyTa: "1/2/3 சுவை டாப்பிங் பகுதிகளுடன் ஒரு தொடர்ச்சியான முழு பிரௌனி டின்." },
-  { productId: "seasonal-hamper", title: "Seasonal Hamper", titleTa: "பருவகால ஹாம்பர்", copy: "A limited collection curated for the season in San Bakes presentation.", copyTa: "San Bakes பேக்கிங்கில் பருவத்திற்காக தேர்ந்தெடுக்கப்பட்ட சிறப்பு தொகுப்பு." },
-];
+import { ProductCollection } from "../components/ProductCollection";
 
 export default function GiftingPage() {
   const { language } = useLanguage();
@@ -22,7 +14,7 @@ export default function GiftingPage() {
         <p className="eyebrow">PERSONAL GIFTING</p>
         <h1>{en ? "A gift should feel considered before it is opened." : "திறப்பதற்கு முன்பே பரிசு கவனமாகத் தேர்ந்தெடுக்கப்பட்டதாக உணர வேண்டும்."}</h1>
         <p>{en ? "Choose a curated brownie collection, add a personal message and select delivery or appointment pickup. Each confirmed gift is baked for its date—not taken from a shelf." : "தேர்ந்தெடுக்கப்பட்ட பிரௌனி தொகுப்பு, தனிப்பட்ட செய்தி மற்றும் டெலிவரி அல்லது பிக்கப். ஒவ்வொரு பரிசும் உறுதி செய்யப்பட்ட தேதிக்காக தயாரிக்கப்படும்."}</p>
-        <div className="innerHeroActions"><a className="button buttonLight" href="/menu?category=gifting">{en ? "Choose a personal gift" : "தனிப்பட்ட பரிசைத் தேர்ந்தெடுக்க"}</a><a className="button buttonOutlineLight" href="/preorder">{en ? "Review cart" : "கார்ட்டைப் பார்க்க"}</a></div>
+        <div className="innerHeroActions"><a className="button buttonLight" href="#gifting-collection">{en ? "Choose a personal gift" : "தனிப்பட்ட பரிசைத் தேர்ந்தெடுக்க"}</a><a className="button buttonOutlineLight" href="/preorder">{en ? "Review cart" : "கார்ட்டைப் பார்க்க"}</a></div>
       </section>
 
       <section className="giftFeature">
@@ -37,14 +29,21 @@ export default function GiftingPage() {
             <li>{en ? "One personal message within the stated limit" : "குறிப்பிட்ட வரம்பில் ஒரு தனிப்பட்ட செய்தி"}</li>
             <li>{en ? "Bake date, storage and serving guidance" : "பேக் தேதி, சேமிப்பு மற்றும் பரிமாறும் வழிமுறை"}</li>
           </ul>
-          <a className="button buttonCacao" href="/menu?category=gifting">{en ? "Choose a personal gift" : "தனிப்பட்ட பரிசைத் தேர்ந்தெடுக்க"}</a>
+          <a className="button buttonCacao" href="#gifting-collection">{en ? "Choose a personal gift" : "தனிப்பட்ட பரிசைத் தேர்ந்தெடுக்க"}</a>
         </div>
       </section>
 
-      <section className="offerSection">
-        <div className="offerIntro"><p className="eyebrow dark">CURATED FORMATS</p><h2>{en ? "Five clear ways to give well." : "நேர்த்தியாக பரிசளிக்க ஐந்து தெளிவான வழிகள்."}</h2><p>{en ? "Listed prices exclude delivery and paid customisation. Please reserve personal gifts at least 48 hours ahead; seasonal hampers and coordinated multi-gift requests may need more time. Contents, flavours, availability and your date are confirmed before payment." : "பட்டியலிட்ட விலைகளில் டெலிவரி மற்றும் கூடுதல் தனிப்பயன் செலவு சேர்க்கப்படவில்லை. தனிப்பட்ட பரிசுகளை குறைந்தது 48 மணி நேரத்திற்கு முன் முன்பதிவு செய்யவும்; பருவகால ஹாம்பர் மற்றும் பல பரிசு ஆர்டர்களுக்கு கூடுதல் நேரம் தேவைப்படலாம். கட்டணத்திற்கு முன் உள்ளடக்கம், சுவை, கிடைக்கும் நிலை மற்றும் தேதி உறுதி செய்யப்படும்."}</p></div>
-        <div className="offerGrid">{giftOptions.map((item) => <article key={item.title}><small>PERSONAL GIFT</small><h3>{en ? item.title : item.titleTa}</h3><strong>{item.pack ? `${en ? item.pack : item.packTa} · ` : ""}{formatProductPriceRange(item.productId)}</strong><p>{en ? item.copy : item.copyTa}</p></article>)}</div>
-      </section>
+      <div id="gifting-collection" className="collectionAnchor">
+        <ProductCollection
+          productIds={["signature-discovery-box", "reserve-collection", "brownie-tin-3-piece", "whole-brownie-tin", "seasonal-hamper"]}
+          eyebrowEn="CURATED FORMATS"
+          eyebrowTa="தேர்ந்தெடுக்கப்பட்ட பரிசு வகைகள்"
+          titleEn="Five clear ways to give well."
+          titleTa="நேர்த்தியாக பரிசளிக்க ஐந்து தெளிவான வழிகள்."
+          introEn="Choose the gift, pack and formulation here, then add it directly to your cart. Listed prices exclude delivery and paid customisation. Please reserve personal gifts at least 48 hours ahead; seasonal hampers and coordinated multi-gift requests may need more time. Contents, flavours, availability and your date are confirmed before payment."
+          introTa="பரிசு, பேக் மற்றும் தயாரிப்பு வகையை இங்கே தேர்ந்தெடுத்து நேரடியாக கார்ட்டில் சேர்க்கவும். பட்டியலிட்ட விலைகளில் டெலிவரி மற்றும் கூடுதல் தனிப்பயன் செலவு சேர்க்கப்படவில்லை. தனிப்பட்ட பரிசுகளை குறைந்தது 48 மணி நேரத்திற்கு முன் முன்பதிவு செய்யவும்; பருவகால ஹாம்பர் மற்றும் ஒருங்கிணைந்த பல பரிசு ஆர்டர்களுக்கு கூடுதல் நேரம் தேவைப்படலாம். உள்ளடக்கம், சுவை, கிடைக்கும் நிலை மற்றும் தேதி கட்டணத்திற்கு முன் உறுதி செய்யப்படும்."
+        />
+      </div>
 
       <section className="giftSteps">
         <div><span>01</span><h3>{en ? "Choose the collection" : "தொகுப்பைத் தேர்ந்தெடுக்க"}</h3><p>{en ? "Start with a six- or nine-piece box, Brownie Tin or seasonal hamper." : "ஆறு அல்லது ஒன்பது துண்டு பெட்டி, பிரௌனி டின் அல்லது பருவகால ஹாம்பரைத் தேர்ந்தெடுக்கவும்."}</p></div>
