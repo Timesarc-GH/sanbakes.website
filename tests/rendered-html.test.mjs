@@ -37,6 +37,9 @@ test("renders the San Bakes storefront", async () => {
   for (const title of ["The Brownie Atelier", "The Cupcake Edit", "The Celebration Table", "The Gifting Room", "Business, Beautifully Boxed"]) {
     assert.match(html, new RegExp(title));
   }
+  for (const removedDescription of ["Signature brownies, true Tins", "Boxes of six, nine or twelve", "Brownie cakes, individually packed pieces", "Discovery boxes, reserve assortments", "Scalable brownie formats"]) {
+    assert.doesNotMatch(html, new RegExp(removedDescription));
+  }
   for (const image of [
     "home-opening-brownie-atelier-v1.webp",
     "home-opening-cupcake-edit-v1.webp",
@@ -130,10 +133,12 @@ test("uses compact banners, a five-card opening collection and responsive produc
   assert.match(css, /@media \(min-width: 1241px\)[\s\S]*?\.homeOpening \.trustStrip div \{ padding: 12px 3vw 14px; \}/);
   assert.match(css, /@media \(min-width: 1241px\)[\s\S]*?\.homeOpening \.collectionSection \{ padding: 18px 4vw 20px; \}/);
   assert.match(css, /@media \(min-width: 1241px\)[\s\S]*?\.homeOpening \.openingGrid \.productImage \{ aspect-ratio: 1\.65 \/ 1; \}/);
-  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 901px\)[\s\S]*?max-width: 1702px/);
-  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 901px\)[\s\S]*?\.homeOpening \.collectionSection \{ padding: 21px 4vw 23px; \}/);
-  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 901px\)[\s\S]*?\.homeOpening \.openingGrid \{ gap: 14px; \}/);
-  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 901px\)[\s\S]*?\.homeOpening \.openingGrid \.productBody h3 \{ font-size: 22px; \}/);
+  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 940px\)[\s\S]*?max-width: 1702px/);
+  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 940px\)[\s\S]*?\.homeOpening \.collectionSection \{ padding: 21px 4vw 23px; \}/);
+  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 940px\)[\s\S]*?\.homeOpening \.openingGrid \{ gap: 14px; \}/);
+  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 940px\)[\s\S]*?\.homeOpening \.openingGrid \.productImage \{ aspect-ratio: 1\.08 \/ 1; \}/);
+  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 940px\)[\s\S]*?\.homeOpening \.openingGrid \.cardEyebrow \{ margin-bottom: 6px; font-size: 11px; \}/);
+  assert.match(css, /@media \(min-width: 1241px\) and \(min-height: 940px\)[\s\S]*?\.homeOpening \.openingGrid \.productBody h3 \{ font-size: 22px; \}/);
   assert.match(storyCaptions, /00:15\.000 --> 00:27\.700/);
 });
 

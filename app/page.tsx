@@ -8,8 +8,6 @@ const featured = [
   {
     title: "The Brownie Atelier",
     titleTa: "பிரௌனி கலைத் தொகுப்பு",
-    copy: "Signature brownies, true Tins, spoonable Tubs and millet tea cakes, gathered in one small-batch collection.",
-    copyTa: "சிக்னேச்சர் பிரௌனிகள், டின்கள், டப்கள் மற்றும் சிறுதானிய டீ கேக்குகள் கொண்ட சிறுதொகுப்பு.",
     image: "/images/editorial/home-opening-brownie-atelier-v1.webp",
     alt: "Brownie Tin, Brownie Tub and sliced ragi millet tea cake",
     altTa: "பிரௌனி டின், பிரௌனி டப் மற்றும் துண்டாக்கப்பட்ட ராகி சிறுதானிய டீ கேக்",
@@ -23,8 +21,6 @@ const featured = [
   {
     title: "The Cupcake Edit",
     titleTa: "கப் கேக் தேர்வு",
-    copy: "Boxes of six, nine or twelve; every cupcake sits in its own fitted holder for gifting or sharing.",
-    copyTa: "ஆறு, ஒன்பது அல்லது பன்னிரண்டு கப் கேக்குகள்; ஒவ்வொன்றும் தனிப்பட்ட ஹோல்டரில் அழகாக அமர்த்தப்படும்.",
     image: "/images/editorial/home-opening-cupcake-edit-v1.webp",
     alt: "Six assorted San Bakes cupcakes in individual fitted holders",
     altTa: "தனித்தனி ஹோல்டர்களில் ஆறு வகை San Bakes கப் கேக்குகள்",
@@ -38,8 +34,6 @@ const featured = [
   {
     title: "The Celebration Table",
     titleTa: "கொண்டாட்ட மேசை",
-    copy: "Brownie cakes, individually packed pieces, Tins and Tubs planned around your guest count and date.",
-    copyTa: "உங்கள் விருந்தினர் எண்ணிக்கை மற்றும் தேதிக்கேற்ப பிரௌனி கேக்குகள், தனிப்பட்ட பேக்குகள், டின்கள் மற்றும் டப்கள்.",
     image: "/images/editorial/home-opening-celebration-table-v1.webp",
     alt: "Brownie birthday cake, party Brownie Tin and individually packed brownies",
     altTa: "பிரௌனி பிறந்தநாள் கேக், பார்ட்டி பிரௌனி டின் மற்றும் தனித்தனி பேக்கிங் பிரௌனிகள்",
@@ -53,8 +47,6 @@ const featured = [
   {
     title: "The Gifting Room",
     titleTa: "பரிசுத் தொகுப்பு",
-    copy: "Discovery boxes, reserve assortments, Tins and seasonal hampers composed for a thoughtful handover.",
-    copyTa: "டிஸ்கவரி பெட்டிகள், ரிசர்வ் தொகுப்புகள், டின்கள் மற்றும் பருவகால ஹாம்பர்கள் கவனமாகத் தொகுக்கப்படும்.",
     image: "/images/editorial/home-opening-gifting-room-v1.webp",
     alt: "Personal gift box with assorted brownies, a Brownie Tin and ribbon",
     altTa: "வகை பிரௌனிகள், பிரௌனி டின் மற்றும் ரிப்பன் கொண்ட தனிப்பட்ட பரிசுப் பெட்டி",
@@ -68,8 +60,6 @@ const featured = [
   {
     title: "Business, Beautifully Boxed",
     titleTa: "அழகாகப் பெட்டியிடப்பட்ட வணிகப் பரிசுகள்",
-    copy: "Scalable brownie formats, mini boxes and bespoke presentation for clients, teams and branded events.",
-    copyTa: "வாடிக்கையாளர்கள், குழுக்கள் மற்றும் நிறுவன நிகழ்வுகளுக்கான பிரௌனி வடிவங்கள், மினி பெட்டிகள் மற்றும் தனிப்பயன் பேக்கிங்.",
     image: "/images/editorial/home-opening-corporate-boxed-v1.webp",
     alt: "Corporate brownie presentation box with mini boxes and a Brownie Tin",
     altTa: "மினி பெட்டிகள் மற்றும் பிரௌனி டின் கொண்ட நிறுவனப் பரிசுத் தொகுப்பு",
@@ -138,7 +128,6 @@ export default function Home() {
               <div className="productBody">
                 <p className="cardEyebrow">{en ? item.label : item.labelTa}</p>
                 <h3>{en ? item.title : item.titleTa}</h3>
-                <p>{en ? item.copy : item.copyTa}</p>
                 <div><span>{en ? `From ${formatStartingPriceForProducts(item.productIds)}` : `${formatStartingPriceForProducts(item.productIds)} முதல்`}</span><a href={item.href}>{en ? item.cta : item.ctaTa}</a></div>
               </div>
             </article>

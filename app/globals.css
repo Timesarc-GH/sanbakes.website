@@ -318,11 +318,10 @@ body:has(.basketDock) .whatsappFloat { bottom: 112px; }
   .homeOpening .openingGrid .productBody { padding: 12px; }
   .homeOpening .openingGrid .cardEyebrow { margin-bottom: 5px; font-size: 8.5px; }
   .homeOpening .openingGrid .productBody h3 { font-size: 19px; line-height: 1.08; }
-  .homeOpening .openingGrid .productBody > p:not(.cardEyebrow) { min-height: 32px; margin: 5px 0 8px; font-size: 9.5px; line-height: 1.4; }
   .homeOpening .openingGrid .productBody > div { align-items: flex-end; gap: 6px; padding-top: 8px; font-size: 9px; }
 }
 
-@media (min-width: 1241px) and (min-height: 901px) {
+@media (min-width: 1241px) and (min-height: 940px) {
   .homeOpening .sectionHeading,
   .homeOpening .openingGrid { max-width: 1702px; }
   .homeOpening .collectionSection { padding: 21px 4vw 23px; }
@@ -331,10 +330,10 @@ body:has(.basketDock) .whatsappFloat { bottom: 112px; }
   .homeOpening .sectionHeading h2 { font-size: clamp(37px, 3.45vw, 51px); }
   .homeOpening .sectionHeading > p { margin-bottom: 3.5px; font-size: 13.2px; }
   .homeOpening .openingGrid { gap: 14px; }
+  .homeOpening .openingGrid .productImage { aspect-ratio: 1.08 / 1; }
   .homeOpening .openingGrid .productBody { padding: 14px; }
-  .homeOpening .openingGrid .cardEyebrow { margin-bottom: 6px; font-size: 9.8px; }
+  .homeOpening .openingGrid .cardEyebrow { margin-bottom: 6px; font-size: 11px; }
   .homeOpening .openingGrid .productBody h3 { font-size: 22px; }
-  .homeOpening .openingGrid .productBody > p:not(.cardEyebrow) { min-height: 37px; margin: 6px 0 9px; font-size: 11px; }
   .homeOpening .openingGrid .productBody > div { gap: 7px; padding-top: 9px; font-size: 10.4px; }
 }
 
