@@ -83,7 +83,10 @@ test("uses compact banners, a five-card opening collection and responsive produc
   const storyCaptions = await readFile(new URL("../public/video/why-san-bakes.en.vtt", import.meta.url), "utf8");
   assert.match(css, /\.hero \{[^}]*min-height: 230px/);
   assert.match(css, /\.innerHero \{[^}]*padding: 28px 8vw 32px/);
-  assert.match(css, /\.cupcakeHero \{[^}]*padding: 28px 8vw 32px/);
+  assert.match(css, /\.shopHero \{[^}]*min-height: 230px/);
+  assert.match(css, /\.innerHero > p:not\(\.eyebrow\) \{[^}]*max-width: 820px;[^}]*margin: 12px 0 0/);
+  assert.match(css, /\.innerHeroActions \{[^}]*display: flex;[^}]*gap: 10px;[^}]*margin-top: 18px/);
+  assert.match(css, /\.shopCollection \{[^}]*scroll-margin-top: 100px/);
   assert.match(css, /\.productGrid \{[^}]*grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)/);
   assert.match(css, /\.openingGrid \{[^}]*grid-template-columns: repeat\(5, minmax\(0, 1fr\)\)/);
   assert.match(css, /\.menuGrid \{[^}]*grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)/);
@@ -116,8 +119,9 @@ test("uses compact banners, a five-card opening collection and responsive produc
   assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.occasionImage \{ min-height: 414px/);
   assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.storyMedia \{ min-height: 219px/);
   assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.occasionImage \{ min-height: 368px/);
-  assert.match(css, /@media \(min-width: 1360px\)[\s\S]*?html:lang\(en\) \.innerHero h1,[\s\S]*?white-space: nowrap/);
-  assert.match(css, /@media \(min-width: 901px\)[\s\S]*?\.cupcakeHero > div > h1 \{ grid-column: 1 \/ -1/);
+  assert.match(css, /@media \(min-width: 1360px\)[\s\S]*?html:lang\(en\) \.innerHero h1 \{[^}]*white-space: nowrap/);
+  assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.shopHero \{ min-height: 0; \}[\s\S]*?\.innerHeroActions \{ align-items: stretch; flex-direction: column; \}/);
+  assert.doesNotMatch(css, /\.cupcakeHero aside|\.cupcakeHeroActions|\.cupcakeHero > div/);
   assert.match(css, /\.giftFeature \{[^}]*min-height: 384px/);
   assert.match(css, /\.giftImage \{[^}]*min-height: 384px/);
   assert.match(css, /\.giftCopy h2 \{[^}]*font-size: clamp\(40px, 4\.25vw, 58px\)/);
@@ -218,6 +222,10 @@ test("uses each customer-facing content image in only one source placement", asy
 test("renders the complete menu and preorder route", async () => {
   const menu = await (await render("/menu")).text();
   assert.match(menu, /The Brownie preorder collection/);
+  assert.match(menu, /class="innerHero shopHero menuHero"/);
+  assert.match(menu, /href="#brownie-collection">Choose a Brownie/);
+  assert.match(menu, /href="\/preorder">Review cart/);
+  assert.match(menu, /id="brownie-collection"/);
   assert.doesNotMatch(menu, /LAUNCH PRICING GUIDE/);
   assert.match(menu, /Brownie Tubs/);
   assert.match(menu, /Millet Tea Cakes/);
@@ -357,6 +365,10 @@ test("protects the owner inventory console and mutation API", async () => {
 test("renders Cupcakes as an active orderable collection", async () => {
   const cupcakes = await (await render("/cupcakes")).text();
   assert.match(cupcakes, /CUPCAKES · AVAILABLE TO PREORDER/);
+  assert.match(cupcakes, /class="innerHero shopHero cupcakeHero"/);
+  assert.match(cupcakes, /href="#cupcake-collection">Choose a Cupcake box/);
+  assert.match(cupcakes, /href="\/preorder">Review cart/);
+  assert.match(cupcakes, /id="cupcake-collection"/);
   assert.match(cupcakes, /Dark Cacao Ragi Cupcake Collection/);
   assert.match(cupcakes, /Pista Cardamom Cupcake Collection/);
   assert.match(cupcakes, /Cupcake Discovery Collection/);
@@ -403,6 +415,9 @@ test("renders the expanded customer information pages", async () => {
   assert.match(delivery, /appointment pickup/i);
   const gifting = await (await render("/gifting")).text();
   assert.match(gifting, /PERSONAL GIFTING/);
+  assert.match(gifting, /class="innerHero shopHero giftingHero"/);
+  assert.match(gifting, /href="\/menu\?category=gifting">Choose a personal gift/);
+  assert.match(gifting, /href="\/preorder">Review cart/);
   assert.match(gifting, /Corporate orders now have their own planning desk/);
   assert.match(gifting, /reserve personal gifts at least 48 hours ahead/i);
   assert.match(gifting, /6 pieces · (?:<!-- -->)?₹590–₹620/);
@@ -414,6 +429,9 @@ test("renders the expanded customer information pages", async () => {
   assert.doesNotMatch(giftingMenu, /Corporate Mini Box/);
   const corporate = await (await render("/corporate")).text();
   assert.match(corporate, /CORPORATE ORDERS/);
+  assert.match(corporate, /class="innerHero shopHero corporateHero"/);
+  assert.match(corporate, /Choose a Corporate format/);
+  assert.match(corporate, /Review cart/);
   assert.match(corporate, /Corporate orders start at 25 individually packed brownies/);
   assert.doesNotMatch(corporate, /The corporate minimum is 25 boxes \/ ₹12,250|₹15,000/);
   assert.match(corporate, /Individually Packed Party Brownies/);
@@ -432,6 +450,9 @@ test("renders the expanded customer information pages", async () => {
   assert.doesNotMatch(corporateMenu, /Individually Packed Party Brownies/);
   const parties = await (await render("/parties")).text();
   assert.match(parties, /BIRTHDAYS &amp; PARTIES/);
+  assert.match(parties, /class="innerHero shopHero partyHero"/);
+  assert.match(parties, /Choose a party format/);
+  assert.match(parties, /Review cart/);
   assert.match(parties, /Five days is the working minimum/);
   assert.match(parties, /Little Celebration/);
   assert.match(parties, /Individually Packed Party Brownies/);

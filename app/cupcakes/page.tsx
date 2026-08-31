@@ -30,21 +30,14 @@ export default function CupcakesPage() {
 
   return (
     <main className="cupcakePage">
-      <section className="cupcakeHero">
-        <div>
-          <p className="eyebrow">CUPCAKES · AVAILABLE TO PREORDER</p>
-          <h1>{en ? "Cupcakes, considered from crumb to carry." : "கப் கேக்குகள் — சுவையிலிருந்து பாதுகாப்பான பயணம் வரை கவனமாக."}</h1>
-          <p>{en ? "Order Dark Cacao Ragi, Pista Cardamom or the six-flavour Discovery Collection in boxes of 6, 9 or 12. Select your box below and add it directly to the preorder cart." : "டார்க் காகாவ் ராகி, பிஸ்தா ஏலக்காய் அல்லது ஆறு சுவை டிஸ்கவரி தொகுப்பை 6, 9 அல்லது 12 பெட்டிகளில் ஆர்டர் செய்யலாம். கீழே பெட்டியைத் தேர்ந்து முன்பதிவு கார்ட்டில் சேர்க்கவும்."}</p>
-          <div className="cupcakeHeroActions"><a className="button buttonLight" href="#cupcake-collection">{en ? "Choose a Cupcake box" : "கப் கேக் பெட்டியைத் தேர்வு செய்ய"}</a><a className="button buttonOutlineLight" href="/preorder">{en ? "Review cart" : "கார்ட்டைப் பார்க்க"}</a></div>
-        </div>
-        <aside>
-          <span>{en ? "Ordering format" : "ஆர்டர் வடிவம்"}</span>
-          <strong>{en ? "Boxes of 6, 9 or 12" : "6, 9 அல்லது 12 பெட்டிகள்"}</strong>
-          <p>{en ? "Every cupcake is secured in its own fitted holder inside a deeper cupcake-specific presentation box." : "ஒவ்வொரு கப் கேக்கும் ஆழமான கப் கேக் பெட்டியில் தனித்தனி பொருத்தப்பட்ட ஹோல்டரில் பாதுகாக்கப்படுகிறது."}</p>
-        </aside>
+      <section className="innerHero shopHero cupcakeHero">
+        <p className="eyebrow">CUPCAKES · AVAILABLE TO PREORDER</p>
+        <h1>{en ? "Cupcakes, considered from crumb to carry." : "கப் கேக்குகள் — சுவையிலிருந்து பாதுகாப்பான பயணம் வரை கவனமாக."}</h1>
+        <p>{en ? "Order Dark Cacao Ragi, Pista Cardamom or the six-flavour Discovery Collection in boxes of 6, 9 or 12. Select your box below and add it directly to the preorder cart." : "டார்க் காகாவ் ராகி, பிஸ்தா ஏலக்காய் அல்லது ஆறு சுவை டிஸ்கவரி தொகுப்பை 6, 9 அல்லது 12 பெட்டிகளில் ஆர்டர் செய்யலாம். கீழே பெட்டியைத் தேர்ந்து முன்பதிவு கார்ட்டில் சேர்க்கவும்."}</p>
+        <div className="innerHeroActions"><a className="button buttonLight" href="#cupcake-collection">{en ? "Choose a Cupcake box" : "கப் கேக் பெட்டியைத் தேர்வு செய்ய"}</a><a className="button buttonOutlineLight" href="/preorder">{en ? "Review cart" : "கார்ட்டைப் பார்க்க"}</a></div>
       </section>
 
-      <section className="menuSection cupcakeCollection" id="cupcake-collection">
+      <section className="menuSection shopCollection cupcakeCollection" id="cupcake-collection">
         <div className="menuNotice"><strong>{en ? "Available to preorder" : "முன்பதிவுக்கு கிடைக்கும்"}</strong><span>{en ? "Choose a collection and box size, add it to your cart and place the complete order through WhatsApp. Pay only after San Bakes confirms availability, delivery and the final total." : "தொகுப்பு மற்றும் பெட்டி அளவைத் தேர்ந்து கார்ட்டில் சேர்த்து, முழு ஆர்டரை WhatsApp மூலம் அனுப்பவும். கிடைப்பு, டெலிவரி மற்றும் இறுதி மொத்தத்தை San Bakes உறுதி செய்த பிறகு மட்டும் கட்டணம் செலுத்தவும்."}</span></div>
         <div className="menuGrid">
           {cupcakeProducts.map((product) => {

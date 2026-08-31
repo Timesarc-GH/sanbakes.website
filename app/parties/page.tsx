@@ -17,11 +17,11 @@ export default function PartiesPage() {
   const en = language === "en";
   return (
     <main>
-      <section className="innerHero partyHero">
+      <section className="innerHero shopHero partyHero">
         <p className="eyebrow">BIRTHDAYS & PARTIES</p>
         <h1>{en ? "One bake plan for the whole occasion." : "முழு நிகழ்ச்சிக்கும் ஒரே பேக் திட்டம்."}</h1>
         <p>{en ? "Build a birthday, anniversary, engagement, farewell or milestone order around a brownie cake, individually packed favours, Brownie Tins or Tubs. Every proposal starts with the date and guest count." : "பிறந்தநாள், திருமண நாள், நிச்சயதார்த்தம், பிரியாவிடை அல்லது முக்கிய நிகழ்ச்சிக்காக பிரௌனி கேக், தனித்தனி பரிசுகள், பிரௌனி டின்கள் அல்லது டப்கள் மூலம் ஆர்டர் திட்டமிடலாம்."}</p>
-        <div className="innerHeroActions"><a className="button buttonLight" href="#party-collection">{en ? "Shop party formats" : "பார்ட்டி வகைகளை வாங்க"}</a><a className="button buttonOutlineLight" href="/preorder">{en ? "Review cart" : "கார்ட்டைப் பார்க்க"}</a></div>
+        <div className="innerHeroActions"><a className="button buttonLight" href="#party-collection">{en ? "Choose a party format" : "பார்ட்டி வகையைத் தேர்ந்தெடுக்க"}</a><a className="button buttonOutlineLight" href="/preorder">{en ? "Review cart" : "கார்ட்டைப் பார்க்க"}</a></div>
       </section>
 
       <div id="party-collection">

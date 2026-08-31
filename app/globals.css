@@ -153,9 +153,10 @@ h1 { margin: 0; font-size: clamp(46px, 5.4vw, 78px); line-height: .94; letter-sp
 .whatsappFloat span { font-size: 18px; }
 
 .innerHero { padding: 28px 8vw 32px; background: var(--cacao); color: white; }
+.shopHero { min-height: 230px; }
 .innerHero .eyebrow { margin-bottom: 10px; }
 .innerHero h1 { max-width: none; font-size: clamp(36px, 4.4vw, 58px); line-height: .98; }
-.innerHero > p:last-child { max-width: 820px; margin: 12px 0 0; color: #ddc8ba; font-size: 12px; line-height: 1.5; }
+.innerHero > p:not(.eyebrow) { max-width: 820px; margin: 12px 0 0; color: #ddc8ba; font-size: 12px; line-height: 1.5; }
 .menuHero { background: radial-gradient(circle at 85% 15%, #5a3426 0, transparent 33%), var(--cacao); }
 .preorderHero { padding: 30px 8vw 34px; background: radial-gradient(circle at 80% 20%, #505332 0, transparent 30%), var(--cacao); }
 .preorderHero .eyebrow { margin-bottom: 14px; }
@@ -356,8 +357,7 @@ body:has(.basketDock) .whatsappFloat { bottom: 112px; }
 }
 
 @media (min-width: 1360px) {
-  html:lang(en) .innerHero h1,
-  html:lang(en) .cupcakeHero h1 { width: max-content; max-width: none; white-space: nowrap; }
+  html:lang(en) .innerHero h1 { width: max-content; max-width: none; white-space: nowrap; }
 }
 
 @media (max-width: 900px) {
@@ -413,7 +413,9 @@ body:has(.basketDock) .whatsappFloat { bottom: 112px; }
   .announcementNote { display: none; }
   .innerHero { padding: 32px 5vw 36px; }
   .innerHero h1 { font-size: clamp(34px, 10vw, 48px); }
-  .innerHero > p:last-child { margin-top: 12px; font-size: 12px; line-height: 1.5; }
+  .innerHero > p:not(.eyebrow) { margin-top: 12px; font-size: 12px; line-height: 1.5; }
+  .shopHero { min-height: 0; }
+  .innerHeroActions { align-items: stretch; flex-direction: column; }
   .preorderHero { padding: 28px 5vw 32px; }
   .preorderHero h1 { font-size: clamp(34px, 9.5vw, 46px); }
   .preorderHero > p:last-child { margin-top: 10px; font-size: 12px; }
@@ -542,6 +544,7 @@ body:has(.basketDock) .whatsappFloat { bottom: 112px; }
 .corporateHero { background: radial-gradient(circle at 82% 18%, #4d5032 0, transparent 30%), #1d120e; }
 .partyHero { background: radial-gradient(circle at 84% 18%, #7a4337 0, transparent 31%), #21120d; }
 .innerHeroActions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.shopCollection { scroll-margin-top: 100px; }
 .giftFeature { display: grid; grid-template-columns: 1.05fr .95fr; min-height: 384px; background: var(--cream); }
 .giftImage { position: relative; min-height: 384px; }
 .giftImage img { object-fit: cover; }
@@ -819,23 +822,7 @@ body:has(.basketDock) .whatsappFloat { bottom: 112px; }
 .menuCrossLink span { color: #6e6953; font-size: 10px; line-height: 1.55; }
 .menuCrossLink .button { flex: 0 0 auto; }
 .cupcakePage { background: #eee8df; }
-.cupcakeHero { display: grid; grid-template-columns: 1.45fr .55fr; gap: 6vw; align-items: end; padding: 28px 8vw 32px; background: radial-gradient(circle at 88% 20%, rgba(118,115,73,.72), transparent 30%), var(--cacao); color: white; }
-.cupcakeHero h1 { max-width: none; margin: 0; font-size: clamp(36px, 4.4vw, 58px); line-height: .98; letter-spacing: -.04em; }
-.cupcakeHero > div > p:not(.eyebrow) { max-width: 790px; margin: 15px 0 0; color: #dbc9bd; font-size: 12px; line-height: 1.55; }
-.cupcakeHeroActions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
-.cupcakeHero aside { padding: 18px; border-top: 1px solid rgba(255,255,255,.3); border-bottom: 1px solid rgba(255,255,255,.3); }
-.cupcakeHero aside span { display: block; color: #cfc9a7; font-size: 8px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-.cupcakeHero aside strong { display: block; margin: 10px 0; font-family: Georgia, serif; font-size: 21px; font-weight: 400; }
-.cupcakeHero aside p { margin: 0; color: #d5c2b6; font-size: 10px; line-height: 1.7; }
-@media (min-width: 901px) {
-  .cupcakeHero { grid-template-columns: minmax(0, 1fr) minmax(230px, .38fr); grid-template-rows: auto auto auto auto; }
-  .cupcakeHero > div { display: contents; }
-  .cupcakeHero > div > .eyebrow { grid-column: 1 / -1; grid-row: 1; }
-  .cupcakeHero > div > h1 { grid-column: 1 / -1; grid-row: 2; }
-  .cupcakeHero > div > p:not(.eyebrow) { grid-column: 1; grid-row: 3; }
-  .cupcakeHeroActions { grid-column: 1; grid-row: 4; }
-  .cupcakeHero aside { grid-column: 2; grid-row: 3 / 5; align-self: end; }
-}
+.cupcakeHero { background: radial-gradient(circle at 88% 20%, rgba(118,115,73,.72), transparent 30%), var(--cacao); }
 .cupcakePlan { max-width: 1500px; margin: 0 auto; padding: 64px 5vw 54px; }
 .cupcakePlanIntro { display: grid; grid-template-columns: 1fr 1fr; gap: 7vw; align-items: end; margin-bottom: 42px; }
 .cupcakePlanIntro .eyebrow { grid-column: 1; }
@@ -861,8 +848,7 @@ body:has(.basketDock) .whatsappFloat { bottom: 112px; }
 .cupcakeGate li::before { content: "•"; position: absolute; left: 3px; color: #7b7752; }
 
 @media (max-width: 900px) {
-  .cupcakeHero, .cupcakePlanIntro, .cupcakeFlavours, .cupcakeGate { grid-template-columns: 1fr; }
-  .cupcakeHero aside { max-width: 520px; }
+  .cupcakePlanIntro, .cupcakeFlavours, .cupcakeGate { grid-template-columns: 1fr; }
   .cupcakePlanIntro > p:last-child { grid-column: 1; grid-row: auto; }
   .cupcakeFacts { grid-template-columns: 1fr; }
   .cupcakeFacts article { min-height: 190px; }
@@ -870,8 +856,6 @@ body:has(.basketDock) .whatsappFloat { bottom: 112px; }
 
 @media (max-width: 620px) {
   .menuCrossLink { align-items: stretch; flex-direction: column; padding: 22px; }
-  .cupcakeHero { padding: 32px 5vw 36px; }
-  .cupcakeHeroActions { align-items: stretch; flex-direction: column; }
   .cupcakePlan { padding: 52px 5vw 44px; }
   .cupcakeFlavours { padding: 50px 6vw; }
   .cupcakeFlavours li { grid-template-columns: 36px 1fr; gap: 10px; }
@@ -992,7 +976,6 @@ body:has(.basketDock) .whatsappFloat { bottom: 112px; }
 .corporateFacts strong,
 .eventLeadGrid span,
 .menuCrossLink strong,
-.cupcakeHero aside strong,
 .cupcakeFacts span,
 .cupcakeFacts strong,
 .cupcakeFlavours li span,

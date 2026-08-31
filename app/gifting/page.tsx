@@ -18,10 +18,11 @@ export default function GiftingPage() {
 
   return (
     <main>
-      <section className="innerHero giftingHero">
+      <section className="innerHero shopHero giftingHero">
         <p className="eyebrow">PERSONAL GIFTING</p>
         <h1>{en ? "A gift should feel considered before it is opened." : "திறப்பதற்கு முன்பே பரிசு கவனமாகத் தேர்ந்தெடுக்கப்பட்டதாக உணர வேண்டும்."}</h1>
         <p>{en ? "Choose a curated brownie collection, add a personal message and select delivery or appointment pickup. Each confirmed gift is baked for its date—not taken from a shelf." : "தேர்ந்தெடுக்கப்பட்ட பிரௌனி தொகுப்பு, தனிப்பட்ட செய்தி மற்றும் டெலிவரி அல்லது பிக்கப். ஒவ்வொரு பரிசும் உறுதி செய்யப்பட்ட தேதிக்காக தயாரிக்கப்படும்."}</p>
+        <div className="innerHeroActions"><a className="button buttonLight" href="/menu?category=gifting">{en ? "Choose a personal gift" : "தனிப்பட்ட பரிசைத் தேர்ந்தெடுக்க"}</a><a className="button buttonOutlineLight" href="/preorder">{en ? "Review cart" : "கார்ட்டைப் பார்க்க"}</a></div>
       </section>
 
       <section className="giftFeature">

@@ -8,7 +8,7 @@ export default function CorporatePage() {
   const en = language === "en";
   return (
     <main>
-      <section className="innerHero corporateHero">
+      <section className="innerHero shopHero corporateHero">
         <p className="eyebrow">CORPORATE ORDERS</p>
         <h1>{en ? "Structured for teams. Still personal." : "குழுக்களுக்காக திட்டமிடப்பட்டது. இன்னும் தனிப்பட்டது."}</h1>
         <p>{en ? "For client appreciation, employee milestones, meetings and festive programmes, choose a coordinated flavour, presentation and delivery plan for every recipient." : "வாடிக்கையாளர் நன்றி, ஊழியர் சாதனைகள், கூட்டங்கள் மற்றும் பண்டிகை திட்டங்களுக்கு ஒருங்கிணைந்த சுவை, பேக்கிங் மற்றும் டெலிவரி திட்டத்தைத் தேர்ந்தெடுக்கவும்."}</p>

@@ -31,12 +31,13 @@ export default function MenuPage() {
 
   return (
     <main>
-      <section className="innerHero menuHero">
+      <section className="innerHero shopHero menuHero">
         <p className="eyebrow">THE SAN BAKES COLLECTION</p>
         <h1>{en ? "The Brownie preorder collection" : "பிரௌனி முன்பதிவு தொகுப்பு"}</h1>
         <p>{en ? "Signature Brownies, boxes, Tins, Tubs, millet tea cakes and personal gifting formats—made in small batches after you reserve." : "சிக்னேச்சர் பிரௌனிகள், பெட்டிகள், டின்கள், டப்கள், சிறுதானிய டீ கேக்குகள் மற்றும் தனிப்பட்ட பரிசுகள்—முன்பதிவுக்குப் பிறகு சிறிய தொகுதிகளாக தயாரிக்கப்படும்."}</p>
+        <div className="innerHeroActions"><a className="button buttonLight" href="#brownie-collection">{en ? "Choose a Brownie" : "பிரௌனியைத் தேர்ந்தெடுக்க"}</a><a className="button buttonOutlineLight" href="/preorder">{en ? "Review cart" : "கார்ட்டைப் பார்க்க"}</a></div>
       </section>
-      <section className="menuSection">
+      <section className="menuSection shopCollection" id="brownie-collection">
         <div className="filterBar" aria-label="Filter menu by collection">
           {menuCategories.map((category) => <button className={active === category.id ? "active" : ""} key={category.id} onClick={() => setActive(category.id)} type="button">{en ? category.name : category.nameTa}</button>)}
         </div>
