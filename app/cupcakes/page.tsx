@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useLanguage } from "../components/LanguageProvider";
 import { useInventory } from "../components/InventoryProvider";
 import { usePreorder } from "../components/PreorderProvider";
-import { inventoryStatusLabel, isInventoryUnavailable } from "../lib/inventory";
+import { isInventoryUnavailable } from "../lib/inventory";
 import { formatPrice, getPricing, makeSelectionKey } from "../lib/pricing";
 import { products } from "../lib/products";
 
@@ -50,25 +50,21 @@ export default function CupcakesPage() {
             const pricing = getPricing(product.id);
             const selectedId = selectedOptions[product.id] ?? pricing.options[0].id;
             const selectedOption = pricing.options.find((item) => item.id === selectedId) ?? pricing.options[0];
-            const availability = getInventory(product.id);
-            const unavailable = isInventoryUnavailable(availability.status);
-            const availabilityNote = en ? availability.noteEn : availability.noteTa || availability.noteEn;
+            const unavailable = isInventoryUnavailable(getInventory(product.id).status);
             return <article className="menuCard" key={product.id}>
               <a href={`/products/${product.id}`} aria-label={`${en ? "View" : "பார்க்க"} ${en ? product.name : product.nameTa}`} style={{ display: "block" }}>
                 <div className="menuCardImage">
                   {product.image && <Image src={product.image} alt={product.name} fill sizes="(max-width: 700px) 92vw, (max-width: 1100px) 45vw, 24vw" />}
-                  {availability.updatedAt && <span className={`stockBadge ${availability.status}`}>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}{availability.availableQuantity !== null && availability.status !== "out_of_stock" ? ` · ${availability.availableQuantity}` : ""}</span>}
                 </div>
               </a>
               <div className="menuCardBody">
                 <p className="cardEyebrow">{en ? "CUPCAKE COLLECTION" : "கப் கேக் தொகுப்பு"}</p>
                 <h2><a href={`/products/${product.id}`}>{en ? product.name : product.nameTa}</a></h2>
                 <p>{en ? product.description : product.descriptionTa}</p>
-                {(availabilityNote || unavailable) && <div className={`availabilityLine ${availability.status}`}><strong>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}</strong>{availabilityNote && <span>{availabilityNote}</span>}</div>}
                 <label className="variantPicker"><span>{en ? "Box / composition option" : "பெட்டி / கலவை விருப்பம்"}</span><select value={selectedOption.id} onChange={(event) => setSelectedOptions((current) => ({ ...current, [product.id]: event.target.value }))}>{pricing.options.map((item) => <option value={item.id} key={item.id}>{en ? item.label : item.labelTa} — {formatPrice(item.price)}</option>)}</select><small>{en ? selectedOption.note : selectedOption.noteTa}</small></label>
                 <div className="productPurchaseRow">
                   <div className="selectedPrice"><span>{en ? "Price" : "விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
-                  <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id, selectedOption.id))} type="button">{unavailable ? (en ? "Currently unavailable" : "தற்போது கிடைக்கவில்லை") : (en ? "Add to cart" : "கார்ட்டில் சேர்க்க")}</button>
+                  <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id, selectedOption.id))} type="button">{unavailable ? (en ? "Preorders paused" : "முன்பதிவு இடைநிறுத்தப்பட்டுள்ளது") : (en ? "Add to cart" : "கார்ட்டில் சேர்க்க")}</button>
                 </div>
               </div>
             </article>;

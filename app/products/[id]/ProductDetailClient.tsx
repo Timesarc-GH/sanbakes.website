@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useInventory } from "../../components/InventoryProvider";
 import { useLanguage } from "../../components/LanguageProvider";
 import { usePreorder } from "../../components/PreorderProvider";
-import { inventoryStatusLabel, isInventoryUnavailable } from "../../lib/inventory";
+import { isInventoryUnavailable } from "../../lib/inventory";
 import { formatPrice, getMinimumOrderQuantity, makeSelectionKey, type ProductPricing } from "../../lib/pricing";
 import type { Product } from "../../lib/products";
 import styles from "./product-detail.module.css";
@@ -50,7 +50,7 @@ function leadTime(productId: string, category: string, optionId: string, minimum
   if (productId === "seasonal-hamper") {
     return { en: "Enquire early; seasonal contents and the preparation window are confirmed for your date.", ta: "முன்கூட்டியே விசாரிக்கவும்; பருவகால உள்ளடக்கம் மற்றும் தயாரிப்பு நேரம் உங்கள் தேதிக்காக உறுதி செய்யப்படும்." };
   }
-  return { en: "Preorder at least 48 hours ahead; your slot is confirmed after availability review.", ta: "குறைந்தது 48 மணி நேரத்திற்கு முன் முன்பதிவு செய்யவும்; கிடைப்பு சரிபார்க்கப்பட்ட பிறகு ஸ்லாட் உறுதி செய்யப்படும்." };
+  return { en: "Preorder at least 48 hours ahead; your slot is confirmed after the production schedule is reviewed.", ta: "குறைந்தது 48 மணி நேரத்திற்கு முன் முன்பதிவு செய்யவும்; தயாரிப்பு அட்டவணை சரிபார்க்கப்பட்ட பிறகு ஸ்லாட் உறுதி செய்யப்படும்." };
 }
 
 export function ProductDetailClient({ product, pricing, category }: ProductDetailClientProps) {
@@ -65,14 +65,8 @@ export function ProductDetailClient({ product, pricing, category }: ProductDetai
   const availability = getInventory(product.id);
   const insufficientQuantity = availability.availableQuantity !== null && availability.availableQuantity < minimumQuantity;
   const unavailable = isInventoryUnavailable(availability.status) || insufficientQuantity;
-  const availabilityNote = en ? availability.noteEn : availability.noteTa || availability.noteEn;
   const lead = leadTime(product.id, product.category, selectedOption.id, minimumQuantity);
   const backHref = collectionHref(product.category);
-  const statusText = loading
-    ? (en ? "Checking availability" : "கிடைப்பு சரிபார்க்கப்படுகிறது")
-    : insufficientQuantity
-      ? (en ? "Requested minimum is not currently available" : "தேவையான குறைந்தபட்ச அளவு தற்போது கிடைக்கவில்லை")
-      : (en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta);
 
   const addSelectedOption = () => {
     addItem(makeSelectionKey(product.id, selectedOption.id), minimumQuantity);
@@ -90,7 +84,7 @@ export function ProductDetailClient({ product, pricing, category }: ProductDetai
       <section className={styles.product}>
         <div className={`${styles.media} ${product.image ? "" : styles.placeholder}`}>
           {product.image
-            ? <Image src={product.image} alt={en ? product.name : product.nameTa} fill priority sizes="(max-width: 800px) 94vw, 52vw" />
+            ? <Image src={product.image} alt={en ? product.name : product.nameTa} fill priority sizes="(max-width: 780px) 92vw, 52vw" />
             : <span>SAN<br />BAKES</span>}
         </div>
 
@@ -99,15 +93,9 @@ export function ProductDetailClient({ product, pricing, category }: ProductDetai
           <h1>{en ? product.name : product.nameTa}</h1>
           <p className={styles.description}>{en ? product.description : product.descriptionTa}</p>
 
-          <div className={`${styles.availability} ${unavailable ? styles.unavailable : ""}`} aria-live="polite">
-            <span className={styles.statusDot} aria-hidden="true" />
-            <div>
-              <strong>{statusText}</strong>
-              {availabilityNote && <small>{availabilityNote}</small>}
-              {!loading && availability.availableQuantity !== null && !unavailable && (
-                <small>{en ? `${availability.availableQuantity} currently available` : `தற்போது ${availability.availableQuantity} கிடைக்கிறது`}</small>
-              )}
-            </div>
+          <div className={`${styles.preorderStatus} ${unavailable ? styles.preordersPaused : ""}`} aria-live="polite">
+            <strong>{loading ? (en ? "Confirming preorder status" : "முன்பதிவு நிலை உறுதி செய்யப்படுகிறது") : unavailable ? (en ? "Preorders currently paused" : "முன்பதிவு தற்போது இடைநிறுத்தப்பட்டுள்ளது") : (en ? "Preorder only" : "முன்பதிவு மட்டும்")}</strong>
+            <small>{unavailable ? (en ? "Please choose another product or ask us on WhatsApp." : "வேறு தயாரிப்பைத் தேர்ந்தெடுக்கவும் அல்லது WhatsApp-ல் கேட்கவும்.") : (en ? "Your date and production slot are confirmed personally before payment." : "கட்டணத்திற்கு முன் தேதி மற்றும் தயாரிப்பு ஸ்லாட் தனிப்பட்ட முறையில் உறுதி செய்யப்படும்.")}</small>
           </div>
 
           <label className={styles.variant}>
@@ -140,10 +128,10 @@ export function ProductDetailClient({ product, pricing, category }: ProductDetai
               {minimumQuantity > 1 && <small>{en ? `Minimum ${minimumQuantity} boxes` : `குறைந்தபட்சம் ${minimumQuantity} பெட்டிகள்`}</small>}
             </div>
             <button type="button" disabled={unavailable || loading} onClick={addSelectedOption}>
-              {unavailable
-                ? (en ? "Currently unavailable" : "தற்போது கிடைக்கவில்லை")
-                : loading
-                  ? (en ? "Checking availability" : "கிடைப்பு சரிபார்க்கப்படுகிறது")
+              {loading
+                ? (en ? "Confirming preorder" : "முன்பதிவு உறுதி செய்யப்படுகிறது")
+                : unavailable
+                  ? (en ? "Preorders paused" : "முன்பதிவு இடைநிறுத்தப்பட்டுள்ளது")
                   : minimumQuantity > 1
                     ? (en ? `Add ${minimumQuantity} boxes to cart` : `${minimumQuantity} பெட்டிகளை கார்ட்டில் சேர்க்க`)
                     : (en ? "Add to cart" : "கார்ட்டில் சேர்க்க")}

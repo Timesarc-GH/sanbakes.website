@@ -57,6 +57,8 @@ test("renders the San Bakes storefront", async () => {
 
 test("uses compact banners and responsive four-card product grids", async () => {
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const productCss = await readFile(new URL("../app/products/[id]/product-detail.module.css", import.meta.url), "utf8");
+  const header = await readFile(new URL("../app/components/SiteHeader.tsx", import.meta.url), "utf8");
   assert.match(css, /\.hero \{[^}]*min-height: 230px/);
   assert.match(css, /\.innerHero \{[^}]*padding: 28px 8vw 32px/);
   assert.match(css, /\.cupcakeHero \{[^}]*padding: 28px 8vw 32px/);
@@ -66,6 +68,15 @@ test("uses compact banners and responsive four-card product grids", async () => 
   assert.match(css, /@media \(max-width: 900px\)[\s\S]*?\.productGrid \{ grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
   assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.productGrid \{ grid-template-columns: 1fr/);
   assert.match(css, /\.priceGuideGrid \{[^}]*grid-template-columns: repeat\(4, 1fr\)/);
+  assert.match(css, /\.siteHeader \{[\s\S]*?min-height: 74px;[\s\S]*?overflow: visible;/);
+  assert.match(css, /\.brandSeal \{[^}]*position: absolute;[^}]*width: var\(--brand-seal-size\);[^}]*transform: translateY\(-66%\)/);
+  assert.match(header, /width=\{96\} height=\{96\}/);
+  assert.match(productCss, /min-height: clamp\(420px, calc\(100svh - 298px\), 500px\)/);
+  assert.match(productCss, /@media \(max-width: 780px\)/);
+  assert.match(productCss, /font-size: var\(--price-size\)/);
+  assert.match(css, /--font-display:/);
+  assert.match(css, /--font-ui:/);
+  assert.match(css, /--price-size: 18px/);
 });
 
 test("publishes grouped navigation, crawl controls and product-level SEO", async () => {
@@ -90,7 +101,8 @@ test("publishes grouped navigation, crawl controls and product-level SEO", async
   assert.match(product, /<link rel="canonical" href="https:\/\/san-bakes-chennai\.timesarctech\.chatgpt\.site\/products\/ragi-no-01">/);
   assert.match(product, /"@type":"Product"/);
   assert.match(product, /"availability":"https:\/\/schema\.org\/PreOrder"/);
-  assert.match(product, /Checking availability/);
+  assert.match(product, /Confirming preorder status/);
+  assert.doesNotMatch(product, /In stock|Out of stock|Currently unavailable|Checking availability/);
   const productClient = await readFile(new URL("../app/products/[id]/ProductDetailClient.tsx", import.meta.url), "utf8");
   assert.match(productClient, /Add to cart/);
   assert.equal((await render("/products/not-a-product")).status, 404);
@@ -158,6 +170,7 @@ test("renders the complete menu and preorder route", async () => {
   assert.doesNotMatch(menu, /Corporate Mini Box/);
   assert.doesNotMatch(menu, /Individually Packed Party Brownies/);
   assert.doesNotMatch(menu, /statusBadge|decisionLine|Launch validation|Coming soon|Recommended for approval|Conditional — validation required/);
+  assert.doesNotMatch(menu, /In stock|Out of stock|stockBadge|availabilityLine/);
   const preorder = await (await render("/preorder")).text();
   assert.match(preorder, /CART &amp; WHATSAPP CHECKOUT/);
   assert.match(preorder, /Review your preorder/);
@@ -173,6 +186,7 @@ test("renders the complete menu and preorder route", async () => {
   assert.match(preorder, /View delivery and pickup guide/);
   assert.doesNotMatch(preorder, /Planning subtotal/i);
   assert.doesNotMatch(preorder, /Eggless/i);
+  assert.doesNotMatch(preorder, /In stock|Out of stock|Currently unavailable|stockBadge|availabilityLine/);
 });
 
 test("keeps a quantity-only cart for seven days and localises WhatsApp checkout", async () => {

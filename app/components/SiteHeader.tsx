@@ -36,7 +36,7 @@ export function SiteHeader() {
       </div>
       <header className="siteHeader">
         <a className="brand" href="/" aria-label={language === "en" ? "San Bakes home" : "San Bakes முகப்பு"}>
-          <Image src="/brand/san-bakes-logo.jpg" width={48} height={48} alt="San Bakes" className="brandSeal" priority />
+          <Image src="/brand/san-bakes-logo.jpg" width={96} height={96} alt="San Bakes" className="brandSeal" priority />
           <span>
             <strong>SAN BAKES</strong>
             <small>{language === "en" ? "Small-batch cacao & millet patisserie" : "குறைந்த அளவு காகாவ் & சிறுதானிய பட்டிசெரி"}</small>

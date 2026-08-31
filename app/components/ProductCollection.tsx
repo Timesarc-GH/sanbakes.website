@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useLanguage } from "./LanguageProvider";
 import { useInventory } from "./InventoryProvider";
 import { usePreorder } from "./PreorderProvider";
-import { inventoryStatusLabel, isInventoryUnavailable } from "../lib/inventory";
+import { isInventoryUnavailable } from "../lib/inventory";
 import { formatPrice, getMinimumOrderQuantity, getPricing, makeSelectionKey } from "../lib/pricing";
 import { categories, findProduct } from "../lib/products";
 
@@ -41,9 +41,7 @@ export function ProductCollection({ productIds, eyebrowEn, eyebrowTa, titleEn, t
           const selectedId = selectedOptions[product.id] ?? pricing.options[0].id;
           const selectedOption = pricing.options.find((item) => item.id === selectedId) ?? pricing.options[0];
           const minimumQuantity = getMinimumOrderQuantity(product.id, selectedOption.id);
-          const availability = getInventory(product.id);
-          const unavailable = isInventoryUnavailable(availability.status);
-          const availabilityNote = en ? availability.noteEn : availability.noteTa || availability.noteEn;
+          const unavailable = isInventoryUnavailable(getInventory(product.id).status);
           const category = categories.find((item) => item.id === product.category);
 
           return (
@@ -51,14 +49,12 @@ export function ProductCollection({ productIds, eyebrowEn, eyebrowTa, titleEn, t
               <a href={`/products/${product.id}`} aria-label={`${en ? "View" : "பார்க்க"} ${en ? product.name : product.nameTa}`} style={{ display: "block" }}>
                 <div className={`menuCardImage ${product.image ? "" : "imagePlaceholder"}`}>
                   {product.image ? <Image src={product.image} alt={product.name} fill sizes="(max-width: 700px) 92vw, (max-width: 1100px) 45vw, 24vw" /> : <span>SAN<br />BAKES</span>}
-                  {availability.updatedAt && <span className={`stockBadge ${availability.status}`}>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}{availability.availableQuantity !== null && availability.status !== "out_of_stock" ? ` · ${availability.availableQuantity}` : ""}</span>}
                 </div>
               </a>
               <div className="menuCardBody">
                 <p className="cardEyebrow">{en ? category?.name : category?.nameTa}</p>
                 <h3><a href={`/products/${product.id}`}>{en ? product.name : product.nameTa}</a></h3>
                 <p>{en ? product.description : product.descriptionTa}</p>
-                {(availabilityNote || unavailable) && <div className={`availabilityLine ${availability.status}`}><strong>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}</strong>{availabilityNote && <span>{availabilityNote}</span>}</div>}
                 <label className="variantPicker">
                   <span>{en ? "Pack / quantity option" : "பேக் / அளவு விருப்பம்"}</span>
                   <select value={selectedOption.id} onChange={(event) => setSelectedOptions((current) => ({ ...current, [product.id]: event.target.value }))}>
@@ -69,7 +65,7 @@ export function ProductCollection({ productIds, eyebrowEn, eyebrowTa, titleEn, t
                 <div className="productPurchaseRow">
                   <div className="selectedPrice"><span>{en ? "Price" : "விலை"}</span><strong>{formatPrice(selectedOption.price)}</strong></div>
                   <button className="button buttonCacao" disabled={unavailable} onClick={() => addItem(makeSelectionKey(product.id, selectedOption.id), minimumQuantity)} type="button">
-                    {unavailable ? (en ? "Currently unavailable" : "தற்போது கிடைக்கவில்லை") : minimumQuantity > 1 ? (en ? `Add ${minimumQuantity} boxes to cart` : `${minimumQuantity} பெட்டிகளை கார்ட்டில் சேர்க்க`) : (en ? "Add to cart" : "கார்ட்டில் சேர்க்க")}
+                    {unavailable ? (en ? "Preorders paused" : "முன்பதிவு இடைநிறுத்தப்பட்டுள்ளது") : minimumQuantity > 1 ? (en ? `Add ${minimumQuantity} boxes to cart` : `${minimumQuantity} பெட்டிகளை கார்ட்டில் சேர்க்க`) : (en ? "Add to cart" : "கார்ட்டில் சேர்க்க")}
                   </button>
                 </div>
               </div>
