@@ -2,6 +2,15 @@
 
 import { useLanguage } from "../components/LanguageProvider";
 import { ProductCollection } from "../components/ProductCollection";
+import { formatPrice, getPricing } from "../lib/pricing";
+
+function formatOptionPrices(productId: string, optionIds: string[]) {
+  const prices = getPricing(productId)?.options
+    .filter((option) => optionIds.includes(option.id) && option.price !== null)
+    .map((option) => option.price as number) ?? [];
+  const uniquePrices = [...new Set(prices)];
+  return uniquePrices.length > 0 ? uniquePrices.map(formatPrice).join(" / ") : "By quotation";
+}
 
 export default function PartiesPage() {
   const { language } = useLanguage();
@@ -30,11 +39,11 @@ export default function PartiesPage() {
       <section className="partyCakeSection">
         <div><p className="eyebrow dark">CAKES FOR MORE THAN BIRTHDAYS</p><h2>{en ? "The message changes. The brownie stays central." : "செய்தி மாறும். பிரௌனி மையமாக இருக்கும்."}</h2><p>{en ? "Birthday cakes remain available in 250 g, 500 g and 1 kg formats. The Occasion Brownie Cake adds a restrained finish for anniversaries, engagements, welcomes, farewells and milestone celebrations." : "பிறந்தநாள் கேக்குகள் 250 கிராம், 500 கிராம் மற்றும் 1 கிலோ அளவுகளில் கிடைக்கும். நிகழ்ச்சி பிரௌனி கேக் திருமண நாள், நிச்சயதார்த்தம், வரவேற்பு, பிரியாவிடை மற்றும் முக்கிய கொண்டாட்டங்களுக்கு அளவான அலங்காரத்தை வழங்கும்."}</p></div>
         <div className="cakePriceList">
-          <div><span>{en ? "Little Celebration · 250 g" : "லிட்டில் செலிப்ரேஷன் · 250 கிராம்"}</span><strong>₹450 / ₹590</strong></div>
-          <div><span>{en ? "Birthday Brownie Cake · 500 g" : "பிறந்தநாள் பிரௌனி கேக் · 500 கிராம்"}</span><strong>₹860 / ₹950</strong></div>
-          <div><span>{en ? "Grand Celebration · 1 kg" : "கிராண்ட் செலிப்ரேஷன் · 1 கிலோ"}</span><strong>₹1,150 / ₹1,300</strong></div>
-          <div><span>{en ? "Occasion Brownie Cake · 500 g" : "நிகழ்ச்சி பிரௌனி கேக் · 500 கிராம்"}</span><strong>₹860 / ₹905</strong></div>
-          <div><span>{en ? "Occasion Brownie Cake · 1 kg" : "நிகழ்ச்சி பிரௌனி கேக் · 1 கிலோ"}</span><strong>₹1,400</strong></div>
+          <div><span>{en ? "Little Celebration · 250 g" : "லிட்டில் செலிப்ரேஷன் · 250 கிராம்"}</span><strong>{formatOptionPrices("birthday-250", ["classic-finish", "reserve-finish"])}</strong></div>
+          <div><span>{en ? "Birthday Brownie Cake · 500 g" : "பிறந்தநாள் பிரௌனி கேக் · 500 கிராம்"}</span><strong>{formatOptionPrices("birthday-500", ["classic-finish", "reserve-finish"])}</strong></div>
+          <div><span>{en ? "Grand Celebration · 1 kg" : "கிராண்ட் செலிப்ரேஷன் · 1 கிலோ"}</span><strong>{formatOptionPrices("birthday-1kg", ["classic-finish", "reserve-finish"])}</strong></div>
+          <div><span>{en ? "Occasion Brownie Cake · 500 g" : "நிகழ்ச்சி பிரௌனி கேக் · 500 கிராம்"}</span><strong>{formatOptionPrices("occasion-brownie-cake", ["classic-500", "reserve-500"])}</strong></div>
+          <div><span>{en ? "Occasion Brownie Cake · 1 kg" : "நிகழ்ச்சி பிரௌனி கேக் · 1 கிலோ"}</span><strong>{formatOptionPrices("occasion-brownie-cake", ["classic-1kg", "reserve-1kg"])}</strong></div>
         </div>
       </section>
 

@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import { useLanguage } from "../components/LanguageProvider";
+import { formatProductPriceRange } from "../lib/pricing";
 
 const giftOptions = [
-  { title: "Signature Discovery Box", titleTa: "சிக்னேச்சர் டிஸ்கவரி பாக்ஸ்", price: "6 pieces · ₹590–₹620", copy: "A concise introduction to the San Bakes collection.", copyTa: "San Bakes தொகுப்பின் சிறந்த அறிமுகம்." },
-  { title: "Reserve Collection", titleTa: "ரிசர்வ் கலெக்ஷன்", price: "9 pieces · ₹860–₹890", copy: "A generous curated box for sharing or a considered thank-you.", copyTa: "பகிர்வதற்கும் நன்றி பரிசுக்கும் தேர்ந்தெடுக்கப்பட்ட பெரிய பெட்டி." },
-  { title: "Three-Piece Brownie Tin", titleTa: "மூன்று துண்டு பிரௌனி டின்", price: "₹310–₹360", copy: "A reusable Tin in one flavour or a curated three-flavour mix.", copyTa: "ஒரே சுவை அல்லது தேர்ந்தெடுத்த மூன்று சுவை கலவையுடன் மறுபயன்பாட்டு டின்." },
-  { title: "Whole Brownie Tin", titleTa: "முழு பிரௌனி டின்", price: "₹360", copy: "One continuous brownie—not separate pieces—with one, two or three flavour-topping sections.", copyTa: "தனித்தனி துண்டுகள் அல்ல; ஒன்று, இரண்டு அல்லது மூன்று சுவை டாப்பிங் பகுதிகளுடன் ஒரு தொடர்ச்சியான பிரௌனி." },
-  { title: "Seasonal Hamper", titleTa: "பருவகால ஹாம்பர்", price: "₹1,150–₹1,490", copy: "A limited composition released only after its contents and packaging are approved.", copyTa: "உள்ளடக்கம் மற்றும் பேக்கிங் உறுதி செய்யப்பட்ட பிறகு மட்டும் வெளியாகும் பருவகால தொகுப்பு." },
+  { productId: "signature-discovery-box", title: "Signature Discovery Box", titleTa: "சிக்னேச்சர் டிஸ்கவரி பாக்ஸ்", pack: "6 pieces", packTa: "6 துண்டுகள்", copy: "A concise introduction to the San Bakes collection.", copyTa: "San Bakes தொகுப்பின் சிறந்த அறிமுகம்." },
+  { productId: "reserve-collection", title: "Reserve Collection", titleTa: "ரிசர்வ் கலெக்ஷன்", pack: "9 pieces", packTa: "9 துண்டுகள்", copy: "A generous curated box for sharing or a considered thank-you.", copyTa: "பகிர்வதற்கும் நன்றி பரிசுக்கும் தேர்ந்தெடுக்கப்பட்ட பெரிய பெட்டி." },
+  { productId: "brownie-tin-3-piece", title: "Three-Piece Brownie Tin", titleTa: "மூன்று துண்டு பிரௌனி டின்", copy: "A reusable Tin in one flavour or a curated three-flavour mix.", copyTa: "ஒரே சுவை அல்லது தேர்ந்தெடுத்த மூன்று சுவை கலவையுடன் மறுபயன்பாட்டு டின்." },
+  { productId: "whole-brownie-tin", title: "Whole Brownie Tin", titleTa: "முழு பிரௌனி டின்", copy: "One continuous brownie—not separate pieces—with one, two or three flavour-topping sections.", copyTa: "தனித்தனி துண்டுகள் அல்ல; ஒன்று, இரண்டு அல்லது மூன்று சுவை டாப்பிங் பகுதிகளுடன் ஒரு தொடர்ச்சியான பிரௌனி." },
+  { productId: "seasonal-hamper", title: "Seasonal Hamper", titleTa: "பருவகால ஹாம்பர்", copy: "A limited collection curated for the season in San Bakes presentation.", copyTa: "San Bakes பேக்கிங்கில் பருவத்திற்காக தேர்ந்தெடுக்கப்பட்ட சிறப்பு தொகுப்பு." },
 ];
 
 export default function GiftingPage() {
@@ -40,8 +41,8 @@ export default function GiftingPage() {
       </section>
 
       <section className="offerSection">
-        <div className="offerIntro"><p className="eyebrow dark">CURATED FORMATS</p><h2>{en ? "Five clear ways to give well." : "நேர்த்தியாக பரிசளிக்க ஐந்து தெளிவான வழிகள்."}</h2><p>{en ? "Listed prices exclude delivery and paid customisation. Final contents, flavours and availability are confirmed before payment." : "பட்டியலிட்ட விலைகளில் டெலிவரி மற்றும் கூடுதல் தனிப்பயன் செலவு சேர்க்கப்படவில்லை. கட்டணத்திற்கு முன் உள்ளடக்கம், சுவை மற்றும் கிடைக்கும் நிலை உறுதி செய்யப்படும்."}</p></div>
-        <div className="offerGrid">{giftOptions.map((item) => <article key={item.title}><small>PERSONAL GIFT</small><h3>{en ? item.title : item.titleTa}</h3><strong>{item.price}</strong><p>{en ? item.copy : item.copyTa}</p></article>)}</div>
+        <div className="offerIntro"><p className="eyebrow dark">CURATED FORMATS</p><h2>{en ? "Five clear ways to give well." : "நேர்த்தியாக பரிசளிக்க ஐந்து தெளிவான வழிகள்."}</h2><p>{en ? "Listed prices exclude delivery and paid customisation. Please reserve personal gifts at least 48 hours ahead; seasonal hampers and coordinated multi-gift requests may need more time. Contents, flavours, availability and your date are confirmed before payment." : "பட்டியலிட்ட விலைகளில் டெலிவரி மற்றும் கூடுதல் தனிப்பயன் செலவு சேர்க்கப்படவில்லை. தனிப்பட்ட பரிசுகளை குறைந்தது 48 மணி நேரத்திற்கு முன் முன்பதிவு செய்யவும்; பருவகால ஹாம்பர் மற்றும் பல பரிசு ஆர்டர்களுக்கு கூடுதல் நேரம் தேவைப்படலாம். கட்டணத்திற்கு முன் உள்ளடக்கம், சுவை, கிடைக்கும் நிலை மற்றும் தேதி உறுதி செய்யப்படும்."}</p></div>
+        <div className="offerGrid">{giftOptions.map((item) => <article key={item.title}><small>PERSONAL GIFT</small><h3>{en ? item.title : item.titleTa}</h3><strong>{item.pack ? `${en ? item.pack : item.packTa} · ` : ""}{formatProductPriceRange(item.productId)}</strong><p>{en ? item.copy : item.copyTa}</p></article>)}</div>
       </section>
 
       <section className="giftSteps">

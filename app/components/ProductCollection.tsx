@@ -48,13 +48,15 @@ export function ProductCollection({ productIds, eyebrowEn, eyebrowTa, titleEn, t
 
           return (
             <article className="menuCard" key={product.id}>
-              <div className={`menuCardImage ${product.image ? "" : "imagePlaceholder"}`}>
-                {product.image ? <Image src={product.image} alt={product.name} fill sizes="(max-width: 700px) 92vw, (max-width: 1100px) 45vw, 30vw" /> : <span>SAN<br />BAKES</span>}
-                {availability.updatedAt && <span className={`stockBadge ${availability.status}`}>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}{availability.availableQuantity !== null && availability.status !== "out_of_stock" ? ` · ${availability.availableQuantity}` : ""}</span>}
-              </div>
+              <a href={`/products/${product.id}`} aria-label={`${en ? "View" : "பார்க்க"} ${en ? product.name : product.nameTa}`} style={{ display: "block" }}>
+                <div className={`menuCardImage ${product.image ? "" : "imagePlaceholder"}`}>
+                  {product.image ? <Image src={product.image} alt={product.name} fill sizes="(max-width: 700px) 92vw, (max-width: 1100px) 45vw, 30vw" /> : <span>SAN<br />BAKES</span>}
+                  {availability.updatedAt && <span className={`stockBadge ${availability.status}`}>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}{availability.availableQuantity !== null && availability.status !== "out_of_stock" ? ` · ${availability.availableQuantity}` : ""}</span>}
+                </div>
+              </a>
               <div className="menuCardBody">
                 <p className="cardEyebrow">{en ? category?.name : category?.nameTa}</p>
-                <h3>{en ? product.name : product.nameTa}</h3>
+                <h3><a href={`/products/${product.id}`}>{en ? product.name : product.nameTa}</a></h3>
                 <p>{en ? product.description : product.descriptionTa}</p>
                 {(availabilityNote || unavailable) && <div className={`availabilityLine ${availability.status}`}><strong>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}</strong>{availabilityNote && <span>{availabilityNote}</span>}</div>}
                 <label className="variantPicker">

@@ -1,8 +1,47 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 
 type EnquiryItems = Record<string, number>;
+
+const CART_STORAGE_KEY = "san-bakes-enquiry";
+const CART_TTL_MS = 7 * 24 * 60 * 60 * 1000;
+
+type StoredEnquiry = {
+  items: EnquiryItems;
+  expiresAt: number;
+};
+
+function removeSavedItems() {
+  try {
+    window.localStorage.removeItem(CART_STORAGE_KEY);
+  } catch {
+    // Browser storage can be unavailable in private or restricted contexts.
+  }
+}
+
+function sanitiseItems(value: unknown): EnquiryItems {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return {};
+  return Object.fromEntries(
+    Object.entries(value).flatMap(([key, quantity]) => {
+      if (typeof quantity !== "number" || !Number.isFinite(quantity) || quantity <= 0) return [];
+      return [[key, Math.floor(quantity)]];
+    }),
+  );
+}
+
+function saveItems(next: EnquiryItems) {
+  try {
+    if (Object.keys(next).length === 0) {
+      removeSavedItems();
+      return;
+    }
+    const stored: StoredEnquiry = { items: next, expiresAt: Date.now() + CART_TTL_MS };
+    window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(stored));
+  } catch {
+    // The cart still works for this visit when browser storage is unavailable.
+  }
+}
 
 const PreorderContext = createContext<{
   items: EnquiryItems;
@@ -24,21 +63,37 @@ export function PreorderProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<EnquiryItems>({});
 
   useEffect(() => {
-    const saved = window.localStorage.getItem("san-bakes-enquiry");
-    if (!saved) return;
     try {
-      // Restore the locally saved enquiry after hydration; no customer data leaves the browser here.
+      const saved = window.localStorage.getItem(CART_STORAGE_KEY);
+      if (!saved) return;
+      const parsed = JSON.parse(saved) as unknown;
+      if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) throw new Error("Invalid cart");
+      const isStoredEnquiry = "items" in parsed;
+      if (isStoredEnquiry) {
+        const stored = parsed as Partial<StoredEnquiry>;
+        if (typeof stored.expiresAt !== "number" || stored.expiresAt <= Date.now()) {
+          removeSavedItems();
+          return;
+        }
+      }
+      // Legacy carts were a quantity-only object. Restore and migrate them without changing selections.
+      const restored = sanitiseItems(isStoredEnquiry ? (parsed as Partial<StoredEnquiry>).items : parsed);
+      if (Object.keys(restored).length === 0) {
+        removeSavedItems();
+        return;
+      }
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setItems(JSON.parse(saved) as EnquiryItems);
+      setItems(restored);
+      if (!isStoredEnquiry) saveItems(restored);
     } catch {
-      window.localStorage.removeItem("san-bakes-enquiry");
+      removeSavedItems();
     }
   }, []);
 
-  const commit = (next: EnquiryItems) => {
+  const commit = useCallback((next: EnquiryItems) => {
     setItems(next);
-    window.localStorage.setItem("san-bakes-enquiry", JSON.stringify(next));
-  };
+    saveItems(next);
+  }, []);
 
   const value = useMemo(
     () => ({
@@ -59,9 +114,12 @@ export function PreorderProvider({ children }: { children: React.ReactNode }) {
         delete next[id];
         commit(next);
       },
-      clearItems: () => commit({}),
+      clearItems: () => {
+        setItems({});
+        removeSavedItems();
+      },
     }),
-    [items],
+    [commit, items],
   );
 
   return <PreorderContext.Provider value={value}>{children}</PreorderContext.Provider>;

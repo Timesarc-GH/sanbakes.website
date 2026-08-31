@@ -16,7 +16,7 @@ const cupcakeFlavours = [
   { en: "Walnut Cacao", ta: "வால்நட் காகாவ்", note: "Toasted walnut" },
   { en: "Pista Cardamom", ta: "பிஸ்தா ஏலக்காய்", note: "Measured cardamom finish" },
   { en: "Strawberry Cacao", ta: "ஸ்ட்ராபெரி காகாவ்", note: "Seasonal availability" },
-  { en: "Biscoff Crunch", ta: "பிஸ்காஃப் கிரஞ்ச்", note: "Caramelised biscuit crunch" },
+  { en: "Caramelised Biscuit Crunch", ta: "கரமேலைஸ் பிஸ்கட் கிரஞ்ச்", note: "Caramelised biscuit crunch" },
   { en: "Chocolate Wafer Crunch", ta: "சாக்லேட் வேஃபர் கிரஞ்ச்", note: "Chocolate wafer finish" },
 ];
 
@@ -54,13 +54,15 @@ export default function CupcakesPage() {
             const unavailable = isInventoryUnavailable(availability.status);
             const availabilityNote = en ? availability.noteEn : availability.noteTa || availability.noteEn;
             return <article className="menuCard" key={product.id}>
-              <div className="menuCardImage">
-                {product.image && <Image src={product.image} alt={product.name} fill sizes="(max-width: 700px) 92vw, (max-width: 1100px) 45vw, 30vw" />}
-                {availability.updatedAt && <span className={`stockBadge ${availability.status}`}>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}{availability.availableQuantity !== null && availability.status !== "out_of_stock" ? ` · ${availability.availableQuantity}` : ""}</span>}
-              </div>
+              <a href={`/products/${product.id}`} aria-label={`${en ? "View" : "பார்க்க"} ${en ? product.name : product.nameTa}`} style={{ display: "block" }}>
+                <div className="menuCardImage">
+                  {product.image && <Image src={product.image} alt={product.name} fill sizes="(max-width: 700px) 92vw, (max-width: 1100px) 45vw, 30vw" />}
+                  {availability.updatedAt && <span className={`stockBadge ${availability.status}`}>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}{availability.availableQuantity !== null && availability.status !== "out_of_stock" ? ` · ${availability.availableQuantity}` : ""}</span>}
+                </div>
+              </a>
               <div className="menuCardBody">
                 <p className="cardEyebrow">{en ? "CUPCAKE COLLECTION" : "கப் கேக் தொகுப்பு"}</p>
-                <h2>{en ? product.name : product.nameTa}</h2>
+                <h2><a href={`/products/${product.id}`}>{en ? product.name : product.nameTa}</a></h2>
                 <p>{en ? product.description : product.descriptionTa}</p>
                 {(availabilityNote || unavailable) && <div className={`availabilityLine ${availability.status}`}><strong>{en ? inventoryStatusLabel[availability.status].en : inventoryStatusLabel[availability.status].ta}</strong>{availabilityNote && <span>{availabilityNote}</span>}</div>}
                 <label className="variantPicker"><span>{en ? "Box / composition option" : "பெட்டி / கலவை விருப்பம்"}</span><select value={selectedOption.id} onChange={(event) => setSelectedOptions((current) => ({ ...current, [product.id]: event.target.value }))}>{pricing.options.map((item) => <option value={item.id} key={item.id}>{en ? item.label : item.labelTa} — {formatPrice(item.price)}</option>)}</select><small>{en ? selectedOption.note : selectedOption.noteTa}</small></label>

@@ -15,8 +15,13 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const saved = window.localStorage.getItem("san-bakes-language");
     // Restore a browser preference after hydration; the server intentionally defaults to English.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (saved === "ta") setLanguageState("ta");
+    if (saved === "ta") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setLanguageState("ta");
+      document.documentElement.lang = "ta";
+      return;
+    }
+    document.documentElement.lang = "en";
   }, []);
 
   const setLanguage = (next: Language) => {

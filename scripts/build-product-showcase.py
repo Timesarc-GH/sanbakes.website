@@ -24,7 +24,7 @@ PRODUCT_SEQUENCE = [
     ("walnut-reserve-brownie-v2.webp", "Walnut Reserve Brownie"),
     ("pista-rose-cardamom-v2.webp", "Pista, Rose & Cardamom"),
     ("seasonal-strawberry-cacao-concept-v2.webp", "Seasonal Strawberry & Cacao Brownie"),
-    ("biscoff-crunch-v2.webp", "Biscoff Crunch Brownie"),
+    ("biscoff-crunch-v2.webp", "Caramelised Biscuit Crunch Brownie"),
     ("chocolate-wafer-crunch-v2.webp", "Chocolate Wafer Crunch Brownie"),
     ("signature-discovery-box-6-v3.webp", "Signature Discovery Box — Six Flavours"),
     ("reserve-collection-box-9-v3.webp", "Reserve Collection — Six-Flavour Assortment"),

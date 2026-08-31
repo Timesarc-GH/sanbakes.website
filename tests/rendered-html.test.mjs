@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile, readdir, stat } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 
@@ -14,7 +14,7 @@ test("renders the San Bakes storefront", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /<title>San Bakes \| Small-Batch Brownies in Chennai<\/title>/i);
+  assert.match(html, /<title>Order Brownies Online in Chennai \| San Bakes<\/title>/i);
   assert.match(html, /Dark cacao/);
   assert.match(html, /class="heroTamil">Made in small batches, with care, after your preorder\./);
   assert.match(html, /Start a preorder/);
@@ -34,24 +34,62 @@ test("renders the San Bakes storefront", async () => {
   assert.doesNotMatch(html, /Eggless/i);
   assert.match(html, /one continuous brownie with three topping sections/i);
   assert.match(html, /home-brownie-tins-dual-format-v3\.webp/);
-  assert.match(html, /san-bakes-product-collection\.mp4/);
-  assert.match(html, /Play music/);
+  assert.match(html, /From ₹590/);
+  assert.match(html, /From ₹310/);
+  assert.match(html, /From ₹270/);
+  assert.match(html, /href="\/menu\?category=signature"/);
+  assert.match(html, /href="\/menu\?category=tins"/);
+  assert.match(html, /href="\/menu\?category=tubs"/);
+  assert.match(html, /₹12,250 minimum before delivery/);
+  assert.match(html, /at least 48 hours for standard brownies and personal gifts/i);
+  assert.doesNotMatch(html, /Egg formulation/);
+  assert.match(html, /ragi-brownie-hero\.png/);
+  assert.match(html, /alt="San Bakes dark cacao brownie with a crackly top"/);
+  assert.doesNotMatch(html, /san-bakes-product-collection\.mp4|Play music|heroVideo/);
   assert.match(html, />Policies</);
   assert.match(html, /FSSAI registration pending/);
 });
 
-test("uses the extended optimized product showcase", async () => {
-  const video = await stat(new URL("../public/video/san-bakes-product-collection.mp4", import.meta.url));
-  const captions = await readFile(new URL("../public/video/san-bakes-product-collection.en.vtt", import.meta.url), "utf8");
-  const builder = await readFile(new URL("../scripts/build-product-showcase.py", import.meta.url), "utf8");
-  assert.ok(video.size < 6.5 * 1024 * 1024, `Expected an optimized video below 6.5 MiB, received ${video.size} bytes`);
-  assert.match(captions, /00:01:06\.000 --> 00:01:09\.000/);
-  assert.match(captions, /Whole Brownie Tin · Three Topping Sections/);
-  assert.match(captions, /Cupcake Discovery Collection — Box of 12/);
-  assert.match(builder, /whole-brownie-tin-flavour-toppings-v2\.webp/);
-  assert.match(builder, /cupcake-ragi-box-6-v2\.webp/);
-  assert.match(builder, /cupcake-pista-box-9-v2\.webp/);
-  assert.match(builder, /cupcake-discovery-box-12-v2\.webp/);
+test("publishes grouped navigation, crawl controls and product-level SEO", async () => {
+  const root = await (await render("/")).text();
+  assert.match(root, /<summary>Shop<\/summary>/);
+  assert.match(root, /<summary>Help<\/summary>/);
+  for (const href of ["/menu", "/cupcakes", "/parties", "/gifting", "/corporate", "/delivery", "/faq", "/policies"]) {
+    assert.match(root, new RegExp(`href="${href}"`));
+  }
+  assert.match(root, /<link rel="canonical" href="https:\/\/san-bakes-chennai\.timesarctech\.chatgpt\.site"\/>/);
+  assert.match(root, /<meta property="og:image" content="https:\/\/san-bakes-chennai\.timesarctech\.chatgpt\.site\/og\.png"\/>/);
+  assert.doesNotMatch(root, /http:\/\/localhost:3000\/og\.png/);
+  assert.match(root, /"@type":"Bakery"/);
+
+  const menu = await (await render("/menu")).text();
+  assert.match(menu, /<link rel="canonical" href="https:\/\/san-bakes-chennai\.timesarctech\.chatgpt\.site\/menu"\/>/);
+
+  const productResponse = await render("/products/ragi-no-01");
+  assert.equal(productResponse.status, 200);
+  const product = await productResponse.text();
+  assert.match(product, /<title>Ragi No\. 01 — Dark Cacao Millet Brownie \| San Bakes<\/title>/);
+  assert.match(product, /<link rel="canonical" href="https:\/\/san-bakes-chennai\.timesarctech\.chatgpt\.site\/products\/ragi-no-01">/);
+  assert.match(product, /"@type":"Product"/);
+  assert.match(product, /"availability":"https:\/\/schema\.org\/PreOrder"/);
+  assert.match(product, /Checking availability/);
+  const productClient = await readFile(new URL("../app/products/[id]/ProductDetailClient.tsx", import.meta.url), "utf8");
+  assert.match(productClient, /Add to cart/);
+  assert.equal((await render("/products/not-a-product")).status, 404);
+
+  const faq = await (await render("/faq")).text();
+  assert.match(faq, /"@type":"FAQPage"/);
+  assert.match(faq, /"@type":"Question"/);
+
+  const robots = await (await render("/robots.txt")).text();
+  assert.match(robots, /Disallow: \/admin/);
+  assert.match(robots, /Disallow: \/launch-review/);
+  assert.match(robots, /Disallow: \/api/);
+  assert.match(robots, /Sitemap: https:\/\/san-bakes-chennai\.timesarctech\.chatgpt\.site\/sitemap\.xml/);
+
+  const sitemap = await (await render("/sitemap.xml")).text();
+  assert.match(sitemap, /<loc>https:\/\/san-bakes-chennai\.timesarctech\.chatgpt\.site\/products\/ragi-no-01<\/loc>/);
+  assert.doesNotMatch(sitemap, /\/admin|\/launch-review|\/api/);
 });
 
 test("uses each customer-facing content image in only one source placement", async () => {
@@ -104,17 +142,60 @@ test("renders the complete menu and preorder route", async () => {
   assert.doesNotMatch(menu, /statusBadge|decisionLine|Launch validation|Coming soon|Recommended for approval|Conditional — validation required/);
   const preorder = await (await render("/preorder")).text();
   assert.match(preorder, /CART &amp; WHATSAPP CHECKOUT/);
+  assert.match(preorder, /Review your preorder/);
+  assert.doesNotMatch(preorder, /Review once\. Send one complete order/);
   assert.match(preorder, /Place order through WhatsApp/);
   assert.match(preorder, /UPI PAYMENT/);
   assert.match(preorder, /A QR tied to the confirmed amount/);
   assert.match(preorder, /Delivery within Chennai/);
   assert.match(preorder, /additional charges beyond 20 km/i);
+  assert.match(preorder, /Allow at least 2 calendar days/);
+  assert.match(preorder, /Earliest request date for this cart/);
+  assert.match(preorder, /Pickup is by confirmed appointment/);
+  assert.match(preorder, /View delivery and pickup guide/);
   assert.doesNotMatch(preorder, /Planning subtotal/i);
   assert.doesNotMatch(preorder, /Eggless/i);
 });
 
+test("keeps a quantity-only cart for seven days and localises WhatsApp checkout", async () => {
+  const provider = await readFile(new URL("../app/components/PreorderProvider.tsx", import.meta.url), "utf8");
+  const checkout = await readFile(new URL("../app/preorder/page.tsx", import.meta.url), "utf8");
+  const styles = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(provider, /CART_TTL_MS = 7 \* 24 \* 60 \* 60 \* 1000/);
+  assert.match(provider, /StoredEnquiry = \{\s*items: EnquiryItems;\s*expiresAt: number;/);
+  assert.match(provider, /Legacy carts were a quantity-only object/);
+  assert.doesNotMatch(provider, /price|subtotal/i);
+  assert.match(checkout, /clearItems/);
+  assert.match(checkout, /Clear cart/);
+  assert.match(checkout, /Saved on this device for 7 days/);
+  assert.match(styles, /menuSection:has\(> \.basketDock\) \.menuGrid/);
+  assert.match(styles, /body:has\(\.basketDock\) \.whatsappFloat/);
+
+  const { buildWhatsAppOrderMessage } = await import("../app/preorder/orderMessage.ts");
+  const base = {
+    selections: [{ productName: "Walnut Reserve", productNameTa: "வால்நட் ரிசர்வ்", optionLabel: "Box of 6", optionLabelTa: "6 துண்டு பெட்டி", priceLabel: "₹620", quantity: 2 }],
+    subtotalLabel: "₹1,240",
+    hasQuotationSelection: false,
+    details: { name: "Sangeetha", phone: "9940058623", date: "2026-09-10", formulation: "Egg", fulfilment: "Delivery within Chennai", pincode: "600117", address: "Chennai", notes: "No note" },
+  };
+  const english = buildWhatsAppOrderMessage({ ...base, language: "en" });
+  assert.match(english, /^Hello San Bakes, I would like to place a preorder\./);
+  assert.match(english, /Walnut Reserve · Box of 6 · ₹620 × 2/);
+  assert.match(english, /SUBTOTAL: ₹1,240/);
+  assert.match(english, /Required date: 2026-09-10/);
+  assert.match(english, /Fulfilment: Delivery within Chennai/);
+
+  const tamil = buildWhatsAppOrderMessage({ ...base, language: "ta" });
+  assert.match(tamil, /^வணக்கம் San Bakes/);
+  assert.match(tamil, /வால்நட் ரிசர்வ் · 6 துண்டு பெட்டி · ₹620 × 2/);
+  assert.match(tamil, /இடைக்கூட்டுத்தொகை: ₹1,240/);
+  assert.match(tamil, /தேவையான தேதி: 2026-09-10/);
+  assert.match(tamil, /பெறும் முறை: சென்னை முழுவதும் டெலிவரி/);
+  assert.doesNotMatch(tamil, /Required date|Fulfilment|CUSTOMER|Please confirm/);
+});
+
 test("uses the owner-selected V5 prices directly", async () => {
-  const { productPricing, priceRevisionPercent } = await import("../app/lib/pricing.ts");
+  const { formatPriceRangeForProducts, formatProductPriceRange, formatStartingPriceForProducts, productPricing, priceRevisionPercent } = await import("../app/lib/pricing.ts");
   const { products } = await import("../app/lib/products.ts");
   const options = products.flatMap((product) => productPricing[product.id].options.map((option) => ({ productId: product.id, ...option })));
   assert.equal(products.length, 29);
@@ -130,6 +211,13 @@ test("uses the owner-selected V5 prices directly", async () => {
   assert.ok(options.every((option) => option.originalPrice === undefined));
   assert.ok(Object.values(productPricing).every((pricing) => !("decision" in pricing)));
   assert.ok(products.every((product) => !("status" in product)));
+  assert.ok(products.every((product) => !("price" in product)));
+  assert.equal(formatProductPriceRange("signature-discovery-box"), "₹590–₹620");
+  assert.equal(formatPriceRangeForProducts(["brownie-tin-3-piece", "whole-brownie-tin"]), "₹310–₹360");
+  assert.equal(formatStartingPriceForProducts(["classic-brownie-tub", "loaded-brownie-tub"]), "₹270");
+  assert.equal(products.find((product) => product.id === "biscoff-crunch")?.name, "Caramelised Biscuit Crunch Brownie");
+  assert.doesNotMatch(options.map((option) => option.note).join(" "), /V5|test required|verification required|yield confirmation|cost and|margin floor|home-kitchen capacity|after testing/i);
+  assert.doesNotMatch(products.map((product) => product.format).join(" "), /Egg formulation|verification required|after testing|recipe details pending|₹15,000/i);
 });
 
 test("protects the owner inventory console and mutation API", async () => {
@@ -173,6 +261,10 @@ test("renders the expanded customer information pages", async () => {
   assert.match(faq, /Everything to know before you reserve/);
   assert.match(faq, /Are San Bakes products healthy/);
   assert.match(faq, /How does UPI payment work/);
+  assert.match(faq, /Cupcake boxes of 6 need at least three days/);
+  assert.match(faq, /Corporate orders start at seven days/);
+  assert.match(faq, /25 four-piece boxes \/ ₹12,250 before delivery/);
+  assert.doesNotMatch(faq, /₹15,000/);
   const delivery = await (await render("/delivery")).text();
   assert.match(delivery, /Delivery is available within Chennai/);
   assert.match(delivery, /Beyond 20 km · Chennai/);
@@ -182,14 +274,17 @@ test("renders the expanded customer information pages", async () => {
   const gifting = await (await render("/gifting")).text();
   assert.match(gifting, /PERSONAL GIFTING/);
   assert.match(gifting, /Corporate orders now have their own planning desk/);
-  assert.doesNotMatch(gifting, /25 four-piece boxes or ₹15,000/);
+  assert.match(gifting, /reserve personal gifts at least 48 hours ahead/i);
+  assert.match(gifting, /6 pieces · (?:<!-- -->)?₹590–₹620/);
+  assert.doesNotMatch(gifting, /₹15,000/);
   const giftingMenu = await (await render("/menu?category=gifting")).text();
   assert.match(giftingMenu, /Signature Discovery Box/);
   assert.match(giftingMenu, /Seasonal Hamper/);
   assert.doesNotMatch(giftingMenu, /Corporate Mini Box/);
   const corporate = await (await render("/corporate")).text();
   assert.match(corporate, /CORPORATE ORDERS/);
-  assert.match(corporate, /25 boxes or ₹15,000/);
+  assert.match(corporate, /25 boxes \/ ₹12,250 before delivery/);
+  assert.doesNotMatch(corporate, /₹15,000/);
   assert.match(corporate, /Corporate Mini Box/);
   assert.match(corporate, /25–49 boxes · 2 Ragi \+ 2 Walnut · per box/);
   assert.match(corporate, /Add 25 boxes to cart/);

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useLanguage } from "./components/LanguageProvider";
-import { HeroProductVideo } from "./components/HeroProductVideo";
+import { formatPrice, formatPriceRangeForProducts, formatStartingPriceForProducts, getMinimumOrderQuantity, getProductPriceRange } from "./lib/pricing";
 
 const featured = [
   {
@@ -12,6 +12,10 @@ const featured = [
     copyTa: "டார்க் காகாவும் ராகியும் இணையும் அடர்த்தியான பிரௌனி.",
     image: "/images/editorial/home-ragi-collection-v1.webp",
     label: "Signature brownie",
+    productIds: ["ragi-no-01"],
+    href: "/menu?category=signature",
+    cta: "View signature brownies →",
+    ctaTa: "சிக்னேச்சர் பிரௌனிகளைப் பார்க்க →",
   },
   {
     title: "Brownie Tins",
@@ -20,6 +24,10 @@ const featured = [
     copyTa: "இரண்டு டின் வடிவங்கள்: மூன்று தனித் துண்டுகள் அல்லது மூன்று டாப்பிங் பகுதிகளுடன் ஒரே தொடர்ச்சியான பிரௌனி.",
     image: "/images/editorial/home-brownie-tins-dual-format-v3.webp",
     label: "Celebration formats",
+    productIds: ["brownie-tin-3-piece", "whole-brownie-tin"],
+    href: "/menu?category=tins",
+    cta: "View Brownie Tins →",
+    ctaTa: "பிரௌனி டின்களைப் பார்க்க →",
   },
   {
     title: "Brownie Tubs",
@@ -28,17 +36,32 @@ const featured = [
     copyTa: "சாக்லேட் அலங்காரத்துடன் கிளாசிக் மற்றும் லோடெட் வடிவங்களில் பிரௌனி துண்டுகள்.",
     image: "/images/editorial/home-brownie-tubs-collection-v2.webp",
     label: "Dessert format",
+    productIds: ["classic-brownie-tub", "loaded-brownie-tub"],
+    href: "/menu?category=tubs",
+    cta: "View Brownie Tubs →",
+    ctaTa: "பிரௌனி டப்களைப் பார்க்க →",
   },
 ];
 
 export default function Home() {
   const { language } = useLanguage();
   const en = language === "en";
+  const corporateUnitPrice = getProductPriceRange("corporate-mini-box")?.minimum ?? null;
+  const corporateMinimum = getMinimumOrderQuantity("corporate-mini-box", "tier-25-ragi-walnut");
+  const corporateMinimumTotal = corporateUnitPrice === null ? null : corporateUnitPrice * corporateMinimum;
 
   return (
     <main>
       <section className="hero">
-        <HeroProductVideo />
+        <div className="heroImage">
+          <Image
+            src="/images/ragi-brownie-hero.png"
+            alt="San Bakes dark cacao brownie with a crackly top"
+            fill
+            priority
+            sizes="100vw"
+          />
+        </div>
         <div className="heroShade" />
         <div className="heroContent">
           <p className="eyebrow">SAN BAKES · CHENNAI</p>
@@ -58,7 +81,7 @@ export default function Home() {
       </section>
 
       <section className="trustStrip" aria-label="Service highlights">
-        <div><span>01</span><strong>{en ? "Small batch" : "குறைந்த அளவு"}</strong><p>{en ? "Home-kitchen capacity is protected so each confirmed batch gets focused attention." : "ஒவ்வொரு உறுதி செய்யப்பட்ட தொகுதியும் கவனமாக தயாரிக்கப்படுகிறது."}</p></div>
+        <div><span>01</span><strong>{en ? "Small batch" : "குறைந்த அளவு"}</strong><p>{en ? "We accept a limited number of orders for each date so every confirmed batch receives focused attention." : "ஒவ்வொரு உறுதி செய்யப்பட்ட தொகுதியும் கவனமாக தயாரிக்க, ஒவ்வொரு தேதிக்கும் குறைந்த எண்ணிக்கையிலான ஆர்டர்களை ஏற்கிறோம்."}</p></div>
         <div><span>02</span><strong>{en ? "Made after you order" : "ஆர்டருக்குப் பிறகு தயாரிப்பு"}</strong><p>{en ? "Every confirmed batch is scheduled for its reserved date rather than held as ready stock." : "ரெடி ஸ்டாக்காக வைக்காமல், உறுதி செய்யப்பட்ட தேதிக்காக ஒவ்வொரு தொகுதியும் தயாரிக்கப்படுகிறது."}</p></div>
         <div><span>03</span><strong>{en ? "Delivery within Chennai" : "சென்னை முழுவதும் டெலிவரி"}</strong><p>{en ? "Appointment pickup or Chennai delivery; addresses beyond 20 km include additional distance-based charges." : "முன்பதிவு பிக்கப் அல்லது சென்னை டெலிவரி; 20 கி.மீ.க்கு அப்பால் கூடுதல் தூரக் கட்டணம் சேர்க்கப்படும்."}</p></div>
       </section>
@@ -76,7 +99,7 @@ export default function Home() {
                 <p className="cardEyebrow">{item.label}</p>
                 <h3>{en ? item.title : item.titleTa}</h3>
                 <p>{en ? item.copy : item.copyTa}</p>
-                <div><span>{en ? "Egg formulation" : "முட்டை வகை"}</span><a href="/menu">{en ? "View Brownie →" : "பிரௌனி →"}</a></div>
+                <div><span>{en ? `From ${formatStartingPriceForProducts(item.productIds)}` : `${formatStartingPriceForProducts(item.productIds)} முதல்`}</span><a href={item.href}>{en ? item.cta : item.ctaTa}</a></div>
               </div>
             </article>
           ))}
@@ -87,7 +110,7 @@ export default function Home() {
         <div className="storyCopy">
           <p className="eyebrow dark">OUR STANDARD</p>
           <h2>{en ? "Trust begins with precise words." : "தெளிவான தகவலில்தான் நம்பிக்கை தொடங்குகிறது."}</h2>
-          <p>{en ? "We say what is in each bake, identify allergens, and avoid blanket wellness promises. The core collection is being developed without artificial preservatives or artificial colours; every final claim will be confirmed against the approved recipe and supplier label before sale." : "ஒவ்வொரு பேக்கிலும் உள்ள பொருட்கள் மற்றும் அலர்ஜன்களைத் தெளிவாக அறிவிப்போம். இறுதி விற்பனைக்கு முன் ரெசிபி மற்றும் சப்ளையர் லேபிள்களுடன் அனைத்து கூற்றுகளும் சரிபார்க்கப்படும்."}</p>
+          <p>{en ? "We share the ingredients and allergens relevant to each bake and avoid blanket wellness promises. Please rely on the product-specific ingredient and allergen information confirmed with your order." : "ஒவ்வொரு பேக்கிற்கும் பொருந்தும் பொருட்கள் மற்றும் அலர்ஜன் தகவலைத் தெளிவாக பகிர்கிறோம். உங்கள் ஆர்டருடன் உறுதி செய்யப்படும் தயாரிப்பு சார்ந்த தகவலைப் பார்க்கவும்."}</p>
           <ul className="standardList">
             <li><strong>{en ? "Ingredient-led" : "பொருட்களை மையமாக"}</strong><span>{en ? "Dark chocolate, ragi, walnut, pistachio and warm spice selected for flavour and function." : "டார்க் சாக்லேட், ராகி, வால்நட், பிஸ்தா மற்றும் மசாலா."}</span></li>
             <li><strong>{en ? "Made after reservation" : "முன்பதிவுக்குப் பிறகு"}</strong><span>{en ? "No always-on shelf; production is scheduled around confirmed dates." : "உறுதி செய்யப்பட்ட தேதிகளுக்கு ஏற்ப தயாரிப்பு திட்டமிடப்படும்."}</span></li>
@@ -111,16 +134,16 @@ export default function Home() {
 
       <section className="menuSection homePriceGuide">
         <div className="priceGuide">
-          <div className="priceGuideHead"><p className="eyebrow dark">{en ? "LAUNCH PRICING GUIDE" : "அறிமுக விலை வழிகாட்டி"}</p><h2>{en ? "A clear starting point." : "தெளிவான தொடக்க விலை."}</h2><p>{en ? "These are current starting prices. Your WhatsApp confirmation will state the selected recipe, size, customisation, delivery charge and final total before payment." : "இவை தற்போதைய தொடக்க விலைகள். கட்டணத்திற்கு முன் தேர்ந்தெடுத்த ரெசிபி, அளவு, தனிப்பயன், டெலிவரி கட்டணம் மற்றும் இறுதி மொத்தம் WhatsApp மூலம் உறுதி செய்யப்படும்."}</p></div>
+          <div className="priceGuideHead"><p className="eyebrow dark">{en ? "LAUNCH PRICING GUIDE" : "அறிமுக விலை வழிகாட்டி"}</p><h2>{en ? "A clear starting point." : "தெளிவான தொடக்க விலை."}</h2><p>{en ? "These are current starting prices. Your WhatsApp confirmation will state the selected size, customisation, delivery charge and final total before payment. Please allow at least 48 hours for standard brownies and personal gifts, five days for celebrations, and seven days for corporate orders." : "இவை தற்போதைய தொடக்க விலைகள். கட்டணத்திற்கு முன் தேர்ந்தெடுத்த அளவு, தனிப்பயன், டெலிவரி கட்டணம் மற்றும் இறுதி மொத்தம் WhatsApp மூலம் உறுதி செய்யப்படும். சாதாரண பிரௌனிகள் மற்றும் தனிப்பட்ட பரிசுகளுக்கு குறைந்தது 48 மணி நேரம், கொண்டாட்ட ஆர்டர்களுக்கு ஐந்து நாட்கள், நிறுவன ஆர்டர்களுக்கு ஏழு நாட்கள் வழங்கவும்."}</p></div>
           <div className="priceGuideGrid">
-            <div><strong>{en ? "Brownie Tubs" : "பிரௌனி டப்கள்"}</strong><span>₹270 / ₹490</span><small>{en ? "Single Tub or duo · recipe confirmation applies" : "ஒரு டப் அல்லது டூயோ · ரெசிபி உறுதிப்படுத்தல் பொருந்தும்"}</small></div>
-            <div><strong>{en ? "Brownie Tins" : "பிரௌனி டின்கள்"}</strong><span>₹310–₹360</span><small>{en ? "Three separate pieces, or one whole brownie with 1/2/3 topping sections" : "மூன்று தனித் துண்டுகள் அல்லது 1/2/3 டாப்பிங் பகுதிகளுடன் ஒரு முழு பிரௌனி"}</small></div>
-            <div><strong>{en ? "Personal gifting" : "தனிப்பட்ட பரிசுகள்"}</strong><span>₹310–₹1,490</span><small>{en ? "Curated boxes, Tins and seasonal hampers" : "தேர்ந்தெடுத்த பெட்டிகள், டின்கள் மற்றும் பருவகால ஹாம்பர்கள்"}</small></div>
-            <div><strong>{en ? "Millet tea cakes" : "சிறுதானிய டீ கேக்குகள்"}</strong><span>₹420 / ₹790</span><small>{en ? "Single loaf or gift duo · recipe and yield confirmation applies" : "ஒரு லோஃப் அல்லது பரிசு டூயோ · ரெசிபி மற்றும் யீல்ட் உறுதிப்படுத்தல் பொருந்தும்"}</small></div>
-            <div><strong>{en ? "Birthdays & parties" : "பிறந்தநாள் & பார்ட்டி"}</strong><span>{en ? "Cakes ₹450–₹1,400" : "கேக்குகள் ₹450–₹1,400"}</span><small>{en ? "Packed brownies from 25 · Tins/Tubs from 10" : "தனித்தனி பிரௌனிகள் 25 முதல் · டின்கள்/டப்கள் 10 முதல்"}</small></div>
-            <div><strong>{en ? "Corporate" : "நிறுவன ஆர்டர்கள்"}</strong><span>{en ? "₹490 per box · minimum 25" : "ஒரு பெட்டி ₹490 · குறைந்தபட்சம் 25"}</span><small>{en ? "Bespoke branding and fulfilment are quoted separately" : "தனிப்பயன் பிராண்டிங் மற்றும் நிறைவேற்றம் தனியாக விலைமதிப்பிடப்படும்"}</small></div>
-            <div><strong>{en ? "Cupcake boxes" : "கப் கேக் பெட்டிகள்"}</strong><span>₹520–₹910</span><small>{en ? "Boxes of 6, 9 or 12 · available to preorder" : "6, 9 அல்லது 12 பெட்டிகள் · முன்பதிவுக்கு கிடைக்கும்"}</small></div>
-            <div><strong>{en ? "Brownie boxes" : "பிரௌனி பெட்டிகள்"}</strong><span>₹590–₹860</span><small>{en ? "Core 6 or 9-piece boxes" : "முக்கிய 6 அல்லது 9 துண்டு பெட்டிகள்"}</small></div>
+            <div><strong>{en ? "Brownie Tubs" : "பிரௌனி டப்கள்"}</strong><span>{formatPriceRangeForProducts(["classic-brownie-tub", "loaded-brownie-tub"])}</span><small>{en ? "Single Tub or duo" : "ஒரு டப் அல்லது டூயோ"}</small></div>
+            <div><strong>{en ? "Brownie Tins" : "பிரௌனி டின்கள்"}</strong><span>{formatPriceRangeForProducts(["brownie-tin-3-piece", "whole-brownie-tin"])}</span><small>{en ? "Three separate pieces, or one whole brownie with 1/2/3 topping sections" : "மூன்று தனித் துண்டுகள் அல்லது 1/2/3 டாப்பிங் பகுதிகளுடன் ஒரு முழு பிரௌனி"}</small></div>
+            <div><strong>{en ? "Personal gifting" : "தனிப்பட்ட பரிசுகள்"}</strong><span>{formatPriceRangeForProducts(["signature-discovery-box", "reserve-collection", "brownie-tin-3-piece", "whole-brownie-tin", "seasonal-hamper"])}</span><small>{en ? "Curated boxes, Tins and seasonal hampers" : "தேர்ந்தெடுத்த பெட்டிகள், டின்கள் மற்றும் பருவகால ஹாம்பர்கள்"}</small></div>
+            <div><strong>{en ? "Millet tea cakes" : "சிறுதானிய டீ கேக்குகள்"}</strong><span>{formatPriceRangeForProducts(["ragi-cacao-tea-cake", "pista-cardamom-tea-cake"])}</span><small>{en ? "Single loaf or gift duo" : "ஒரு லோஃப் அல்லது பரிசு டூயோ"}</small></div>
+            <div><strong>{en ? "Birthdays & parties" : "பிறந்தநாள் & பார்ட்டி"}</strong><span>{en ? `Cakes ${formatPriceRangeForProducts(["birthday-250", "birthday-500", "birthday-1kg", "occasion-brownie-cake"])}` : `கேக்குகள் ${formatPriceRangeForProducts(["birthday-250", "birthday-500", "birthday-1kg", "occasion-brownie-cake"])}`}</span><small>{en ? "Packed brownies from 25 · Tins/Tubs from 10" : "தனித்தனி பிரௌனிகள் 25 முதல் · டின்கள்/டப்கள் 10 முதல்"}</small></div>
+            <div><strong>{en ? "Corporate" : "நிறுவன ஆர்டர்கள்"}</strong><span>{en ? `${formatPrice(corporateUnitPrice)} per box · minimum ${corporateMinimum}` : `ஒரு பெட்டி ${formatPrice(corporateUnitPrice)} · குறைந்தபட்சம் ${corporateMinimum}`}</span><small>{en ? `${formatPrice(corporateMinimumTotal)} minimum before delivery; branding and fulfilment quoted separately` : `டெலிவரிக்கு முன் குறைந்தபட்சம் ${formatPrice(corporateMinimumTotal)}; பிராண்டிங் மற்றும் நிறைவேற்றம் தனியாக விலைமதிப்பிடப்படும்`}</small></div>
+            <div><strong>{en ? "Cupcake boxes" : "கப் கேக் பெட்டிகள்"}</strong><span>{formatPriceRangeForProducts(["cupcake-ragi", "cupcake-pista", "cupcake-discovery"])}</span><small>{en ? "Boxes of 6, 9 or 12 · available to preorder" : "6, 9 அல்லது 12 பெட்டிகள் · முன்பதிவுக்கு கிடைக்கும்"}</small></div>
+            <div><strong>{en ? "Brownie boxes" : "பிரௌனி பெட்டிகள்"}</strong><span>{formatPriceRangeForProducts(["dark-cacao-sea-salt", "ragi-no-01"])}</span><small>{en ? "Core 6 or 9-piece boxes" : "முக்கிய 6 அல்லது 9 துண்டு பெட்டிகள்"}</small></div>
           </div>
         </div>
       </section>
@@ -128,7 +151,7 @@ export default function Home() {
       <section className="preorder">
         <p className="eyebrow">PREORDER, PREPARE, DELIVER</p>
         <h2>{en ? "Reserve the bake. We’ll confirm the details personally." : "உங்கள் பேக்கை முன்பதிவு செய்யுங்கள். விவரங்களை நாங்கள் உறுதி செய்கிறோம்."}</h2>
-        <p>{en ? "Build an enquiry here, then send one structured WhatsApp message. We confirm capacity, formulation, pickup or delivery, final price and payment instructions personally." : "விசாரணையை உருவாக்கி ஒரே WhatsApp செய்தியாக அனுப்புங்கள். தயாரிப்பு, பிக்கப் அல்லது டெலிவரி, இறுதி விலை மற்றும் கட்டண விவரங்களை நாங்கள் உறுதி செய்கிறோம்."}</p>
+        <p>{en ? "Build an enquiry here, then send one structured WhatsApp message. We confirm availability, your date, pickup or delivery, final price and payment instructions personally." : "விசாரணையை உருவாக்கி ஒரே WhatsApp செய்தியாக அனுப்புங்கள். கிடைக்கும் நிலை, தேதி, பிக்கப் அல்லது டெலிவரி, இறுதி விலை மற்றும் கட்டண விவரங்களை நாங்கள் உறுதி செய்கிறோம்."}</p>
         <a className="button buttonCacao" href="/preorder">{en ? "Start an enquiry" : "விசாரணையைத் தொடங்க"}</a>
       </section>
     </main>
